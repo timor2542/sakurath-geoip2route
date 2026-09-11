@@ -434,9 +434,27 @@
 }
 .app-shell .header-button { min-width: 44px; min-height: 44px; height: 44px; align-items: center; justify-content: center; }
 .app-shell .header-button.text-button { display: inline-flex; }
-.app-shell .theme-control { min-height: 44px; padding: 3px; }
-.app-shell .theme-control button { width: 36px; height: 36px; display: grid; place-items: center; padding: 0; line-height: 0; }
-.app-shell .theme-control .button-icon { width: 20px; height: 20px; flex-basis: 20px; }
+.app-shell .theme-control { min-height: 44px; padding: 3px; gap: 2px; }
+.app-shell .theme-control button {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 0;
+  color: var(--muted);
+  transition: color .16s ease, background-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+.app-shell .theme-control button:hover { color: var(--accent-strong); background: color-mix(in srgb,var(--accent) 8%,transparent); }
+.app-shell .theme-control button.active {
+  color: var(--accent-strong);
+  background: color-mix(in srgb,var(--accent) 12%,var(--surface));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb,var(--accent) 24%,var(--border)),0 3px 10px color-mix(in srgb,var(--accent) 12%,transparent);
+}
+.app-shell .theme-control button:active { transform: scale(.94); }
+.app-shell .theme-control .theme-icon,
+.app-shell .mobile-theme-button .theme-icon { width: 22px; height: 22px; flex-basis: 22px; stroke-width: 1.85; }
+.app-shell .theme-icon-auto .theme-icon-fill { fill: currentColor; stroke: none; opacity: .82; }
 .app-shell .modal-heading > .modal-close-button { width: 48px; height: 48px; min-width: 48px; min-height: 48px; flex: 0 0 48px; padding: 0; display: grid; place-items: center; line-height: 0; }
 .app-shell .modal-close-button .button-icon { width: 24px; height: 24px; flex-basis: 24px; stroke-width: 2.2; }
 .app-shell .sync-button, .app-shell .measure-button { min-height: 48px; }
@@ -455,6 +473,9 @@
 .app-shell .button-icon.spinning { display: block; transform-origin: center; }
 @media (max-width: 680px) and (min-width: 421px) {
   .app-shell .theme-control button { width: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-shell .theme-control button { transition: none; }
 }
 
 /* Replaces the former DEMO DATA slot. No live region: a ticking clock must not
