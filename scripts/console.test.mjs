@@ -1,0 +1,131 @@
+import test from 'node:test'
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import * as Vue from 'vue'
+import { renderToString } from 'vue/server-renderer'
+import { parse, compileScript } from '@vue/compiler-sfc'
+import { formatLogTime, safeLogDetail } from '../src/utils/activity-log.js'
+import { formatCurrentDateTime } from '../src/utils/date-time.js'
+import { evidenceTranslations } from '../src/data/evidenceTranslations.js'
+
+function component(path) {
+  const { descriptor } = parse(readFileSync(path, 'utf8'))
+  const compiled = compileScript(descriptor, { id:path, inlineTemplate:true, genDefaultAs:'component' }).content
+  const code = compiled.replace(/import\s*\{([^}]+)\}\s*from\s*['"]vue['"];?/g, (_, imports) => `const {${imports.replace(/\s+as\s+/g, ':')}} = Vue;`)
+  return new Function('Vue', `${code}\nreturn component`)(Vue)
+}
+
+test('activity log sanitizes secrets while preserving full IP addresses', () => {
+  const ipv6 = '2606:4700:4700:1234:5678:9abc:def0:1111'
+  assert.equal(safeLogDetail(`\n ${ipv6}\t`), ipv6)
+  assert.equal(safeLogDetail('https://example.com/?api_key=secret-value&name=test'), 'https://example.com/?api_key=[redacted]&name=test')
+  assert.equal(safeLogDetail('Authorization=Bearer abcdefghijklmnopqrstuvwxyz'), 'Authorization=[redacted]')
+  assert.equal(safeLogDetail('sk-abcdefghijklmnopqrstuvwxyz'), '[redacted]')
+  assert.equal(safeLogDetail('a'.repeat(20), 10), 'aaaaaaaaa…')
+})
+
+test('activity timestamp is stable and localized without exposing a date', () => {
+  const date = new Date('2026-09-04T07:08:09Z')
+  for (const language of ['en', 'th']) {
+    const value = formatLogTime(date, language)
+    // Local zones may shift minutes by 30 or 45, so only the time shape and
+    // timezone-independent seconds should be asserted here.
+    assert.match(value, /^\d{2}:\d{2}:09$/)
+    assert.doesNotMatch(value, /2026|2569|Sep|ก\.ย\./)
+  }
+
+  const englishClock = formatCurrentDateTime(date, 'en')
+  assert.match(englishClock, /2026/)
+  assert.match(englishClock, /\bAD\b/)
+  assert.match(englishClock, /\b(?:AM|PM)\b/)
+  assert.match(englishClock, /\d{2}:\d{2}:09/)
+
+  const thaiClock = formatCurrentDateTime(date, 'th')
+  assert.match(thaiClock, /2569/)
+  assert.match(thaiClock, /พ\.ศ\./)
+  assert.doesNotMatch(thaiClock, /\b(?:AM|PM)\b/)
+  assert.match(thaiClock, /\d{2}:\d{2}:09/)
+  assert.equal(formatCurrentDateTime('not-a-date'), '—')
+})
+
+test('activity console renders readable open and collapsed states', async () => {
+  const ActivityConsole = component('src/components/ActivityConsole.vue')
+  const labels = { title:'Activity Console', note:'Read-only', entries:'Entries', clear:'Clear', collapse:'Collapse', expand:'Expand', serverNote:'Server details remain in terminal.' }
+  const logs = [{ id:1, time:'07:08:09', level:'OK', message:'IP added · 2606:4700:4700::1111' }]
+  const open = await renderToString(Vue.createSSRApp(ActivityConsole, { logs, open:true, labels }))
+  assert.ok(open.includes('role="log"'))
+  assert.ok(open.includes('IP added · 2606:4700:4700::1111'))
+  assert.ok(open.includes('aria-expanded="true"'))
+  const closed = await renderToString(Vue.createSSRApp(ActivityConsole, { logs, open:false, labels }))
+  assert.ok(closed.includes('activity-console collapsed'))
+  assert.ok(!closed.includes('role="log"'))
+  assert.ok(closed.includes('aria-expanded="false"'))
+})
+
+test('web console is wired to key actions, capped and responsive', () => {
+  const app = readFileSync('src/App.vue', 'utf8')
+  const css = readFileSync('src/readability.css', 'utf8')
+  for (const token of ['ActivityConsole', 'consoleReady', 'consoleLookupStarted', 'consoleRefreshStarted', 'consoleBulkStarted', 'consoleMeasurementStarted', 'consoleIpRemoved', 'consoleExported']) assert.ok(app.includes(token))
+  assert.match(app, /activityLogs\.value\.length > 200/)
+  assert.ok(css.includes('.activity-console'))
+  assert.match(css, /font-family:\s*Consolas,"Cascadia Mono"/)
+  assert.ok(css.includes('.workspace.console-open .map-legend'))
+  assert.ok(css.includes('grid-column: 1 / -1'))
+  assert.deepEqual(Object.keys(evidenceTranslations.en).sort(), Object.keys(evidenceTranslations.th).sort())
+})
+
+test('contest demo and modal controls remain usable on small screens and keyboards', () => {
+  const app = readFileSync('src/App.vue', 'utf8')
+  const css = readFileSync('src/styles.css', 'utf8')
+  const readability = readFileSync('src/readability.css', 'utf8')
+  const map = readFileSync('src/components/MapCanvas.vue', 'utf8')
+  const activityConsole = readFileSync('src/components/ActivityConsole.vue', 'utf8')
+  assert.match(app, /revealMobileResults/)
+  assert.match(app, /scrollIntoView/)
+  assert.match(app, /role="dialog"/)
+  assert.match(app, /aria-modal="true"/)
+  assert.match(app, /@keydown\.esc\.stop\.prevent/)
+  assert.match(app, /tabindex="-1" aria-hidden="true" accept="\.csv/)
+  assert.match(css, /@media\(max-width:420px\)/)
+  assert.match(css, /\.mobile-theme-button\{display:inline-grid/)
+  assert.match(css, /overflow-x:clip/)
+  assert.equal((app.match(/class="accuracy-note-icon"/g) || []).length, 2)
+  assert.match(css, /\.accuracy-note-icon\{[^}]*margin-top:/)
+  assert.match(readFileSync('src/readability.css', 'utf8'), /\.leaflet-tooltip\.ip-map-tooltip \{ width: max-content;/)
+  assert.match(app, /ref="helpTrigger"[^>]*:aria-label="t\('help'\)"[^>]*:title="t\('help'\)"/)
+  assert.equal((app.match(/:aria-label="t\('addIpToList'\)" :title="t\('addIpToList'\)"/g) || []).length, 2)
+  assert.match(map, /\.map-pin b\{font:700 13px\/1/)
+  assert.match(map, /setAttribute\('aria-label', label\)/)
+  assert.match(activityConsole, /:title="open \? labels\.collapse : labels\.expand"/)
+  assert.match(app, /type="radio" name="bulk-mode" value="append"/)
+  assert.match(app, /type="radio" name="bulk-mode" value="replace"/)
+  assert.match(app, /const merged = importMode === 'replace' \? \[\] : \[\.\.\.comparePoints\.value\]/)
+  assert.match(app, /importMode === 'replace' && !successful\.length/)
+  assert.match(readability, /\.bulk-mode-option\.replace-option\.selected/)
+  assert.match(readability, /\.primary-modal-button\.replace-import-button/)
+  assert.equal((app.match(/@click="openDeleteAll"/g) || []).length, 2)
+  assert.match(app, /role="alertdialog"[^>]*aria-labelledby="delete-all-title"[^>]*aria-describedby="delete-all-description"/)
+  assert.match(app, /ref="deleteAllCancelButton"/)
+  assert.equal((app.match(/@click="openDeletePoint\(point\.id\)"/g) || []).length, 2)
+  assert.match(app, /function confirmPointDeletion\(\)[\s\S]*comparePoints\.value = \[\][\s\S]*selectedCompareIds\.value = \[\][\s\S]*rankingSourceId\.value = ''[\s\S]*selectedServerId\.value = ''/)
+  assert.match(app, /function clearCompareSelection\(\)[\s\S]*selectedCompareIds\.value = \[\]/)
+  assert.match(readability, /\.point-list-actions \.delete-all-button/)
+  assert.match(readability, /\.delete-all-actions \.confirm-delete-all-button/)
+  assert.doesNotMatch(app, />[?×+]\s*<\/button>/)
+  const iconOnlyButtons = [...app.matchAll(/<button[^>]*class="[^"]*icon-only-button[^"]*"[^>]*>/g)].map(match => match[0])
+  assert.ok(iconOnlyButtons.length >= 5)
+  for (const button of iconOnlyButtons) {
+    assert.match(button, /aria-label=/)
+    assert.match(button, /title=/)
+  }
+  assert.match(readability, /\.app-shell \.button-icon \{[^}]*width: 22px;[^}]*height: 22px;/s)
+  assert.match(readability, /\.app-shell \.icon-only-button \{[^}]*min-width: 44px;[^}]*min-height: 44px;/s)
+  assert.match(readability, /\.modal-close-button \.button-icon \{[^}]*width: 24px;[^}]*height: 24px;/s)
+  assert.match(app, /class="header-status contest-header-status"/)
+  assert.match(app, /<time :datetime="now\.toISOString\(\)">\{\{ currentDateTime \}\}<\/time>/)
+  assert.match(app, /contestEntry2026/)
+  assert.doesNotMatch(app, /contest-clock-card|contest-entry-label/)
+  assert.doesNotMatch(app, /contest-header-status[^>]*aria-live/)
+  assert.match(readability, /\.app-shell \.contest-header-status \{[^}]*justify-items: center;/s)
+  assert.match(readability, /\.contest-header-time time \{[^}]*Consolas,/s)
+})

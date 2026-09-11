@@ -1,0 +1,2 @@
+target,probe_url
+dns.google,https://dns.google/resolve?name=example.com&type=A

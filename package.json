@@ -1,0 +1,24 @@
+{
+  "name": "sakurath-geoip2route",
+  "version": "1.8.0",
+  "private": true,
+  "type": "module",
+  "description": "IP comparison and geographic server ranking map powered by IP2Location.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "node scripts/smoke.mjs && node --test scripts/core.test.mjs scripts/current-api.test.mjs scripts/dedup.test.mjs scripts/wrapping.test.mjs scripts/console.test.mjs scripts/rate-limit.test.mjs"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4",
+    "vue": "^3.5.17"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "vite": "^7.0.4"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  }
+}

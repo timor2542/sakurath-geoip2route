@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">SakuraTH GeoIP2Route</title>
+  <rect width="64" height="64" rx="18" fill="#241019"/>
+  <circle cx="19" cy="43" r="7" fill="#45d8b8"/>
+  <circle cx="45" cy="19" r="7" fill="#f06f98"/>
+  <path d="M23 39c8-1 8-14 18-16" fill="none" stroke="#ffdbe7" stroke-width="5" stroke-linecap="round" stroke-dasharray="4 7"/>
+  <circle cx="19" cy="43" r="2" fill="#241019"/>
+  <circle cx="45" cy="19" r="2" fill="#241019"/>
+</svg>
