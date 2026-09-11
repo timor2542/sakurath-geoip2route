@@ -9,10 +9,20 @@
         </div>
         <span class="version">V1.8.0</span>
       </div>
-      <div class="header-status contest-header-status" :aria-label="t('contestClockLabel')">
+      <div class="header-status contest-header-status" :aria-label="`${clockReferenceLabel}. ${currentDateTime}`" :title="clockReferenceLabel">
         <div class="contest-header-time">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
-          <time :datetime="now.toISOString()">{{ currentDateTime }}</time>
+          <time :datetime="now.toISOString()" :aria-label="currentDateTime">
+            <span class="contest-header-date">{{ currentDateTimeParts.date }}</span>
+            <span class="contest-header-year">
+              <template v-if="language === 'th'"><small class="contest-header-era">{{ currentDateTimeParts.era }}</small><b>{{ currentDateTimeParts.year }}</b></template>
+              <template v-else><b>{{ currentDateTimeParts.year }}</b><small class="contest-header-era">{{ currentDateTimeParts.era }}</small></template>
+            </span>
+            <span class="contest-header-divider" aria-hidden="true"></span>
+            <strong class="contest-header-clock">{{ currentDateTimeParts.time }}</strong>
+            <small v-if="currentDateTimeParts.dayPeriod" class="contest-header-period">{{ currentDateTimeParts.dayPeriod }}</small>
+            <span class="contest-header-zone"><b>{{ clockReferenceCode }}</b><i aria-hidden="true">·</i>{{ currentDateTimeParts.timeZone }}</span>
+          </time>
         </div>
         <span class="contest-header-label">{{ t('contestEntry2026') }}</span>
       </div>
@@ -486,7 +496,7 @@ import { evidenceTranslations } from './data/evidenceTranslations.js'
 import { haversine } from './utils/geo'
 import { formatDistance as formatKilometres } from './utils/format.js'
 import { formatLogTime, safeLogDetail } from './utils/activity-log.js'
-import { formatCurrentDateTime } from './utils/date-time.js'
+import { formatCurrentDateTime, getCurrentDateTimeParts } from './utils/date-time.js'
 
 const translations = {
   en: {
@@ -556,11 +566,17 @@ let modalReturnTarget = null
 const t = key => evidenceTranslations[language.value]?.[key] || translations[language.value]?.[key] || evidenceTranslations.en[key] || translations.en[key] || key
 const themeActionLabel = mode => `${t('theme')}: ${(language.value === 'th' ? { light:'สว่าง', dark:'มืด', auto:'อัตโนมัติ' } : { light:'Light', dark:'Dark', auto:'Automatic' })[mode] || mode}`
 const resolvedTheme = computed(() => themeMode.value === 'auto' ? (now.value.getHours() < 6 || now.value.getHours() >= 18 ? 'dark' : 'light') : themeMode.value)
-const currentDateTime = computed(() => formatCurrentDateTime(now.value, language.value))
 const compareA = computed(() => comparePoints.value.find(point => point.id === selectedCompareIds.value[0]))
 const compareB = computed(() => comparePoints.value.find(point => point.id === selectedCompareIds.value[1]))
 const compareDistance = computed(() => compareA.value && compareB.value ? haversine(compareA.value, compareB.value) : 0)
 const rankingSource = computed(() => comparePoints.value.find(point => point.id === rankingSourceId.value))
+const clockReference = computed(() => (appMode.value === 'ranking' ? rankingSource.value : compareA.value) || comparePoints.value[0] || null)
+const clockReferenceCode = computed(() => clockReference.value?.country_code || t('localClockCode'))
+const clockReferenceName = computed(() => clockReference.value?.country_name || t('deviceClockReference'))
+const clockReferenceTimeZone = computed(() => clockReference.value?.time_zone || '')
+const clockReferenceLabel = computed(() => `${t(clockReference.value ? 'ipClockReference' : 'deviceClockReference')}: ${clockReferenceName.value}`)
+const currentDateTime = computed(() => formatCurrentDateTime(now.value, language.value, clockReferenceTimeZone.value))
+const currentDateTimeParts = computed(() => getCurrentDateTimeParts(now.value, language.value, clockReferenceTimeZone.value))
 const serverRanking = computed(() => rankServers(comparePoints.value, rankingSourceId.value, rankingBasis.value))
 const bestServer = computed(() => serverRanking.value.find(point => point.eligible))
 const selectedServer = computed(() => serverRanking.value.find(point => point.id === selectedServerId.value) || bestServer.value || serverRanking.value[0])
@@ -897,7 +913,7 @@ function bundledSampleClient(sample) {
     latitude: sample.latitude,
     longitude: sample.longitude,
     zip_code: '',
-    time_zone: '',
+    time_zone: sample.timeZone || '',
     asn: 'SAMPLE',
     as: sample.isp,
     isp: sample.isp,

@@ -461,16 +461,27 @@
    interrupt screen-reader users every second. */
 .app-shell .contest-header-status {
   min-width: 0;
-  max-width: 440px;
+  max-width: 470px;
   display: grid;
   justify-items: center;
-  gap: 1px;
+  gap: 3px;
   color: var(--text);
   letter-spacing: 0;
   line-height: 1.25;
   text-align: center;
 }
-.contest-header-time { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 7px; }
+.contest-header-time {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb,var(--accent) 18%,var(--border));
+  border-radius: 11px;
+  background: color-mix(in srgb,var(--surface-soft) 78%,transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb,#fff 7%,transparent);
+}
 .contest-header-time svg {
   width: 18px;
   height: 18px;
@@ -481,12 +492,35 @@
   stroke-linecap: round;
   stroke-linejoin: round;
 }
-.contest-header-time time {
-  color: var(--text);
-  font: 700 .8125rem/1.35 Consolas,"Cascadia Mono",SFMono-Regular,"Liberation Mono",monospace;
+.contest-header-time time { min-width: 0; display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--text); }
+.contest-header-date,
+.contest-header-clock,
+.contest-header-year,
+.contest-header-period,
+.contest-header-zone {
+  font-family: Consolas,"Cascadia Mono",SFMono-Regular,"Liberation Mono",monospace;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
+.contest-header-date { color: var(--muted); font-size: .8125rem; font-weight: 700; }
+.contest-header-year { display: inline-flex; align-items: center; gap: 4px; color: var(--text); font-size: .8125rem; font-weight: 700; }
+.contest-header-year b { font: inherit; color: inherit; }
+.contest-header-clock { color: var(--text); font-size: .9375rem; letter-spacing: .025em; line-height: 1; }
+.contest-header-divider { width: 1px; height: 18px; flex: 0 0 1px; background: var(--border); }
+.contest-header-era,
+.contest-header-period,
+.contest-header-zone {
+  padding: 2px 5px;
+  border-radius: 6px;
+  font-size: .6875rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.contest-header-era,
+.contest-header-period { background: color-mix(in srgb,var(--accent) 13%,var(--surface)); color: var(--accent-strong); }
+.contest-header-zone { background: color-mix(in srgb,var(--text) 7%,var(--surface)); color: var(--muted); }
+.contest-header-zone b { color: var(--text); font: inherit; }
+.contest-header-zone i { color: var(--accent-strong); font-style: normal; }
 .contest-header-label { color: var(--muted); font-size: .75rem; font-weight: 700; line-height: 1.35; }
 
 @media (max-width: 1180px) {

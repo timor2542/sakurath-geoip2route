@@ -1,6 +1,6 @@
 export const evidenceTranslations = {
   en: {
-    contestClockLabel:'Current device time and contest entry', deviceLocalTime:'Current device time', contestEntry2026:'Built for IP2Location Programming Contest 2026',
+    contestClockLabel:'Reference-IP time and contest entry', deviceLocalTime:'Current device time', contestEntry2026:'Built for IP2Location Programming Contest 2026', ipClockReference:'Time zone from reference IP', deviceClockReference:'Device time zone', localClockCode:'LOCAL',
     duplicatesMerged:'Duplicate IP entries merged', duplicateIpUpdated:'IP already exists — updated the existing point',
     addCurrentIp:'Add current IP', detectingCurrentIp:'Finding current IP…',
     currentIpHelp:'Find your public connection IP with IP2Location and add it as point A / the ranking reference. Requires a configured API key.',
@@ -64,7 +64,7 @@ export const evidenceTranslations = {
     clear:'Clear', updating:'Updating', partialUpdate:'Some locations could not be refreshed; their previous values were retained.'
   },
   th: {
-    contestClockLabel:'เวลาปัจจุบันของอุปกรณ์และข้อมูลการประกวด', deviceLocalTime:'เวลาปัจจุบันของอุปกรณ์', contestEntry2026:'สร้างเพื่อส่งประกวด IP2Location Programming Contest 2026',
+    contestClockLabel:'เวลาตาม IP อ้างอิงและข้อมูลการประกวด', deviceLocalTime:'เวลาปัจจุบันของอุปกรณ์', contestEntry2026:'สร้างเพื่อส่งประกวด IP2Location Programming Contest 2026', ipClockReference:'เขตเวลาจาก IP อ้างอิง', deviceClockReference:'เขตเวลาของอุปกรณ์', localClockCode:'เครื่องนี้',
     duplicatesMerged:'รวมรายการ IP ซ้ำแล้ว', duplicateIpUpdated:'มี IP นี้แล้ว — อัปเดตจุดเดิมให้แล้ว',
     addCurrentIp:'เพิ่ม IP ปัจจุบัน', detectingCurrentIp:'กำลังค้นหา IP ปัจจุบัน…',
     currentIpHelp:'ค้นหา Public IP ของการเชื่อมต่อผ่าน IP2Location แล้วเพิ่มเป็นจุด A / IP อ้างอิง ต้องตั้งค่า API Key ก่อน',

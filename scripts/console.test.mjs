@@ -5,7 +5,7 @@ import * as Vue from 'vue'
 import { renderToString } from 'vue/server-renderer'
 import { parse, compileScript } from '@vue/compiler-sfc'
 import { formatLogTime, safeLogDetail } from '../src/utils/activity-log.js'
-import { formatCurrentDateTime } from '../src/utils/date-time.js'
+import { formatCurrentDateTime, getCurrentDateTimeParts } from '../src/utils/date-time.js'
 import { evidenceTranslations } from '../src/data/evidenceTranslations.js'
 
 function component(path) {
@@ -45,6 +45,17 @@ test('activity timestamp is stable and localized without exposing a date', () =>
   assert.match(thaiClock, /พ\.ศ\./)
   assert.doesNotMatch(thaiClock, /\b(?:AM|PM)\b/)
   assert.match(thaiClock, /\d{2}:\d{2}:09/)
+  const localDate = new Date(2026, 8, 4, 14, 8, 9)
+  const { timeZone:englishZone, ...englishParts } = getCurrentDateTimeParts(localDate, 'en')
+  assert.deepEqual(englishParts, { date:'04/09', year:'2026', era:'AD', time:'02:08:09', dayPeriod:'PM' })
+  assert.ok(englishZone)
+  const { timeZone:thaiZone, ...thaiParts } = getCurrentDateTimeParts(localDate, 'th')
+  assert.deepEqual(thaiParts, { date:'04/09', year:'2569', era:'พ.ศ.', time:'14:08:09', dayPeriod:'' })
+  assert.ok(thaiZone)
+  const thailandClock = getCurrentDateTimeParts(new Date('2026-09-04T23:30:09Z'), 'th', '+07:00')
+  assert.deepEqual(thailandClock, { date:'05/09', year:'2569', era:'พ.ศ.', time:'06:30:09', dayPeriod:'', timeZone:'GMT+7' })
+  const tokyoClock = getCurrentDateTimeParts(new Date('2026-09-04T23:30:09Z'), 'en', 'Asia/Tokyo')
+  assert.deepEqual(tokyoClock, { date:'05/09', year:'2026', era:'AD', time:'08:30:09', dayPeriod:'AM', timeZone:'GMT+9' })
   assert.equal(formatCurrentDateTime('not-a-date'), '—')
 })
 
@@ -122,10 +133,15 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   assert.match(readability, /\.app-shell \.icon-only-button \{[^}]*min-width: 44px;[^}]*min-height: 44px;/s)
   assert.match(readability, /\.modal-close-button \.button-icon \{[^}]*width: 24px;[^}]*height: 24px;/s)
   assert.match(app, /class="header-status contest-header-status"/)
-  assert.match(app, /<time :datetime="now\.toISOString\(\)">\{\{ currentDateTime \}\}<\/time>/)
+  assert.match(app, /<time :datetime="now\.toISOString\(\)" :aria-label="currentDateTime">/)
+  assert.match(app, /contest-header-date[^>]*>\{\{ currentDateTimeParts\.date \}\}/)
+  assert.match(app, /v-if="language === 'th'"[^>]*>\s*<small class="contest-header-era">\{\{ currentDateTimeParts\.era \}\}<\/small><b>\{\{ currentDateTimeParts\.year \}\}<\/b>/)
+  assert.match(app, /contest-header-clock[^>]*>\{\{ currentDateTimeParts\.time \}\}/)
+  assert.match(app, /clockReferenceTimeZone/)
+  assert.match(app, /clockReference\.value\?\.time_zone/)
   assert.match(app, /contestEntry2026/)
   assert.doesNotMatch(app, /contest-clock-card|contest-entry-label/)
   assert.doesNotMatch(app, /contest-header-status[^>]*aria-live/)
   assert.match(readability, /\.app-shell \.contest-header-status \{[^}]*justify-items: center;/s)
-  assert.match(readability, /\.contest-header-time time \{[^}]*Consolas,/s)
+  assert.match(readability, /\.contest-header-clock,[\s\S]*font-family: Consolas,/)
 })
