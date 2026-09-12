@@ -160,9 +160,9 @@ test('release version, language keys and launcher descriptions remain consistent
   assert.ok(readFileSync('src/App.vue','utf8').includes(`V${pkg.version}`))
   assert.deepEqual(Object.keys(evidenceTranslations.en).sort(), Object.keys(evidenceTranslations.th).sort())
   assert.equal(evidenceTranslations.en.tryRankingDemo,'Try Demo — Simulated Data')
-  assert.equal(evidenceTranslations.th.tryRankingDemo,'ลองเดโม — ข้อมูลจำลอง')
+  assert.equal(evidenceTranslations.th.tryRankingDemo,'ทดลองด้วยข้อมูลจำลอง')
   assert.equal(evidenceTranslations.en.loadProbeExample,'Load Live Test Example')
-  assert.equal(evidenceTranslations.th.loadProbeExample,'โหลดตัวอย่างทดสอบจริง')
+  assert.equal(evidenceTranslations.th.loadProbeExample,'โหลดตัวอย่างการทดสอบจริง')
   const app = readFileSync('src/App.vue','utf8')
   for (const kind of ['demo','live']) {
     assert.ok(app.includes(`aria-describedby="${kind}-launcher-hint"`))

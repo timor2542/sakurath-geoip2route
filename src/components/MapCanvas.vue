@@ -121,8 +121,12 @@ function positiveModulo(value, divisor) {
 }
 
 function formatGridDistance(meters) {
-  if (meters >= 1000) return `${Math.round(meters / 1000).toLocaleString()} km`
-  return `${Math.round(meters).toLocaleString()} m`
+  if (meters >= 1000) return `${Math.round(meters / 1000).toLocaleString()} ${props.labels.kilometres || 'km'}`
+  return `${Math.round(meters).toLocaleString()} ${props.labels.metres || 'm'}`
+}
+
+function formatMapKilometres(kilometres) {
+  return `${Math.round(kilometres).toLocaleString()} ${props.labels.kilometres || 'km'}`
 }
 
 function updateGridScale(measurement) {
@@ -234,7 +238,7 @@ function renderFeatures() {
       .addTo(featureLayer)
 
     accessibleMarker(point, { icon: pointIcon(className, String(endpoint.rank)), zIndexOffset: 800 - endpoint.rank }, [`#${endpoint.rank}`, endpoint.name, endpoint.ip].filter(Boolean).join(' · '))
-      .bindTooltip(tooltip(endpoint.name, endpoint.ip, `${Math.round(endpoint.distance).toLocaleString()} km · ${endpoint.latency} ms`), ipTooltipOptions)
+      .bindTooltip(tooltip(endpoint.name, endpoint.ip, `${formatMapKilometres(endpoint.distance)} · ${endpoint.latency} ms`), ipTooltipOptions)
       .on('click', () => emit('select', endpoint.id))
       .addTo(featureLayer)
   })
@@ -298,7 +302,7 @@ function renderRankingFeatures() {
       dashArray: isBest ? null : '5 8'
     }).addTo(featureLayer)
     accessibleMarker(coordinates, { icon: pointIcon(markerClass, point.rank ? String(point.rank) : '·'), zIndexOffset: isBest ? 1000 : 700 - (point.rank || 100) }, [props.labels.selectServer, point.rank ? `#${point.rank}` : '', point.city_name || point.country_name, point.ip].filter(Boolean).join(' · '))
-      .bindTooltip(tooltip(`${point.rank ? `#${point.rank}` : '—'} ${point.city_name || point.country_name || point.ip}`, point.ip, `${Math.round(point.distance).toLocaleString()} km · ${point.eligible ? Math.round(point.score) + '/100' : '—'}`), ipTooltipOptions)
+      .bindTooltip(tooltip(`${point.rank ? `#${point.rank}` : '—'} ${point.city_name || point.country_name || point.ip}`, point.ip, `${formatMapKilometres(point.distance)} · ${point.eligible ? Math.round(point.score) + '/100' : '—'}`), ipTooltipOptions)
       .on('click', () => emit('select-server', point.id))
       .addTo(featureLayer)
   })
