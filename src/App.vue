@@ -142,25 +142,6 @@
             </div>
           </section>
 
-          <section class="panel-section compare-list-section">
-            <div class="section-title-row"><div><p class="kicker">{{ t('allIpPoints') }}</p><h2>{{ t('chooseSource') }}</h2></div><span class="list-count">{{ comparePoints.length }}</span></div>
-            <div class="point-list-actions single-action">
-              <button class="delete-all-button" type="button" :disabled="pointListBusy || !comparePoints.length" :aria-label="t('deleteAllPoints')" :title="t('deleteAllPoints')" @click="openDeleteAll">
-                <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg><span>{{ t('deleteAllPoints') }}</span>
-              </button>
-            </div>
-            <div v-if="comparePoints.length" class="compare-point-list">
-              <div v-for="point in comparePoints" :key="point.id" :class="['compare-point-row', { selected: rankingSourceId === point.id }]">
-                <button class="compare-point-select" type="button" :disabled="measurementBusy || rankingBasis === 'demo'" @click="rankingSourceId = point.id">
-                  <span :class="['compare-marker', { 'ranking-source': rankingSourceId === point.id }]">{{ rankingSourceId === point.id ? 'SRC' : (serverRankFor(point.id)?.rank || '—') }}</span>
-                  <span class="compare-point-copy"><strong>{{ flagEmoji(point.country_code) }} {{ point.city_name || point.country_name }}</strong><small><span class="point-ip ip-text">{{ point.ip }}</span><span class="point-network">{{ point.isp || point.asn || '—' }}</span></small></span>
-                  <span class="source-chip">{{ point.demoGroup ? t('simulated') : point.source === 'ip2location' ? t('liveBadge') : t('sampleBadge') }}</span>
-                </button>
-                <button class="compare-delete-button" type="button" :disabled="pointListBusy" :aria-label="`${t('deleteIp')} ${point.ip}`" :title="t('deleteIp')" @click="openDeletePoint(point.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg></button>
-              </div>
-            </div>
-            <div v-else class="point-list-empty" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/><path d="m4 4 16 16"/></svg><strong>{{ t('emptyPointList') }}</strong><p>{{ t('emptyPointListHint') }}</p></div>
-          </section>
         </template>
 
         <template v-else>
@@ -189,30 +170,53 @@
             </div>
           </section>
 
-          <section class="panel-section compare-list-section">
-            <div class="section-title-row"><div><p class="kicker">{{ t('mapPoints') }}</p><h2>{{ t('selectTwoPoints') }}</h2></div><span class="list-count">{{ comparePoints.length }}</span></div>
-            <div class="point-list-actions">
-              <button class="clear-compare-button" type="button" @click="clearCompareSelection" :disabled="!selectedCompareIds.length" :aria-label="t('clearPointSelection')" :title="t('clearPointSelection')"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 5 5-10 10H6l-3-3L16 3Z"/><path d="m12 7 5 5M10 18h11"/></svg><span>{{ t('clearPointSelection') }}</span></button>
-              <button class="delete-all-button" type="button" :disabled="pointListBusy || !comparePoints.length" :aria-label="t('deleteAllPoints')" :title="t('deleteAllPoints')" @click="openDeleteAll"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg><span>{{ t('deleteAllPoints') }}</span></button>
-            </div>
-            <div v-if="comparePoints.length" class="compare-point-list">
-              <div v-for="(point, index) in comparePoints" :key="point.id" :class="['compare-point-row', { selected: selectedCompareIds.includes(point.id) }]">
-                <button class="compare-point-select" type="button" @click="selectComparePoint(point.id)">
-                  <span :class="['compare-marker', compareMarkerClass(point.id)]">{{ compareMarkerLabel(point.id, index) }}</span>
-                  <span class="compare-point-copy">
-                    <strong>{{ flagEmoji(point.country_code) }} {{ point.city_name || point.country_name }}</strong>
-                    <small><span class="point-ip ip-text">{{ point.ip }}</span><span class="point-network">{{ point.isp || point.asn || '—' }}</span></small>
-                  </span>
-                  <span class="source-chip">{{ point.source === 'ip2location' ? t('liveBadge') : t('sampleBadge') }}</span>
-                </button>
-                <button class="compare-delete-button" type="button" :disabled="pointListBusy" :aria-label="`${t('deleteIp')} ${point.ip}`" :title="t('deleteIp')" @click="openDeletePoint(point.id)">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg>
-                </button>
-              </div>
-            </div>
-            <div v-else class="point-list-empty" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/><path d="m4 4 16 16"/></svg><strong>{{ t('emptyPointList') }}</strong><p>{{ t('emptyPointListHint') }}</p></div>
-          </section>
         </template>
+      </aside>
+
+      <aside class="point-panel panel-card" :aria-label="appMode === 'ranking' ? t('allIpPoints') : t('mapPoints')">
+        <section v-if="appMode === 'ranking'" class="panel-section compare-list-section">
+          <div class="section-title-row"><div><p class="kicker">{{ t('allIpPoints') }}</p><h2>{{ t('chooseSource') }}</h2></div><span class="list-count">{{ comparePoints.length }}</span></div>
+          <div class="point-list-actions single-action">
+            <button class="delete-all-button" type="button" :disabled="pointListBusy || !comparePoints.length" :aria-label="t('deleteAllPoints')" :title="t('deleteAllPoints')" @click="openDeleteAll">
+              <svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg><span>{{ t('deleteAllPoints') }}</span>
+            </button>
+          </div>
+          <div v-if="comparePoints.length" class="compare-point-list">
+            <div v-for="point in comparePoints" :key="point.id" :class="['compare-point-row', { selected: rankingSourceId === point.id }]">
+              <button class="compare-point-select" type="button" :disabled="measurementBusy || rankingBasis === 'demo'" @click="rankingSourceId = point.id">
+                <span :class="['compare-marker', { 'ranking-source': rankingSourceId === point.id }]">{{ rankingSourceId === point.id ? 'SRC' : (serverRankFor(point.id)?.rank || '—') }}</span>
+                <span class="compare-point-copy"><strong>{{ flagEmoji(point.country_code) }} {{ point.city_name || point.country_name }}</strong><small><span class="point-ip ip-text">{{ point.ip }}</span><span class="point-network">{{ point.isp || point.asn || '—' }}</span></small></span>
+                <span class="source-chip">{{ point.demoGroup ? t('simulated') : point.source === 'ip2location' ? t('liveBadge') : t('sampleBadge') }}</span>
+              </button>
+              <button class="compare-delete-button" type="button" :disabled="pointListBusy" :aria-label="`${t('deleteIp')} ${point.ip}`" :title="t('deleteIp')" @click="openDeletePoint(point.id)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg></button>
+            </div>
+          </div>
+          <div v-else class="point-list-empty" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/><path d="m4 4 16 16"/></svg><strong>{{ t('emptyPointList') }}</strong><p>{{ t('emptyPointListHint') }}</p></div>
+        </section>
+
+        <section v-else class="panel-section compare-list-section">
+          <div class="section-title-row"><div><p class="kicker">{{ t('mapPoints') }}</p><h2>{{ t('selectTwoPoints') }}</h2></div><span class="list-count">{{ comparePoints.length }}</span></div>
+          <div class="point-list-actions">
+            <button class="clear-compare-button" type="button" @click="clearCompareSelection" :disabled="!selectedCompareIds.length" :aria-label="t('clearPointSelection')" :title="t('clearPointSelection')"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 5 5-10 10H6l-3-3L16 3Z"/><path d="m12 7 5 5M10 18h11"/></svg><span>{{ t('clearPointSelection') }}</span></button>
+            <button class="delete-all-button" type="button" :disabled="pointListBusy || !comparePoints.length" :aria-label="t('deleteAllPoints')" :title="t('deleteAllPoints')" @click="openDeleteAll"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg><span>{{ t('deleteAllPoints') }}</span></button>
+          </div>
+          <div v-if="comparePoints.length" class="compare-point-list">
+            <div v-for="(point, index) in comparePoints" :key="point.id" :class="['compare-point-row', { selected: selectedCompareIds.includes(point.id) }]">
+              <button class="compare-point-select" type="button" @click="selectComparePoint(point.id)">
+                <span :class="['compare-marker', compareMarkerClass(point.id)]">{{ compareMarkerLabel(point.id, index) }}</span>
+                <span class="compare-point-copy">
+                  <strong>{{ flagEmoji(point.country_code) }} {{ point.city_name || point.country_name }}</strong>
+                  <small><span class="point-ip ip-text">{{ point.ip }}</span><span class="point-network">{{ point.isp || point.asn || '—' }}</span></small>
+                </span>
+                <span class="source-chip">{{ point.source === 'ip2location' ? t('liveBadge') : t('sampleBadge') }}</span>
+              </button>
+              <button class="compare-delete-button" type="button" :disabled="pointListBusy" :aria-label="`${t('deleteIp')} ${point.ip}`" :title="t('deleteIp')" @click="openDeletePoint(point.id)">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5m4-5v5"/></svg>
+              </button>
+            </div>
+          </div>
+          <div v-else class="point-list-empty" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/><path d="m4 4 16 16"/></svg><strong>{{ t('emptyPointList') }}</strong><p>{{ t('emptyPointListHint') }}</p></div>
+        </section>
       </aside>
 
       <aside ref="resultPanel" class="result-panel panel-card" tabindex="-1" :aria-label="appMode === 'ranking' ? t('recommendedServer') : t('ipComparison')">
