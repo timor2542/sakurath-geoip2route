@@ -41,6 +41,10 @@ Marker and data labels:
 
 > **Screenshot 1 — Workspace overview:** Use a desktop landscape viewport and label the header, control panel, map, result panel, and Activity Console.
 
+![Mobile workspace overview showing the map, markers, scale, language and theme controls](guide-start.jpg)
+
+*Reference image — On a narrow screen, the map appears first and the working panels continue below it.*
+
 ## 3. Reference time, language, and theme
 
 The header clock follows the active geographic reference:
@@ -62,6 +66,10 @@ The initial list contains eight sample locations, so markers, selection, compari
 **Try Demo — Simulated Data** adds a separate demonstration set and opens Server Ranking. It illustrates why nearest and fastest can produce different winners. Simulated evidence is labelled and is never mixed into measured browser scoring.
 
 **Load Live Test Example** prepares a `target,probe_url` example in the import dialog. The user still starts the lookup and HTTP measurement explicitly.
+
+![Quick Guide dialog explaining how to add IPs, compare points, and rank servers](guide-help.jpg)
+
+*Reference image — The built-in Help dialog summarizes the three main stages without requiring an API lookup.*
 
 ## 5. Add one IP or hostname
 
@@ -106,6 +114,10 @@ example.com
 > **Screenshot 4 — Paste list:** Show four example lines, both list counts, and the Append/Replace choices.
 
 ## 7. Import and review CSV
+
+![Left control panel showing the target field, Paste list, Import CSV, Clear selection, and Delete all controls](guide-import-csv.jpg)
+
+*Reference image — Import CSV is beside Paste list in the left panel. Clear selection keeps the IPs; Delete all removes them after confirmation.*
 
 ### Minimal file
 
@@ -172,6 +184,10 @@ IP geolocation is approximate. Anycast targets may resolve to different network 
 > **Image copy:** Select any two points to compare geographic and network evidence side by side.
 
 ## 9. Rank server candidates
+
+![Server Ranking panel showing the geographic reference IP and ranking method controls](guide-server-ranking.jpg)
+
+*Reference image — Select the reference IP and ranking method before reviewing the candidate results.*
 
 ### Select the reference
 
