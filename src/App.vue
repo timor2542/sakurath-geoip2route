@@ -130,18 +130,6 @@
             <p v-if="rankingBasis !== 'geo'" class="evidence-banner">{{ t(rankingBasis === 'demo' ? 'demoNotice' : 'browserNotice') }}</p>
           </section>
 
-          <section class="panel-section compare-add-section">
-            <p class="kicker">{{ t('addIpToList') }}</p>
-            <form class="compare-add-form" @submit.prevent="addComparePoint">
-              <WrappingInput v-model.trim="compareTarget" :placeholder="t('ipPlaceholder')" :aria-label="t('addIpToList')" @submit="addComparePoint" />
-              <button class="icon-only-button add-ip-button" type="submit" :disabled="addingComparePoint || addingCurrentIp" :aria-label="t('addIpToList')" :title="t('addIpToList')"><span v-if="addingComparePoint" class="api-spinner" aria-hidden="true"></span><svg v-else class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
-            </form>
-            <div class="bulk-actions">
-              <button type="button" @click="openBulk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h11v14H8zM5 8H3v13h11v-2"/></svg>{{ t('pasteList') }}</button>
-              <button type="button" @click="openCsvPicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/></svg>{{ t('importCsv') }}</button>
-            </div>
-          </section>
-
         </template>
 
         <template v-else>
@@ -156,18 +144,6 @@
               {{ syncingCompare ? `${t('updating')} ${compareProgress}/${compareRefreshTotal}` : t('updateFromIp2Location') }}
             </button>
             <small class="sync-note">{{ compareSourceNote }}</small>
-          </section>
-
-          <section class="panel-section compare-add-section">
-            <p class="kicker">{{ t('addIpToList') }}</p>
-            <form class="compare-add-form" @submit.prevent="addComparePoint">
-              <WrappingInput v-model.trim="compareTarget" :placeholder="t('ipPlaceholder')" :aria-label="t('addIpToList')" @submit="addComparePoint" />
-              <button class="icon-only-button add-ip-button" type="submit" :disabled="addingComparePoint || addingCurrentIp" :aria-label="t('addIpToList')" :title="t('addIpToList')"><span v-if="addingComparePoint" class="api-spinner" aria-hidden="true"></span><svg v-else class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
-            </form>
-            <div class="bulk-actions">
-              <button type="button" @click="openBulk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h11v14H8zM5 8H3v13h11v-2"/></svg>{{ t('pasteList') }}</button>
-              <button type="button" @click="openCsvPicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/></svg>{{ t('importCsv') }}</button>
-            </div>
           </section>
 
         </template>
@@ -216,6 +192,18 @@
             </div>
           </div>
           <div v-else class="point-list-empty" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/><path d="m4 4 16 16"/></svg><strong>{{ t('emptyPointList') }}</strong><p>{{ t('emptyPointListHint') }}</p></div>
+        </section>
+
+        <section class="panel-section compare-add-section point-panel-add-section">
+          <p class="kicker">{{ t('addIpToList') }}</p>
+          <form class="compare-add-form" @submit.prevent="addComparePoint">
+            <WrappingInput v-model.trim="compareTarget" :placeholder="t('ipPlaceholder')" :aria-label="t('addIpToList')" @submit="addComparePoint" />
+            <button class="icon-only-button add-ip-button" type="submit" :disabled="addingComparePoint || addingCurrentIp" :aria-label="t('addIpToList')" :title="t('addIpToList')"><span v-if="addingComparePoint" class="api-spinner" aria-hidden="true"></span><svg v-else class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+          </form>
+          <div class="bulk-actions">
+            <button type="button" @click="openBulk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h11v14H8zM5 8H3v13h11v-2"/></svg>{{ t('pasteList') }}</button>
+            <button type="button" @click="openCsvPicker"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM4 10h16M10 4v16"/></svg>{{ t('importCsv') }}</button>
+          </div>
         </section>
       </aside>
 

@@ -21,7 +21,7 @@ test('address CSS removes ellipsis and enables wrapping across visible surfaces'
   assert.ok(css.includes('.leaflet-tooltip.ip-map-tooltip'))
   const app = readFileSync('src/App.vue','utf8')
   assert.ok(!app.includes('<select v-model="rankingSourceId"'))
-  assert.equal((app.match(/<WrappingInput/g) || []).length,3)
+  assert.equal((app.match(/<WrappingInput/g) || []).length,2)
   assert.ok(app.includes('<code class="ip-text">{{ compareA.ip }}</code>'))
   assert.ok(app.includes('<code class="ip-text">{{ compareB.ip }}</code>'))
   assert.ok(app.includes('<dd class="ip-text">{{ selectedServer.ip }}</dd>'))
