@@ -1,4 +1,4 @@
-# Ranking evidence and algorithm — v1.5
+# Ranking evidence and algorithm — v1.8.0
 
 ## Geographic distance
 
@@ -22,7 +22,6 @@ network preference:
 
 Geographic fit = 0.8 × distance_score + 0.2 × network_preference
 Browser HTTP  = 0.8 × http_score     + 0.2 × network_preference
-Simulated HTTP uses the HTTP formula with synthetic measurements only.
 ```
 
 Network preference and normalization constants are explicit product choices, not empirically validated predictions. Unknown network data receives a neutral-ish default, not a claimed classification. A different network preference can outweigh a small distance or timing difference. The winning candidate has the highest combined score, not necessarily the shortest raw distance or lowest raw timing.
@@ -49,12 +48,6 @@ Implementation: `src/services/probe.js`.
 This is not ICMP ping, pure wire latency, TLS-only timing, throughput, or a measurement from a remote selected country. It can include connection setup, server work, browser scheduling, service-worker effects, network variation and warm connections. Compare equivalent small endpoints and repeat measurements.
 
 A hostname can resolve differently on the app server and browser, especially with CDN/anycast. Host matching reduces accidental misattribution but cannot prove direct-to-IP measurement. Literal local/reserved targets are blocked; DNS rebinding and arbitrary hostname resolution are not audited by this client-side check.
-
-## Simulation and geographic samples
-
-The “nearest ≠ fastest” scenario uses reserved documentation IPs and synthetic locations/timings. The Bangkok reference has Singapore as the nearest demo candidate; Tokyo wins the simulated HTTP ranking. No probe requests are sent by loading it. Synthetic measurements never qualify for Browser HTTP scoring.
-
-The eight default location samples are bundled examples, not current authoritative geolocation. Refresh replaces successfully resolved samples with IP2Location metadata. Synthetic scenario points are excluded from live refresh.
 
 ## Lookup, import and exports
 

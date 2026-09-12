@@ -1,35 +1,30 @@
 # Contest submission copy — v1.8.0
 
-Use this copy only after the public repository and live demo have been tested from a signed-out browser.
+Use this text after the source repository and public application have been checked from a signed-out browser.
 
 ## Project title
 
-SakuraTH GeoIP2Route — Explainable Geo-Aware Server Ranking
+**SakuraTH GeoIP2Route — Explainable Geo-Aware Server Ranking**
 
 ## Short description
 
-An explainable server-comparison application powered by IP2Location.io. It compares IPv4/IPv6 locations, ranks candidates by geographic fit, separately measures browser HTTP response time, and exports the evidence without presenting map distance as network latency.
+An explainable server-comparison application powered by IP2Location.io. It compares IPv4/IPv6 locations, ranks candidates by geographic fit, separately measures authorized HTTPS response time from the browser, explains the evidence, and exports the result without presenting map distance as network latency.
 
 ## Source code URL
 
-Publish and verify the intended repository at `https://github.com/timor2542/sakurath-geoip2route` before placing that URL in the submission form.
+`https://github.com/timor2542/sakurath-geoip2route`
+
+Verify that the URL points to the intended public repository before submitting it.
 
 ## Remarks
 
-GeoIP2Route is a substantial successor to my 2025 SakuraTH GeoIP2Map entry. The earlier project visualized one IP location; this release adds a shared IPv4/IPv6 candidate list, pairwise comparison, geographic ranking, opt-in browser HTTP measurements, explicit simulated/live evidence labels, score explanations, exports, duplicate-safe refresh, rate-limited serverless API access and automated tests. Geographic and measured evidence remain separate, and the documented limits avoid claiming traceroute, ping or remote-origin latency.
-
-## Suggested social post
-
-🌸 SakuraTH GeoIP2Route turns IP geolocation into an explainable server-selection workflow. Compare IPv4/IPv6 locations, rank geographic fit, verify authorized HTTPS response times from your browser, inspect every score contribution, and export the evidence. Powered by IP2Location.io.
-
-Add the verified GitHub link and live-demo link, then include `#ProgrammingContest #IP2LocationContest`.
+GeoIP2Route is a substantial successor to my 2025 SakuraTH GeoIP2Map entry. The earlier project visualized one IP location; this release adds a shared IPv4/IPv6 list, pairwise comparison, geographic ranking, opt-in browser HTTP measurements, transparent score explanations, JSON/CSV exports, duplicate-safe refresh, rate-limited serverless access, and automated tests. Geographic evidence and measured browser evidence remain separate, and the documented limits avoid claiming traceroute, ping, or remote-origin latency.
 
 ## Final form check
 
-- The source repository is public and the README renders correctly.
-- The live demo opens without an account and the simulated-data label is visible.
-- The API key is stored only in the host environment.
-- `CHECK-CONTEST-READY.bat` passes on the release ZIP.
-- Netlify confirms both rate-limit rules in the deployment log.
-- Current screenshots/GIF show v1.8.0 rather than an earlier interface.
-- The short description, repository URL and live-demo URL contain no draft placeholders.
+- [ ] The public repository opens and the English and Thai README files render correctly.
+- [ ] The deployed application opens without an account and uses the intended release version.
+- [ ] The server-side production configuration is present and no secret appears in source, bundle, screenshot, or submission text.
+- [ ] The release checklist is complete and both Netlify rate-limit rules are visible in deployment logs.
+- [ ] Current screenshots show the real interface and no draft placeholders.
+- [ ] The title, short description, repository URL, and application URL contain no unfinished placeholders.

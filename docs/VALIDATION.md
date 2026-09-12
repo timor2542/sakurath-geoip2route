@@ -1,33 +1,33 @@
 # Validation record — v1.8.0
 
-Date: 2026-09-11
+Validation snapshot: 2026-09-11
 
-| Check | Result |
+## Verified in the repository
+
+| Area | Result |
 |---|---|
-| Application structural smoke check | Passed |
-| Automated logic, CSS and component markup checks | 45 passed, 0 failed |
-| Local browser layout | Desktop 1440×900 and mobile 360×800 checked; no horizontal overflow after the responsive-header fix |
-| Mobile demo handoff | Demo moves focus and scrolls directly to the recommended-server result |
-| Dialog keyboard behavior | Help and bulk-import dialogs expose modal semantics, move/restore focus, trap Tab and close with Escape |
-| In-page Activity Console | SSR markup, action wiring, 200-entry cap and responsive CSS passed |
-| Console secret filtering | Key/token examples redacted; complete IPv4/IPv6 values retained |
-| Demo/live button copy and descriptions | EN/TH labels and accessible description links verified in source |
+| Structural smoke check | Passed |
+| Automated logic, CSS, and markup checks | 45 passed, 0 failed |
 | Production Vite build | Passed |
-| External HTTP and IP2Location tests | Mocked responses only |
-| Current-IP discovery, deduplication and errors | Passed with mocked discovery, DNS and geolocation |
-| IPv6 textual variants and DNS convergence on refresh | Passed; canonical identity and post-refresh merging |
-| A/B and ranking selections after merging | Passed; remapped to surviving IDs, no duplicate A/B selection |
-| Manual, CSV and current-IP page actions | Passed with mocked API results; not browser interaction tests |
-| CSV preflight review | Valid and invalid CSV states checked in the local browser: flexible header order, detected roles, reference-only metadata, preview rows, exact row errors and disabled submit on invalid input |
-| Full IPv4/IPv6 component markup and wrap declarations | Passed; source/SSR markup checks only, not pixel layout |
-| Growing input value preservation and Enter/IME behavior | Passed with mocked element dimensions and events |
-| Terminal progress and concurrent requests | Passed with captured TTY/non-TTY output; no real API request |
-| Time-zone portability | Passed in the validation environment that exposed the previous half-hour-zone test defect |
-| Netlify code-based rate limits | Source configuration passed: lookup 60/minute and current IP 20/minute per IP/domain; deployment log not verified |
-| Warm-instance GeoIP cache | Repeated-request and caller-mutation checks passed with mocked upstream data |
-| GitHub Actions | Workflow included; it has not run until the repository is published |
-| Live IP2Location API key | Not configured or exercised in this validation |
-| Browser visual/interaction QA | Preview server started, but the validation browser was blocked from opening it; desktop/mobile, EN/TH and light/dark interaction QA remain incomplete |
-| GitHub publication / hosted live demo | Not performed |
+| Ranking and evidence separation | Passed with mocked responses |
+| CSV preflight | Valid/invalid states, flexible header order, detected roles, preview rows, and exact row errors passed |
+| IPv4/IPv6 identity and duplicate merging | Passed, including refreshed DNS convergence and selection remapping |
+| Current-IP validation and error handling | Passed with mocked discovery and geolocation |
+| Browser HTTP measurement rules | Passed with mocked CORS, timeout, partial-success, and unavailable cases |
+| Address wrapping and input behavior | Passed for full IPv4/IPv6 values, Enter submission, and IME composition |
+| Activity Console | Passed for action wiring, secret filtering, 200-entry cap, responsive markup, and collapse behavior |
+| Terminal progress | Passed for real stages, failures, concurrency, and non-TTY output |
+| Netlify rate-limit declarations | Passed in source: lookup 60/minute and current IP 20/minute per IP/domain |
+| Warm-instance GeoIP cache | Passed with mocked repeated requests and caller-mutation checks |
 
-The checks validate deterministic logic, quota-protection declarations and compilation. They do not establish real network latency, live API availability, deployed rate-limit activation, mobile layout correctness, or contest eligibility. Follow RELEASE-CHECKLIST.md before a public submission.
+## Still required on the intended deployment
+
+- [ ] Verify the live IP2Location response, plan-dependent fields, quota behavior, and current-IP detection.
+- [ ] Verify both Netlify rate-limit rules in the deployment log and observe the platform response when exceeded.
+- [ ] Test the public application in a signed-out browser on desktop and mobile, in English and Thai, with both themes.
+- [ ] Test authorized HTTPS probes from more than one network and inspect the honest unavailable state.
+- [ ] Confirm the published repository, release version, screenshots, application URL, and contest eligibility.
+
+## Interpretation
+
+The automated suite validates deterministic logic, safety rules, markup wiring, and compilation. It does not establish real network latency, upstream availability, visual pixel layout, deployed configuration, or contest eligibility. Use [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) to close the remaining live checks.

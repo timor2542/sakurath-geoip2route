@@ -153,7 +153,7 @@ test('disabled button CSS uses opaque light-gray backgrounds and dark-gray label
   assert.match(rule, /filter:\s*none\s*!important/)
   assert.ok(css.includes('.app-shell button:disabled * { color: inherit !important; }'))
 })
-test('release version, language keys and demo launcher remain consistent', () => {
+test('release version, language keys and launcher descriptions remain consistent', () => {
   const pkg = JSON.parse(readFileSync('package.json','utf8'))
   const lock = JSON.parse(readFileSync('package-lock.json','utf8'))
   assert.equal(pkg.version, lock.version)
@@ -170,5 +170,4 @@ test('release version, language keys and demo launcher remain consistent', () =>
     assert.ok(evidenceTranslations.en[`${kind}LauncherHint`])
     assert.ok(evidenceTranslations.th[`${kind}LauncherHint`])
   }
-  assert.ok(!readFileSync('START-DEMO.bat','utf8').includes('> .env.local'))
 })

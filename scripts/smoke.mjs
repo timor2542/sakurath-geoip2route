@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const required = ['index.html', 'src/main.js', 'src/App.vue', 'src/components/MapCanvas.vue', 'src/components/ActivityConsole.vue', 'src/utils/activity-log.js', 'src/utils/current-ip.js', 'src/utils/ip-identity.js', 'src/utils/point-list.js', 'server/api-progress.mjs', 'server/local-geo-api.mjs', 'netlify/functions/ip.mjs', 'netlify/functions/lookup.mjs', 'scripts/rate-limit.test.mjs', '.github/workflows/ci.yml', 'START-LIVE.bat', 'START-DEMO.bat', 'CHECK-CONTEST-READY.bat', 'docs/SUBMISSION.md', 'README.md']
+const required = ['index.html', 'src/main.js', 'src/App.vue', 'src/components/MapCanvas.vue', 'src/components/ActivityConsole.vue', 'src/utils/activity-log.js', 'src/utils/current-ip.js', 'src/utils/ip-identity.js', 'src/utils/point-list.js', 'server/api-progress.mjs', 'server/local-geo-api.mjs', 'netlify/functions/ip.mjs', 'netlify/functions/lookup.mjs', 'scripts/rate-limit.test.mjs', '.github/workflows/ci.yml', 'docs/SUBMISSION.md', 'README.md']
 const missing = required.filter(file => !existsSync(resolve(file)))
 if (missing.length) {
   console.error(`Missing required files: ${missing.join(', ')}`)
