@@ -1,38 +1,38 @@
 # SakuraTH GeoIP2Route
 
+**English** | [ภาษาไทย](README.th.md)
+
 > Explainable Geo-Aware Server Ranking
 
-เว็บแอปสองภาษา (ไทย/อังกฤษ) สำหรับเปรียบเทียบตำแหน่งของ IP และช่วยจัดอันดับเซิร์ฟเวอร์ โดยใช้ข้อมูลจาก IP2Location.io พร้อมแยก **ระยะทางบนแผนที่** ออกจาก **เวลา HTTP ที่วัดจากเบราว์เซอร์** อย่างชัดเจน
+A bilingual web application for comparing IP locations and ranking server candidates with IP2Location.io. It keeps **map distance** clearly separate from **HTTP response time measured by the browser**.
 
-พัฒนาสำหรับ **IP2Location Programming Contest 2026** · เวอร์ชัน **1.8.0**
+Built for the **IP2Location Programming Contest 2026** · Version **1.8.0**
 
-**English summary:** Compare IPv4/IPv6 locations, rank server candidates by geographic fit, optionally measure authorized HTTPS endpoints from the browser, inspect the score evidence, and export the results. Geographic distance is never presented as measured network latency.
+GeoIP2Route continues [SakuraTH GeoIP2Map](https://github.com/timor2542/sakurath-geoip2map). The original project maps one IP; GeoIP2Route adds pairwise A/B comparison and multi-server ranking. “Route” means selecting a suitable server candidate—it does not discover router hops or change network routing.
 
-โปรเจกต์นี้ต่อยอดจาก [SakuraTH GeoIP2Map](https://github.com/timor2542/sakurath-geoip2map) ซึ่งแสดงตำแหน่งของ IP เดียว ส่วน GeoIP2Route เพิ่มการเปรียบเทียบ A/B และการจัดอันดับเซิร์ฟเวอร์หลายตัว คำว่า “Route” ในที่นี้หมายถึงการเลือกเซิร์ฟเวอร์ที่เหมาะสม ไม่ใช่การค้นหา Router Hop หรือเปลี่ยนเส้นทางเครือข่าย
+## Highlights
 
-## จุดเด่น
+- Accepts public IPv4, IPv6, and hostnames
+- Compares two IPs with distance, country, city, ISP, ASN, timezone, and network type
+- Ranks server candidates by geographic fit or measured browser HTTP timing
+- Explains every score and never invents a speed value when no measurement exists
+- Imports plain text, CSV, or TXT with column and row validation before lookup
+- Deduplicates equivalent addresses, including differently written IPv6 addresses
+- Exports ranking evidence as JSON or CSV
+- Includes an in-page Activity Console for the current browser session
+- Supports English/Thai, light/dark themes, and keyboard navigation
+- Includes a no-key simulated demo
 
-- รองรับ Public IPv4, IPv6 และ Hostname
-- เปรียบเทียบ IP สองจุดบนแผนที่ พร้อมระยะทาง ประเทศ เมือง ISP, ASN, Timezone และประเภทเครือข่าย
-- จัดอันดับเซิร์ฟเวอร์จาก Geographic Fit หรือเวลา HTTP ที่วัดจากเบราว์เซอร์
-- แสดงที่มาของคะแนน ไม่ซ่อนสูตรและไม่สร้างค่าความเร็วปลอมเมื่อยังไม่ได้วัด
-- นำเข้ารายการจากข้อความ, CSV หรือ TXT พร้อมหน้าตรวจสอบคอลัมน์และแถวที่ผิดก่อนเริ่ม Lookup
-- ป้องกัน IP ซ้ำ รวมถึง IPv6 ที่เขียนต่างรูปแบบแต่เป็นหมายเลขเดียวกัน
-- ส่งออกผลการจัดอันดับเป็น JSON และ CSV
-- มี Activity Console สำหรับติดตามการทำงานใน Browser Session
-- รองรับภาษาไทย/อังกฤษ ธีมสว่าง/มืด และการใช้งานด้วยคีย์บอร์ด
-- มีโหมด Demo ที่ใช้งานได้โดยไม่ต้องมี API Key
+## Quick start
 
-## เริ่มใช้งานแบบเร็วที่สุด
+### Windows: run the demo
 
-### Windows: ทดลอง Demo
+1. Install [Node.js](https://nodejs.org/) `20.19+` or `22.12+`.
+2. Double-click `START-DEMO.bat`.
+3. Wait for the dependencies to install and the browser to open.
+4. Select **Try Demo — Simulated Data**.
 
-1. ติดตั้ง [Node.js](https://nodejs.org/) รุ่น `20.19+` หรือ `22.12+`
-2. ดับเบิลคลิก `START-DEMO.bat`
-3. รอให้ติดตั้ง Dependencies และเปิดหน้าเว็บ
-4. กด **Try Demo — Simulated Data / ลองเดโม — ข้อมูลจำลอง**
-
-Demo มีข้อมูลตัวอย่างในตัวและไม่ต้องใช้ IP2Location API Key แต่การติดตั้งครั้งแรก แผนที่ OpenStreetMap และ Google Fonts ต้องเชื่อมต่ออินเทอร์เน็ต
+The bundled demo does not require an IP2Location API key. The first dependency installation, OpenStreetMap tiles, and Google Fonts still require internet access.
 
 ### Terminal
 
@@ -41,50 +41,48 @@ npm ci
 npm run dev
 ```
 
-เปิด Local URL ที่ Vite แสดงใน Terminal เช่น `http://localhost:5173/` หาก Port นี้ถูกใช้งานอยู่ Vite จะเลือก Port อื่นให้อัตโนมัติ
+Open the local URL printed by Vite, usually `http://localhost:5173/`. Vite automatically chooses another port when that port is busy.
 
-## วิธีใช้งาน
+## How to use it
 
-### 1. เปรียบเทียบ IP สองจุด
+### Compare two IPs
 
-1. เลือกแท็บ **IP Compare / เปรียบเทียบ IP**
-2. เพิ่ม IP ด้วยช่องกรอก, Paste List, Import CSV หรือ **Add current IP**
-3. คลิก Marker หรือรายการ IP เพื่อเลือกจุด **A** และ **B**
-4. ดูเส้นเชื่อม ระยะทาง และข้อมูลเครือข่ายในแถบด้านขวา
+1. Open **IP Compare**.
+2. Add addresses with the input field, Paste List, Import CSV, or **Add current IP**.
+3. Select markers or list rows to assign points **A** and **B**.
+4. Inspect the connecting line, distance, and network details in the right panel.
 
-ปุ่ม **Clear A/B / ล้าง A/B** ล้างเฉพาะจุดที่เลือก แต่ไม่ลบ IP ออกจากรายการ ส่วนปุ่มถังขยะและ **Delete all / ลบทั้งหมด** จะถามยืนยันก่อนลบ
+**Clear A/B** clears only the current selection; it does not delete points. The per-row trash button and **Delete all** ask for confirmation before removing data.
 
-### 2. จัดอันดับเซิร์ฟเวอร์
+### Rank server candidates
 
-1. เลือกแท็บ **Server Ranking / จัดอันดับเซิร์ฟเวอร์**
-2. เลือก IP ต้นทางหนึ่งจุด
-3. IP ที่เหลือจะกลายเป็น Server Candidates โดยอัตโนมัติ
-4. ดูอันดับจากตำแหน่งทางภูมิศาสตร์ หรือเพิ่ม Probe URL เพื่อวัด HTTP จริง
-5. เปิดรายละเอียดเพื่อดูคะแนน ระยะทาง เวลา และเหตุผลที่เซิร์ฟเวอร์นั้นได้อันดับ
-6. ส่งออกผลลัพธ์เป็น JSON หรือ CSV ได้เมื่อพร้อม
+1. Open **Server Ranking**.
+2. Choose one IP as the source.
+3. Every other IP in the shared list automatically becomes a candidate.
+4. Review geographic ranking, or add Probe URLs to measure real browser HTTP timing.
+5. Open a result to inspect its score, distance, timing, and ranking evidence.
+6. Export the results as JSON or CSV when ready.
 
-จุดที่อยู่ใกล้ที่สุดอาจไม่ใช่จุดที่ตอบสนองเร็วที่สุด โหมด Demo เตรียมตัวอย่างสำหรับแสดงความแตกต่างนี้ไว้แล้ว
+The nearest server is not always the fastest. The bundled demo includes a scenario that makes this difference easy to demonstrate.
 
-## การนำเข้า CSV
+## CSV import
 
-ลำดับคอลัมน์ไม่ตายตัว ระบบอ่านจากชื่อ Header และแสดงหน้าตรวจสอบก่อนนำเข้าจริง
+Column order is flexible. The importer identifies columns by their headers and shows a review screen before any lookup begins.
 
-คอลัมน์ที่ใช้ได้:
-
-| ประเภท | ชื่อ Header ที่รองรับ | การใช้งาน |
+| Type | Accepted headers | Use |
 |---|---|---|
-| IP หรือ Hostname | `target`, `ip`, `ip_address`, `address`, `hostname`, `host` | จำเป็นต้องมีหนึ่งคอลัมน์ |
-| Probe URL | `probe_url`, `probe`, `health_url` | ไม่บังคับ |
-| ข้อมูลอ้างอิง | ประเทศ เมือง Region, Latitude, Longitude, ISP, ASN, Usage Type, Timezone | แสดงใน Preview เท่านั้น |
+| IP or hostname | `target`, `ip`, `ip_address`, `address`, `hostname`, `host` | Exactly one is required |
+| Probe URL | `probe_url`, `probe`, `health_url` | Optional |
+| Reference metadata | Country, city, region, latitude, longitude, ISP, ASN, usage type, timezone | Preview only |
 
-ตัวอย่างพื้นฐาน:
+Minimal example:
 
 ```csv
 target,probe_url
 dns.google,https://dns.google/resolve?name=example.com&type=A
 ```
 
-ตัวอย่างที่มีคอลัมน์อ้างอิงและเรียง IP ไว้ท้ายสุด:
+The required IP column may appear anywhere:
 
 ```csv
 country_name,city_name,ip
@@ -92,93 +90,93 @@ Thailand,Bangkok,203.144.207.29
 Singapore,Singapore,165.21.83.88
 ```
 
-ก่อนกด Import หน้า Preview จะแสดงบทบาทของแต่ละคอลัมน์ ตัวอย่างสามแถวแรก จำนวนแถวที่ผ่าน/ไม่ผ่าน และเลขแถวที่ต้องแก้ การตรวจไฟล์ขั้นนี้เกิดในเบราว์เซอร์และยังไม่ส่ง Lookup ไปยัง IP2Location
+The review screen shows each detected column role, the first three rows, valid and invalid counts, and the exact row numbers that need attention. File inspection occurs locally in the browser and does not contact IP2Location.
 
-- รองรับสูงสุด 200 รายการที่ไม่ซ้ำต่อครั้ง
-- ขนาดไฟล์สูงสุด 1 MiB
-- รายการเดิมจะถูกรวมโดยไม่สร้าง IP ซ้ำ
-- หากนำเข้า Probe URL ให้รายการเดิม ระบบจะอัปเดต Probe และล้างผลวัดเก่า
-- คอลัมน์ประเทศและตำแหน่งใน CSV เป็นข้อมูลอ้างอิง ตำแหน่งจริงจะตรวจใหม่ด้วย IP2Location ตอน Import
+- Maximum 200 unique entries per import
+- Maximum file size: 1 MiB
+- Existing addresses are merged instead of duplicated
+- Importing a Probe URL for an existing address updates its configuration and clears its old measurement
+- Location columns are reference-only; live geography is verified with IP2Location during import
 
-ไฟล์ทดลอง: [ip-list.csv](sample-data/ip-list.csv) และ [endpoints.csv](sample-data/endpoints.csv)
+Try [ip-list.csv](sample-data/ip-list.csv) or [endpoints.csv](sample-data/endpoints.csv).
 
-## เปิดใช้ IP2Location API จริง
+## Enable live IP2Location lookups
 
-API Key ถูกใช้งานฝั่ง Server เท่านั้น ไม่ถูกฝังใน Frontend Bundle
+The API key is used only on the server and is not embedded in the frontend bundle.
 
 ### Windows
 
-ดับเบิลคลิก `START-LIVE.bat` แล้ววาง IP2Location.io API Key เมื่อโปรแกรมถาม ระบบจะบันทึก Key ไว้ใน `.env.local` บนเครื่องนี้
+Double-click `START-LIVE.bat` and paste the IP2Location.io API key when prompted. The launcher stores it in the local `.env.local` file.
 
-### ตั้งค่าด้วยตนเอง
+### Manual setup
 
-สร้างไฟล์ `.env.local`:
+Create `.env.local`:
 
 ```env
 IP2LOCATION_API_KEY=YOUR_KEY
 VITE_DEMO_MODE=false
 ```
 
-จากนั้น Restart Development Server
+Restart the development server after changing the file.
 
-> อย่าเติม `VITE_` หน้า API Key และอย่า Commit `.env.local` ขึ้น Repository เพราะตัวแปรที่ขึ้นต้นด้วย `VITE_` สามารถถูกส่งเข้า Frontend ได้
+> Never prefix the API key with `VITE_`, and never commit `.env.local`. Variables beginning with `VITE_` can be included in the frontend bundle.
 
-ปุ่ม **Add current IP** จะตรวจ Public IP ของการเชื่อมต่อเมื่อผู้ใช้กดเท่านั้น บน Localhost ระบบใช้ Public Egress IP ของเครื่องที่รัน Development Server ส่วนบน Netlify ใช้ Connection IP ที่ Platform ส่งให้ VPN, Proxy และ NAT อาจทำให้ IP หรือตำแหน่งที่แสดงเปลี่ยนไป
+**Add current IP** runs only when the user presses it. On localhost, the server detects the development computer's public egress IP. On Netlify, it uses the platform-provided connection IP. VPNs, proxies, and NAT can change the detected address or location.
 
-## การวัด HTTP จริง
+## Measure real HTTP responses
 
-ใช้เฉพาะ HTTPS Endpoint ที่คุณเป็นเจ้าของหรือได้รับอนุญาตให้ทดสอบ
+Only test HTTPS endpoints that you own or are authorized to use.
 
-1. เพิ่ม Hostname/IP ของเซิร์ฟเวอร์
-2. ใส่ Public HTTPS Probe URL ที่ Host ตรงกับ Candidate
-3. กด **Save & measure** หรือ **Measure configured URLs**
-4. ระบบส่ง GET จำนวน 3 ครั้งและใช้ค่ามัธยฐานของเวลาจนได้รับ Response Headers
+1. Add the server's hostname or IP.
+2. Enter a public HTTPS Probe URL whose host matches that candidate.
+3. Select **Save & measure** or **Measure configured URLs**.
+4. The app sends three GET requests and uses the median time to response headers.
 
-Endpoint ควรตอบ `200` หรือ `204`, รองรับ CORS และมี Response ขนาดเล็ก ตัวอย่าง Worker อยู่ที่ [probe-worker.js](examples/probe-worker.js)
+An ideal endpoint returns `200` or `204`, allows CORS, and has a small response. See [probe-worker.js](examples/probe-worker.js) for an example.
 
-เวลาที่แสดงอาจรวม DNS, TCP/TLS และการประมวลผลของ Server จึงไม่ใช่ ICMP Ping และไม่ใช่ Traceroute การเชื่อมต่อไม่สำเร็จอาจเกิดจาก CORS, TLS หรือนโยบายเครือข่าย และไม่ได้ยืนยันว่า Server Offline
+The reported time can include DNS, TCP/TLS, and server processing. It is not ICMP ping or traceroute. A failed browser request may indicate CORS, TLS, or network policy—not necessarily an offline server.
 
-## คะแนนคำนวณอย่างไร
+## How scoring works
 
-| โหมด | สัญญาณหลัก 80% | สัญญาณเสริม 20% |
+| Mode | Primary signal (80%) | Secondary signal (20%) |
 |---|---|---|
-| Geographic Fit | ระยะทาง Great-circle | ความเหมาะสมของ Network Type |
-| Browser HTTP | Median HTTP Response Time ที่วัดสำเร็จ | ความเหมาะสมของ Network Type |
-| Simulated HTTP | ค่า HTTP จำลองที่ติดป้ายชัดเจน | ความเหมาะสมของ Network Type |
+| Geographic Fit | Great-circle distance | Network-type preference |
+| Browser HTTP | Successful requests' median response time | Network-type preference |
+| Simulated HTTP | Clearly labelled synthetic HTTP time | Network-type preference |
 
-คะแนน 0–100 เป็น Heuristic ของโปรเจกต์ ไม่ใช่เปอร์เซ็นต์ความเร็ว ความน่าจะเป็น หรือผลรับรองประสิทธิภาพ หากไม่มี HTTP Request ที่สำเร็จ ระบบจะไม่สร้าง HTTP Rank ขึ้นมาเอง
+Scores from 0–100 are project heuristics, not speed percentages, probabilities, or validated performance predictions. Without a successful HTTP request, the app does not create an HTTP rank.
 
-ดูสมการ ข้อสมมติ และข้อจำกัดทั้งหมดได้ที่ [ALGORITHM.md](docs/ALGORITHM.md)
+See [ALGORITHM.md](docs/ALGORITHM.md) for the complete equations, assumptions, and limitations.
 
-## ภาพรวมระบบ
+## Architecture
 
 ```mermaid
 flowchart LR
-  A[Vue + Leaflet UI] --> B[Local middleware หรือ Netlify Functions]
+  A[Vue + Leaflet UI] --> B[Local middleware or Netlify Functions]
   B --> C[DNS resolution]
   B --> D[IP2Location.io]
   A --> E[Authorized HTTPS probe]
-  D --> F[ตำแหน่งและข้อมูลเครือข่าย]
+  D --> F[Location and network evidence]
   E --> G[Browser HTTP timing]
-  F --> H[เปรียบเทียบและจัดอันดับ]
+  F --> H[Comparison and ranking]
   G --> H
 ```
 
-| ส่วน | หน้าที่ |
+| Path | Purpose |
 |---|---|
-| `src/` | Vue UI, แผนที่, Import และ Ranking Logic |
-| `server/` | API Middleware สำหรับ Local Development |
-| `netlify/functions/` | Serverless Lookup และ Current-IP Endpoint |
-| `sample-data/` | CSV สำหรับทดลอง Import |
-| `scripts/` | Automated Checks และเครื่องมือช่วยเริ่มระบบ |
-| `docs/` | Algorithm, Demo Guide, Validation และ Release Checklist |
+| `src/` | Vue UI, map, import, and ranking logic |
+| `server/` | API middleware for local development |
+| `netlify/functions/` | Serverless lookup and current-IP endpoints |
+| `sample-data/` | CSV import examples |
+| `scripts/` | Automated checks and local launch helpers |
+| `docs/` | Algorithm, demo, validation, and release documentation |
 
-## Deploy บน Netlify
+## Deploy to Netlify
 
-1. Push Source Code ขึ้น GitHub โดยไม่รวม `.env.local`, `.env`, `node_modules` และ Secrets
-2. เชื่อม Repository กับ Netlify
-3. เพิ่ม Environment Variable ชื่อ `IP2LOCATION_API_KEY`
-4. Deploy ด้วยค่าที่กำหนดไว้ใน `netlify.toml`
+1. Push the source to GitHub without `.env.local`, `.env`, `node_modules`, or other secrets.
+2. Connect the repository to Netlify.
+3. Add the server-side environment variable `IP2LOCATION_API_KEY`.
+4. Deploy using the included `netlify.toml` configuration.
 
 | Setting | Value |
 |---|---|
@@ -186,22 +184,22 @@ flowchart LR
 | Publish directory | `dist` |
 | Functions directory | `netlify/functions` |
 
-Serverless Functions มี Rate Limit ต่อผู้ใช้และ Domain: Lookup 60 ครั้ง/นาที และ Current IP 20 ครั้ง/นาที รวมถึง Cache ผลสำเร็จ 15 นาทีสูงสุด 500 รายการต่อ Warm Instance ควรตรวจ Deployment Log ว่า Netlify เปิดใช้กฎทั้งสองรายการ และติดตามโควตา IP2Location หลังเปิด Public Demo
+The serverless functions declare per-visitor/domain limits of 60 lookups per minute and 20 current-IP requests per minute. Successful results use a 15-minute cache with up to 500 entries per warm instance. Verify both rate-limit rules in the Netlify deployment log and monitor the IP2Location quota after publishing the demo.
 
-Static Hosting อย่าง GitHub Pages เพียงอย่างเดียวไม่สามารถรัน Lookup Functions ที่รวมมากับโปรเจกต์นี้ได้
+Static-only hosting such as GitHub Pages cannot run the included lookup functions.
 
-## ตรวจสอบก่อนส่งประกวด
+## Verify before contest submission
 
 ```bash
 npm run check
 npm run build
 ```
 
-บน Windows สามารถใช้ `CHECK-CONTEST-READY.bat` เพื่อรันทั้งสองคำสั่ง ปัจจุบัน Test Suite มี 45 Tests ครอบคลุม Ranking, CSV Import, IPv6 Deduplication, Current-IP Validation, API Progress, Accessibility Wiring, Secret Redaction, Cache และ Rate Limit
+On Windows, `CHECK-CONTEST-READY.bat` runs both commands. The current suite contains 45 tests covering ranking, CSV import, IPv6 deduplication, current-IP validation, API progress, accessibility wiring, secret redaction, caching, and rate limits.
 
-Automated Tests ใช้ Mock สำหรับ HTTP, DNS และ Upstream API จึงยังต้องตรวจ Live API, Public Deployment, Layout จริง และ Netlify Rate-Limit Activation ด้วยตนเองก่อนส่ง
+HTTP, DNS, and upstream API tests use mocks. Before submission, manually verify the live API, public deployment, rendered layout, and Netlify rate-limit activation.
 
-เอกสารสำหรับการประกวด:
+Contest documentation:
 
 - [90-second demo guide](docs/DEMO-GUIDE.md)
 - [Submission copy](docs/SUBMISSION.md)
@@ -209,17 +207,17 @@ Automated Tests ใช้ Mock สำหรับ HTTP, DNS และ Upstream A
 - [Validation record](docs/VALIDATION.md)
 - [Changelog](CHANGELOG.md)
 
-## Privacy และข้อจำกัด
+## Privacy and limitations
 
-- ตำแหน่ง IP เป็นค่าประมาณ ไม่ใช่ GPS และ Anycast IP อาจชี้ไปยังตำแหน่งเครือข่ายที่ต่างกัน
-- เส้นบนแผนที่แสดงความสัมพันธ์เชิงภูมิศาสตร์ ไม่ใช่เส้นทาง Packet
-- การวัด HTTP เกิดจากเบราว์เซอร์ที่เปิดแอป ไม่ใช่จาก IP ต้นทางที่เลือกบนแผนที่
-- IP/Hostname ที่ Lookup จะผ่าน App Server และ IP ที่ Resolve แล้วจะถูกส่งไปยัง IP2Location
-- Probe ที่ผู้ใช้สั่งวัดจะถูกเรียกจากเบราว์เซอร์ และปลายทางจะเห็น Network Address ของเบราว์เซอร์
-- รายการ IP และผลวัดอยู่ในหน่วยความจำของหน้าเว็บและหายเมื่อ Reload มีเพียงการตั้งค่าภาษา ธีม และ Workspace ที่เก็บใน `localStorage`
-- Map Tiles จาก OpenStreetMap และ Fonts จาก Google Fonts มีการเชื่อมต่อภายนอกตามปกติ
+- IP geolocation is approximate, not GPS; Anycast addresses may resolve to different network locations.
+- Lines on the map show geographic relationships, not packet routes.
+- HTTP timing comes from the browser running the app, not from the source IP selected on the map.
+- IPs and hostnames submitted for lookup pass through the app server; resolved IPs are sent to IP2Location.
+- A requested probe is contacted by the browser and can see the browser's network address.
+- The IP list and measurements live in page memory and reset on reload. Only language, theme, and workspace preferences use `localStorage`.
+- OpenStreetMap tiles and Google Fonts make ordinary external requests.
 
-## License และ Attribution
+## License and attribution
 
 [MIT License](LICENSE) © 2026 Krittamet Thawong
 
