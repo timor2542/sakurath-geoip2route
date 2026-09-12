@@ -118,18 +118,22 @@ Scores from 0–100 are project heuristics, not speed percentages, probabilities
 
 See [ALGORITHM.md](docs/ALGORITHM.md) for the complete equations, assumptions, and limitations.
 
-## Architecture
+## Architecture and data flow
+
+The application combines two independent sources of evidence. Location lookups pass through the server-side API so the IP2Location key remains private, while authorized HTTPS timing runs directly in the user's browser. Both results return to the Vue interface for comparison and ranking.
 
 ```mermaid
-flowchart LR
-  A[Vue + Leaflet UI] --> B[Local middleware or Netlify Functions]
-  B --> C[DNS resolution]
-  B --> D[IP2Location.io]
-  A --> E[Authorized HTTPS probe]
-  D --> F[Location and network evidence]
-  E --> G[Browser HTTP timing]
-  F --> H[Comparison and ranking]
-  G --> H
+flowchart TB
+  UI[Vue + Leaflet UI]
+  UI --> API[Local middleware or Netlify Functions]
+  API --> DNS[DNS resolution for hostnames]
+  API --> IP2[IP2Location.io]
+  DNS --> IP2
+  IP2 --> GEO[Location and network evidence]
+  UI --> PROBE[Authorized HTTPS probe]
+  PROBE --> HTTP[Browser HTTP timing]
+  GEO --> RESULT[Comparison and ranking in the UI]
+  HTTP --> RESULT
 ```
 
 | Path | Purpose |
@@ -143,10 +147,7 @@ flowchart LR
 
 ## Deploy to Netlify
 
-1. Push the source to GitHub without `.env.local`, `.env`, `node_modules`, or other secrets.
-2. Connect the repository to Netlify.
-3. Add the server-side environment variable `IP2LOCATION_API_KEY`.
-4. Deploy using the included `netlify.toml` configuration.
+The repository includes a ready-to-use `netlify.toml`. Connect the repository, add `IP2LOCATION_API_KEY` as a server-side environment variable, and deploy with these settings:
 
 | Setting | Value |
 |---|---|
@@ -154,7 +155,7 @@ flowchart LR
 | Publish directory | `dist` |
 | Functions directory | `netlify/functions` |
 
-The serverless functions declare per-visitor/domain limits of 60 lookups per minute and 20 current-IP requests per minute. Successful results use a 15-minute cache with up to 500 entries per warm instance. Verify both rate-limit rules in the Netlify deployment log and monitor the IP2Location quota after publishing the app.
+Do not commit `.env`, `.env.local`, `node_modules`, API keys, or other secrets. Production checks for rate limits, caching, and quota monitoring are listed in the [release checklist](docs/RELEASE-CHECKLIST.md).
 
 Static-only hosting such as GitHub Pages cannot run the included lookup functions.
 
@@ -165,17 +166,14 @@ npm run check
 npm run build
 ```
 
-The current suite contains 45 tests covering ranking, CSV import, IPv6 deduplication, current-IP validation, API progress, accessibility wiring, secret redaction, caching, and rate limits.
+Run both commands before submitting. The automated suite currently contains 45 tests; HTTP, DNS, and upstream API checks use mocks, so the live deployment still requires manual review.
 
-HTTP, DNS, and upstream API tests use mocks. Before submission, manually verify the live API, public deployment, rendered layout, and Netlify rate-limit activation.
-
-Contest documentation:
+Supporting documents:
 
 - [Detailed user guide and screenshot script](docs/USER-GUIDE.md)
-- [Documentation index](docs/README.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)
 - [Validation record](docs/VALIDATION.md)
-- [Changelog](CHANGELOG.md)
+- [Documentation index](docs/README.md)
 
 ## Privacy and limitations
 
