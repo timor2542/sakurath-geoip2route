@@ -37,6 +37,8 @@ npm run dev
 
 ## How to use it
 
+The left panel puts the main actions first in this order: **Add current IP**, **Update list from IP2Location**, **ADD IPs TO THE LIST**, and **MAP POINTS** (or **ALL IP POINTS** in Server Ranking). The two optional demo controls are below the working sections.
+
 ### Compare two IPs
 
 1. Open **IP Compare**.

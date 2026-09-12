@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Reordered the single left panel so current-IP detection, live refresh, IP addition/import, and point selection appear before the optional demo controls; updated the English and Thai documentation to match.
 - Fixed the 360–390 px header overflow with compact mobile branding, 44 px controls and a single theme-cycle button.
 - Mobile demo runs now reveal and focus the recommended-server result instead of leaving it several screens below the IP list.
 - Added accessible modal semantics, initial/return focus, Tab containment and Escape dismissal for Help and bulk import.

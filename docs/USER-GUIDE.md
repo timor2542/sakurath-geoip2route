@@ -22,7 +22,7 @@ The app is not a traceroute tool, ICMP ping tool, load balancer, or automatic ro
 The desktop workspace has four main areas:
 
 1. The header contains the reference date and time, Refresh, Help, language, and theme controls.
-2. The left panel selects a mode, adds/imports IPs, and selects A/B or the reference IP.
+2. The left panel selects a mode and puts the main actions first: **Add current IP**, **Update list from IP2Location**, **ADD IPs TO THE LIST**, and **MAP POINTS** (or **ALL IP POINTS** in Server Ranking). Optional demo controls are at the bottom of this panel.
 3. The center map shows markers, a grid, a distance scale that changes with zoom, and map controls.
 4. The right panel shows the comparison or ranking result.
 
@@ -39,7 +39,7 @@ Marker and data labels:
 - `SAMPLE`: bundled example location
 - `SIMULATED`: test data that is clearly marked
 
-> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, control panel, map, result panel, and Activity Console.
+> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, control panel, map, result panel, and Activity Console. In the left panel, show the order from Add current IP to Map Points.
 
 ![Mobile workspace overview showing the map, markers, scale, language and theme controls](guide-start.jpg)
 
@@ -66,6 +66,8 @@ The first list contains eight sample locations. You can use them to try markers,
 **Try Demo — Simulated Data** adds a separate test set and opens Server Ranking. It shows why the nearest and fastest servers may be different. The app marks test data as simulated and does not mix it with real browser results.
 
 **Load Live Test Example** puts a `target,probe_url` example in the import window. The user must still start the lookup and HTTP test.
+
+Both demo controls are below the main IP and point controls in the left panel. Scroll inside the panel to reach them.
 
 ![Quick Guide dialog explaining how to add IPs, compare points, and rank servers](guide-help.jpg)
 

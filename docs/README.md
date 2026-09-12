@@ -6,7 +6,7 @@ This folder contains the technical and contest documents for SakuraTH GeoIP2Rout
 
 | Document | Use it for |
 |---|---|
-| [USER-GUIDE.md](USER-GUIDE.md) | How to use the app and plan 14 screenshots |
+| [USER-GUIDE.md](USER-GUIDE.md) | How to use the app, follow the current left-panel order, and plan 14 screenshots |
 | [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP tests, import limits, and known limits |
 | [../CHANGELOG.md](../CHANGELOG.md) | Version history |
 
