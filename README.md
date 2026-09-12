@@ -118,32 +118,32 @@ Scores from 0–100 are project heuristics, not speed percentages, probabilities
 
 See [ALGORITHM.md](docs/ALGORITHM.md) for the complete equations, assumptions, and limitations.
 
-## Architecture and data flow
+## How the system works
 
-The application combines two independent sources of evidence. Location lookups pass through the server-side API so the IP2Location key remains private, while authorized HTTPS timing runs directly in the user's browser. Both results return to the Vue interface for comparison and ranking.
+GeoIP2Route uses two separate data paths. Location requests go through the app server, so the IP2Location API key is not exposed in the browser. Approved HTTPS tests run in the user's browser. The app then uses both results to compare and rank servers.
 
 ```mermaid
 flowchart TB
-  UI[Vue + Leaflet UI]
-  UI --> API[Local middleware or Netlify Functions]
-  API --> DNS[DNS resolution for hostnames]
+  UI[App screen: Vue and Leaflet]
+  UI --> API[App server: local API or Netlify Functions]
+  API --> DNS[Find the IP for a hostname]
   API --> IP2[IP2Location.io]
   DNS --> IP2
-  IP2 --> GEO[Location and network evidence]
-  UI --> PROBE[Authorized HTTPS probe]
-  PROBE --> HTTP[Browser HTTP timing]
-  GEO --> RESULT[Comparison and ranking in the UI]
+  IP2 --> GEO[Location and network data]
+  UI --> PROBE[Approved HTTPS test]
+  PROBE --> HTTP[HTTP response time]
+  GEO --> RESULT[Compare and rank servers]
   HTTP --> RESULT
 ```
 
 | Path | Purpose |
 |---|---|
-| `src/` | Vue UI, map, import, and ranking logic |
-| `server/` | API middleware for local development |
-| `netlify/functions/` | Serverless lookup and current-IP endpoints |
-| `sample-data/` | CSV import examples |
-| `scripts/` | Automated checks and local launch helpers |
-| `docs/` | Algorithm, validation, and release documentation |
+| `src/` | App screen, map, file import, and ranking |
+| `server/` | Local API server for development |
+| `netlify/functions/` | Online functions for IP lookups and current-IP detection |
+| `sample-data/` | Example CSV files |
+| `scripts/` | Tests and local start tools |
+| `docs/` | Technical documents and user guides |
 
 ## Privacy and limitations
 
