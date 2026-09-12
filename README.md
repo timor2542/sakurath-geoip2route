@@ -21,27 +21,19 @@ GeoIP2Route continues [SakuraTH GeoIP2Map](https://github.com/timor2542/sakurath
 - Exports ranking evidence as JSON or CSV
 - Includes an in-page Activity Console for the current browser session
 - Supports English/Thai, light/dark themes, and keyboard navigation
-- Includes a no-key simulated demo
 
-## Quick start
-
-### Windows: run the demo
+## Quick start (live mode)
 
 1. Install [Node.js](https://nodejs.org/) `20.19+` or `22.12+`.
-2. Double-click `START-DEMO.bat`.
-3. Wait for the dependencies to install and the browser to open.
-4. Select **Try Demo — Simulated Data**.
-
-The bundled demo does not require an IP2Location API key. The first dependency installation, OpenStreetMap tiles, and Google Fonts still require internet access.
-
-### Terminal
-
+2. Install the dependencies:
 ```bash
 npm ci
+```
+3. Start the app:
+```bash
 npm run dev
 ```
-
-Open the local URL printed by Vite, usually `http://localhost:5173/`. Vite automatically chooses another port when that port is busy.
+4. Open the local URL printed by Vite, usually `http://localhost:5173/`. Vite automatically chooses another port when that port is busy.
 
 ## How to use it
 
@@ -63,7 +55,7 @@ Open the local URL printed by Vite, usually `http://localhost:5173/`. Vite autom
 5. Open a result to inspect its score, distance, timing, and ranking evidence.
 6. Export the results as JSON or CSV when ready.
 
-The nearest server is not always the fastest. The bundled demo includes a scenario that makes this difference easy to demonstrate.
+The nearest server is not always the fastest. Compare both ranking views when you need to choose between geographic fit and observed browser response time.
 
 ## CSV import
 
@@ -100,27 +92,6 @@ The review screen shows each detected column role, the first three rows, valid a
 
 Try [ip-list.csv](sample-data/ip-list.csv) or [endpoints.csv](sample-data/endpoints.csv).
 
-## Enable live IP2Location lookups
-
-The API key is used only on the server and is not embedded in the frontend bundle.
-
-### Windows
-
-Double-click `START-LIVE.bat` and paste the IP2Location.io API key when prompted. The launcher stores it in the local `.env.local` file.
-
-### Manual setup
-
-Create `.env.local`:
-
-```env
-IP2LOCATION_API_KEY=YOUR_KEY
-VITE_DEMO_MODE=false
-```
-
-Restart the development server after changing the file.
-
-> Never prefix the API key with `VITE_`, and never commit `.env.local`. Variables beginning with `VITE_` can be included in the frontend bundle.
-
 **Add current IP** runs only when the user presses it. On localhost, the server detects the development computer's public egress IP. On Netlify, it uses the platform-provided connection IP. VPNs, proxies, and NAT can change the detected address or location.
 
 ## Measure real HTTP responses
@@ -142,7 +113,6 @@ The reported time can include DNS, TCP/TLS, and server processing. It is not ICM
 |---|---|---|
 | Geographic Fit | Great-circle distance | Network-type preference |
 | Browser HTTP | Successful requests' median response time | Network-type preference |
-| Simulated HTTP | Clearly labelled synthetic HTTP time | Network-type preference |
 
 Scores from 0–100 are project heuristics, not speed percentages, probabilities, or validated performance predictions. Without a successful HTTP request, the app does not create an HTTP rank.
 
@@ -169,7 +139,7 @@ flowchart LR
 | `netlify/functions/` | Serverless lookup and current-IP endpoints |
 | `sample-data/` | CSV import examples |
 | `scripts/` | Automated checks and local launch helpers |
-| `docs/` | Algorithm, demo, validation, and release documentation |
+| `docs/` | Algorithm, validation, and release documentation |
 
 ## Deploy to Netlify
 
@@ -184,7 +154,7 @@ flowchart LR
 | Publish directory | `dist` |
 | Functions directory | `netlify/functions` |
 
-The serverless functions declare per-visitor/domain limits of 60 lookups per minute and 20 current-IP requests per minute. Successful results use a 15-minute cache with up to 500 entries per warm instance. Verify both rate-limit rules in the Netlify deployment log and monitor the IP2Location quota after publishing the demo.
+The serverless functions declare per-visitor/domain limits of 60 lookups per minute and 20 current-IP requests per minute. Successful results use a 15-minute cache with up to 500 entries per warm instance. Verify both rate-limit rules in the Netlify deployment log and monitor the IP2Location quota after publishing the app.
 
 Static-only hosting such as GitHub Pages cannot run the included lookup functions.
 
@@ -195,13 +165,12 @@ npm run check
 npm run build
 ```
 
-On Windows, `CHECK-CONTEST-READY.bat` runs both commands. The current suite contains 45 tests covering ranking, CSV import, IPv6 deduplication, current-IP validation, API progress, accessibility wiring, secret redaction, caching, and rate limits.
+The current suite contains 45 tests covering ranking, CSV import, IPv6 deduplication, current-IP validation, API progress, accessibility wiring, secret redaction, caching, and rate limits.
 
 HTTP, DNS, and upstream API tests use mocks. Before submission, manually verify the live API, public deployment, rendered layout, and Netlify rate-limit activation.
 
 Contest documentation:
 
-- [90-second demo guide](docs/DEMO-GUIDE.md)
 - [Submission copy](docs/SUBMISSION.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)
 - [Validation record](docs/VALIDATION.md)

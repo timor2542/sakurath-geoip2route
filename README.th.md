@@ -2,13 +2,13 @@
 
 [English](README.md) | **ภาษาไทย**
 
-> Explainable Geo-Aware Server Ranking
+> การจัดอันดับเซิร์ฟเวอร์จากข้อมูลภูมิศาสตร์แบบอธิบายได้
 
 เว็บแอปสองภาษา (ไทย/อังกฤษ) สำหรับเปรียบเทียบตำแหน่งของ IP และช่วยจัดอันดับเซิร์ฟเวอร์ โดยใช้ข้อมูลจาก IP2Location.io พร้อมแยก **ระยะทางบนแผนที่** ออกจาก **เวลา HTTP ที่วัดจากเบราว์เซอร์** อย่างชัดเจน
 
 พัฒนาสำหรับ **IP2Location Programming Contest 2026** · เวอร์ชัน **1.8.0**
 
-**English summary:** Compare IPv4/IPv6 locations, rank server candidates by geographic fit, optionally measure authorized HTTPS endpoints from the browser, inspect the score evidence, and export the results. Geographic distance is never presented as measured network latency.
+**สรุป:** เปรียบเทียบตำแหน่ง IPv4/IPv6 จัดอันดับเซิร์ฟเวอร์ตามความเหมาะสมทางภูมิศาสตร์ วัดเวลา HTTPS จากเบราว์เซอร์เมื่อได้รับอนุญาต ตรวจสอบที่มาของคะแนน และส่งออกผลลัพธ์ โดยไม่แสดงระยะทางทางภูมิศาสตร์เป็นค่าเวลาเครือข่ายที่วัดจริง
 
 โปรเจกต์นี้ต่อยอดจาก [SakuraTH GeoIP2Map](https://github.com/timor2542/sakurath-geoip2map) ซึ่งแสดงตำแหน่งของ IP เดียว ส่วน GeoIP2Route เพิ่มการเปรียบเทียบ A/B และการจัดอันดับเซิร์ฟเวอร์หลายตัว คำว่า “Route” ในที่นี้หมายถึงการเลือกเซิร์ฟเวอร์ที่เหมาะสม ไม่ใช่การค้นหา Router Hop หรือเปลี่ยนเส้นทางเครือข่าย
 
@@ -23,27 +23,19 @@
 - ส่งออกผลการจัดอันดับเป็น JSON และ CSV
 - มี Activity Console สำหรับติดตามการทำงานใน Browser Session
 - รองรับภาษาไทย/อังกฤษ ธีมสว่าง/มืด และการใช้งานด้วยคีย์บอร์ด
-- มีโหมด Demo ที่ใช้งานได้โดยไม่ต้องมี API Key
 
-## เริ่มใช้งานแบบเร็วที่สุด
-
-### Windows: ทดลอง Demo
+## เริ่มใช้งาน (Live mode)
 
 1. ติดตั้ง [Node.js](https://nodejs.org/) รุ่น `20.19+` หรือ `22.12+`
-2. ดับเบิลคลิก `START-DEMO.bat`
-3. รอให้ติดตั้ง Dependencies และเปิดหน้าเว็บ
-4. กด **Try Demo — Simulated Data / ลองเดโม — ข้อมูลจำลอง**
-
-Demo มีข้อมูลตัวอย่างในตัวและไม่ต้องใช้ IP2Location API Key แต่การติดตั้งครั้งแรก แผนที่ OpenStreetMap และ Google Fonts ต้องเชื่อมต่ออินเทอร์เน็ต
-
-### Terminal
-
+2. ติดตั้ง Dependencies:
 ```bash
 npm ci
+```
+3. เริ่มระบบ:
+```bash
 npm run dev
 ```
-
-เปิด Local URL ที่ Vite แสดงใน Terminal เช่น `http://localhost:5173/` หาก Port นี้ถูกใช้งานอยู่ Vite จะเลือก Port อื่นให้อัตโนมัติ
+4. เปิด Local URL ที่ Vite แสดงใน Terminal เช่น `http://localhost:5173/` หาก Port นี้ถูกใช้งานอยู่ Vite จะเลือก Port อื่นให้อัตโนมัติ
 
 ## วิธีใช้งาน
 
@@ -65,7 +57,7 @@ npm run dev
 5. เปิดรายละเอียดเพื่อดูคะแนน ระยะทาง เวลา และเหตุผลที่เซิร์ฟเวอร์นั้นได้อันดับ
 6. ส่งออกผลลัพธ์เป็น JSON หรือ CSV ได้เมื่อพร้อม
 
-จุดที่อยู่ใกล้ที่สุดอาจไม่ใช่จุดที่ตอบสนองเร็วที่สุด โหมด Demo เตรียมตัวอย่างสำหรับแสดงความแตกต่างนี้ไว้แล้ว
+จุดที่อยู่ใกล้ที่สุดอาจไม่ใช่จุดที่ตอบสนองเร็วที่สุด ควรดูทั้ง Geographic Fit และเวลา HTTP ที่วัดจากเบราว์เซอร์ก่อนเลือกเซิร์ฟเวอร์
 
 ## การนำเข้า CSV
 
@@ -104,27 +96,6 @@ Singapore,Singapore,165.21.83.88
 
 ไฟล์ทดลอง: [ip-list.csv](sample-data/ip-list.csv) และ [endpoints.csv](sample-data/endpoints.csv)
 
-## เปิดใช้ IP2Location API จริง
-
-API Key ถูกใช้งานฝั่ง Server เท่านั้น ไม่ถูกฝังใน Frontend Bundle
-
-### Windows
-
-ดับเบิลคลิก `START-LIVE.bat` แล้ววาง IP2Location.io API Key เมื่อโปรแกรมถาม ระบบจะบันทึก Key ไว้ใน `.env.local` บนเครื่องนี้
-
-### ตั้งค่าด้วยตนเอง
-
-สร้างไฟล์ `.env.local`:
-
-```env
-IP2LOCATION_API_KEY=YOUR_KEY
-VITE_DEMO_MODE=false
-```
-
-จากนั้น Restart Development Server
-
-> อย่าเติม `VITE_` หน้า API Key และอย่า Commit `.env.local` ขึ้น Repository เพราะตัวแปรที่ขึ้นต้นด้วย `VITE_` สามารถถูกส่งเข้า Frontend ได้
-
 ปุ่ม **Add current IP** จะตรวจ Public IP ของการเชื่อมต่อเมื่อผู้ใช้กดเท่านั้น บน Localhost ระบบใช้ Public Egress IP ของเครื่องที่รัน Development Server ส่วนบน Netlify ใช้ Connection IP ที่ Platform ส่งให้ VPN, Proxy และ NAT อาจทำให้ IP หรือตำแหน่งที่แสดงเปลี่ยนไป
 
 ## การวัด HTTP จริง
@@ -146,7 +117,6 @@ Endpoint ควรตอบ `200` หรือ `204`, รองรับ CORS �
 |---|---|---|
 | Geographic Fit | ระยะทาง Great-circle | ความเหมาะสมของ Network Type |
 | Browser HTTP | Median HTTP Response Time ที่วัดสำเร็จ | ความเหมาะสมของ Network Type |
-| Simulated HTTP | ค่า HTTP จำลองที่ติดป้ายชัดเจน | ความเหมาะสมของ Network Type |
 
 คะแนน 0–100 เป็น Heuristic ของโปรเจกต์ ไม่ใช่เปอร์เซ็นต์ความเร็ว ความน่าจะเป็น หรือผลรับรองประสิทธิภาพ หากไม่มี HTTP Request ที่สำเร็จ ระบบจะไม่สร้าง HTTP Rank ขึ้นมาเอง
 
@@ -173,7 +143,7 @@ flowchart LR
 | `netlify/functions/` | Serverless Lookup และ Current-IP Endpoint |
 | `sample-data/` | CSV สำหรับทดลอง Import |
 | `scripts/` | Automated Checks และเครื่องมือช่วยเริ่มระบบ |
-| `docs/` | Algorithm, Demo Guide, Validation และ Release Checklist |
+| `docs/` | Algorithm, Validation และ Release Checklist |
 
 ## Deploy บน Netlify
 
@@ -188,7 +158,7 @@ flowchart LR
 | Publish directory | `dist` |
 | Functions directory | `netlify/functions` |
 
-Serverless Functions มี Rate Limit ต่อผู้ใช้และ Domain: Lookup 60 ครั้ง/นาที และ Current IP 20 ครั้ง/นาที รวมถึง Cache ผลสำเร็จ 15 นาทีสูงสุด 500 รายการต่อ Warm Instance ควรตรวจ Deployment Log ว่า Netlify เปิดใช้กฎทั้งสองรายการ และติดตามโควตา IP2Location หลังเปิด Public Demo
+Serverless Functions มี Rate Limit ต่อผู้ใช้และ Domain: Lookup 60 ครั้ง/นาที และ Current IP 20 ครั้ง/นาที รวมถึง Cache ผลสำเร็จ 15 นาทีสูงสุด 500 รายการต่อ Warm Instance ควรตรวจ Deployment Log ว่า Netlify เปิดใช้กฎทั้งสองรายการ และติดตามโควตา IP2Location หลังเปิดแอป
 
 Static Hosting อย่าง GitHub Pages เพียงอย่างเดียวไม่สามารถรัน Lookup Functions ที่รวมมากับโปรเจกต์นี้ได้
 
@@ -199,13 +169,12 @@ npm run check
 npm run build
 ```
 
-บน Windows สามารถใช้ `CHECK-CONTEST-READY.bat` เพื่อรันทั้งสองคำสั่ง ปัจจุบัน Test Suite มี 45 Tests ครอบคลุม Ranking, CSV Import, IPv6 Deduplication, Current-IP Validation, API Progress, Accessibility Wiring, Secret Redaction, Cache และ Rate Limit
+ปัจจุบัน Test Suite มี 45 Tests ครอบคลุม Ranking, CSV Import, IPv6 Deduplication, Current-IP Validation, API Progress, Accessibility Wiring, Secret Redaction, Cache และ Rate Limit
 
 Automated Tests ใช้ Mock สำหรับ HTTP, DNS และ Upstream API จึงยังต้องตรวจ Live API, Public Deployment, Layout จริง และ Netlify Rate-Limit Activation ด้วยตนเองก่อนส่ง
 
 เอกสารสำหรับการประกวด:
 
-- [90-second demo guide](docs/DEMO-GUIDE.md)
 - [Submission copy](docs/SUBMISSION.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)
 - [Validation record](docs/VALIDATION.md)
