@@ -28,7 +28,7 @@
       </div>
       <nav class="top-actions" aria-label="Application controls">
         <button class="header-button text-button" type="button" @click="refreshComparePoints" :disabled="syncingCompare || addingCurrentIp || !compareRefreshTotal" :aria-label="t('refresh')" :title="t('refresh')">
-          <svg class="button-icon" :class="{ spinning: syncingCompare }" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg><span class="optional-label">{{ t('refresh') }}</span>
+          <svg class="button-icon refresh-icon" :class="{ spinning: syncingCompare }" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 12a8.25 8.25 0 1 1-2.42-5.83"/><path class="refresh-arrowhead" d="m21.3 9.1-7-.95 4.15-5.7Z"/></svg><span class="optional-label">{{ t('refresh') }}</span>
         </button>
         <button ref="helpTrigger" class="header-button icon-only-button" type="button" @click="openHelp" :aria-label="t('help')" :title="t('help')"><svg class="button-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.5 2.5 0 1 1 3.2 2.4c-.9.4-1.4 1-1.4 2.1M12 17h.01"/></svg></button>
         <div class="language-slider" :class="{ thai: language === 'th' }" role="group" :aria-label="t('language')">
@@ -119,7 +119,7 @@
               </select>
             </label>
             <button class="sync-button" type="button" @click="refreshComparePoints" :disabled="syncingCompare || addingCurrentIp || !compareRefreshTotal">
-              <svg class="button-icon" :class="{ spinning: syncingCompare }" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+              <svg class="button-icon refresh-icon" :class="{ spinning: syncingCompare }" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 12a8.25 8.25 0 1 1-2.42-5.83"/><path class="refresh-arrowhead" d="m21.3 9.1-7-.95 4.15-5.7Z"/></svg>
               {{ syncingCompare ? `${t('updating')} ${compareProgress}/${compareRefreshTotal}` : t('updateFromIp2Location') }}
             </button>
             <button class="measure-button" type="button" @click="measureAllProbes" :disabled="measurementBusy || syncingCompare || addingCurrentIp || !probeCount">
@@ -171,7 +171,7 @@
             </div>
             <p class="compare-description">{{ t('compareIntro') }}</p>
             <button class="sync-button" type="button" @click="refreshComparePoints" :disabled="syncingCompare || addingCurrentIp || !compareRefreshTotal">
-              <svg class="button-icon" :class="{ spinning: syncingCompare }" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
+              <svg class="button-icon refresh-icon" :class="{ spinning: syncingCompare }" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.25 12a8.25 8.25 0 1 1-2.42-5.83"/><path class="refresh-arrowhead" d="m21.3 9.1-7-.95 4.15-5.7Z"/></svg>
               {{ syncingCompare ? `${t('updating')} ${compareProgress}/${compareRefreshTotal}` : t('updateFromIp2Location') }}
             </button>
             <small class="sync-note">{{ compareSourceNote }}</small>
@@ -602,8 +602,8 @@ const compareSourceNote = computed(() => {
   return liveCount ? `${t('usingLiveList')} · ${liveCount}/${comparePoints.value.length} LIVE` : t('usingSampleList')
 })
 const mapLabels = computed(() => language.value === 'th'
-  ? { map:'แผนที่ตำแหน่ง IP และเซิร์ฟเวอร์',client:'ผู้ใช้',recommended:'แนะนำ',fallback:'สำรอง',other:'จุดอื่น',pointA:'จุด A',pointB:'จุด B',source:'IP อ้างอิง',bestServer:'อันดับ 1',otherServers:'ตัวเลือกอื่น',selectPoint:'เลือกจุด',selectServer:'เลือกเซิร์ฟเวอร์',referenceOnly:t('referenceOnly') }
-  : { map:'IP and server location map',client:'Client',recommended:'Recommended',fallback:'Fallback',other:'Other points',pointA:'Point A',pointB:'Point B',source:'Reference IP',bestServer:'Highest score',otherServers:'Other candidates',selectPoint:'Select point',selectServer:'Select server',referenceOnly:t('referenceOnly') })
+  ? { map:'แผนที่ตำแหน่ง IP และเซิร์ฟเวอร์',zoomControls:'การควบคุมแผนที่',zoomIn:'ซูมเข้า',zoomOut:'ซูมออก',resetZoom:'จัดจุดทั้งหมดให้อยู่กลางแผนที่',mapScale:'มาตราส่วนระยะทางบนแผนที่',gridCell:'1 ช่อง',client:'ผู้ใช้',recommended:'แนะนำ',fallback:'สำรอง',other:'จุดอื่น',pointA:'จุด A',pointB:'จุด B',source:'IP อ้างอิง',bestServer:'อันดับ 1',otherServers:'ตัวเลือกอื่น',selectPoint:'เลือกจุด',selectServer:'เลือกเซิร์ฟเวอร์',referenceOnly:t('referenceOnly') }
+  : { map:'IP and server location map',zoomControls:'Map controls',zoomIn:'Zoom in',zoomOut:'Zoom out',resetZoom:'Center and fit all points',mapScale:'Map distance scale',gridCell:'1 grid',client:'Client',recommended:'Recommended',fallback:'Fallback',other:'Other points',pointA:'Point A',pointB:'Point B',source:'Reference IP',bestServer:'Highest score',otherServers:'Other candidates',selectPoint:'Select point',selectServer:'Select server',referenceOnly:t('referenceOnly') })
 
 function flagEmoji(code = '') { return String(code).toUpperCase().replace(/./g, char => String.fromCodePoint(127397 + char.charCodeAt())) || '🌐' }
 function formatDistance(km) { return formatKilometres(km, language.value) }
