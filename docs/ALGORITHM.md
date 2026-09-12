@@ -1,5 +1,7 @@
 # Ranking method and evidence — v1.8.0
 
+English | [ภาษาไทย](ALGORITHM.th.md)
+
 ## Geographic distance
 
 IP Compare and Server Ranking use the Haversine formula with an Earth radius of 6,371 km. The code keeps the temporary value between 0 and 1. This prevents rounding errors for points on opposite sides of Earth. The app rejects missing or invalid coordinates instead of placing them at (0,0).
