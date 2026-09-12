@@ -8,16 +8,13 @@ This folder contains the technical and contest documents for SakuraTH GeoIP2Rout
 |---|---|
 | [USER-GUIDE.md](USER-GUIDE.md) | How to use the app and plan 14 screenshots |
 | [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP tests, import limits, and known limits |
-| [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) | Checks to complete before release or submission |
-| [VALIDATION.md](VALIDATION.md) | Completed checks and checks that need the live app |
 | [../CHANGELOG.md](../CHANGELOG.md) | Version history |
 
 ## Suggested reading order
 
 1. Read the main [README](../README.md) to learn about the product and run it.
-2. Read [ALGORITHM.md](ALGORITHM.md) before you explain a score.
-3. Follow [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) before you publish the app.
-4. Use [VALIDATION.md](VALIDATION.md) to see which checks are automatic and which need the live app.
+2. Read [USER-GUIDE.md](USER-GUIDE.md) for detailed steps and screenshot notes.
+3. Read [ALGORITHM.md](ALGORITHM.md) before you explain a score.
 
 ## What the product does not do
 

@@ -143,7 +143,7 @@ flowchart TB
 | `netlify/functions/` | Online functions for IP lookups and current-IP detection |
 | `sample-data/` | Example CSV files |
 | `scripts/` | Tests and local start tools |
-| `docs/` | Technical documents and user guides |
+| [docs/](docs/) | Algorithm details and user guides |
 
 ## Privacy and limitations
 
