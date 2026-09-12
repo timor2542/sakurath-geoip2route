@@ -22,8 +22,8 @@ The app is not a traceroute tool, ICMP ping tool, load balancer, or automatic ro
 The desktop workspace has five main areas:
 
 1. The header contains the reference date and time, Refresh, Help, language, and theme controls.
-2. The upper-left panel selects a mode and provides the main comparison or ranking controls.
-3. The lower-left **MAP POINTS** panel adds or imports IPs and selects A/B or the reference IP. Its list scrolls without moving the main page.
+2. The upper-left panel selects a mode and adds or imports IPs.
+3. The lower-left **MAP POINTS** panel selects A/B or the reference IP. Its list scrolls without moving the main page.
 4. The center area contains the map, with the **Activity Console** below it.
 5. The right panel shows the comparison or ranking result.
 
