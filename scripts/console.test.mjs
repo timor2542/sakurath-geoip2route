@@ -104,6 +104,8 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   assert.match(css, /\.accuracy-note-icon\{[^}]*margin-top:/)
   assert.match(readFileSync('src/readability.css', 'utf8'), /\.leaflet-tooltip\.ip-map-tooltip \{ width: max-content;/)
   assert.match(app, /ref="helpTrigger"[^>]*:aria-label="t\('help'\)"[^>]*:title="t\('help'\)"/)
+  assert.ok(app.indexOf('current-ip-section') < app.indexOf('class="sync-button"'))
+  assert.ok(app.indexOf('class="demo-launcher"') > app.lastIndexOf('class="panel-section compare-list-section"'))
   assert.equal((app.match(/:aria-label="t\('addIpToList'\)" :title="t\('addIpToList'\)"/g) || []).length, 2)
   assert.match(map, /\.map-pin b\{font:700 13px\/1/)
   assert.match(map, /setAttribute\('aria-label', label\)/)

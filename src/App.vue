@@ -78,13 +78,6 @@
           </button>
         </div>
 
-        <div class="demo-launcher">
-          <button type="button" @click="loadRankingDemo" :disabled="measurementBusy || syncingCompare || addingCurrentIp" aria-describedby="demo-launcher-hint">{{ t('tryRankingDemo') }}</button>
-          <p id="demo-launcher-hint" class="launcher-note">{{ t('demoLauncherHint') }}</p>
-          <button type="button" @click="loadProbeExample" aria-describedby="live-launcher-hint">{{ t('loadProbeExample') }}</button>
-          <p id="live-launcher-hint" class="launcher-note">{{ t('liveLauncherHint') }}</p>
-        </div>
-
         <section class="panel-section current-ip-section">
           <button class="primary-modal-button current-ip-button" type="button" @click="addCurrentIp" :disabled="addingCurrentIp || syncingCompare || bulkLoading || addingComparePoint || measurementBusy" :aria-busy="addingCurrentIp">
             <span v-if="addingCurrentIp" class="api-spinner" aria-hidden="true"></span>
@@ -213,6 +206,13 @@
             <div v-else class="point-list-empty" role="status"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.1 7-12a7 7 0 1 0-14 0c0 6.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2"/><path d="m4 4 16 16"/></svg><strong>{{ t('emptyPointList') }}</strong><p>{{ t('emptyPointListHint') }}</p></div>
           </section>
         </template>
+
+        <div class="demo-launcher">
+          <button type="button" @click="loadRankingDemo" :disabled="measurementBusy || syncingCompare || addingCurrentIp" aria-describedby="demo-launcher-hint">{{ t('tryRankingDemo') }}</button>
+          <p id="demo-launcher-hint" class="launcher-note">{{ t('demoLauncherHint') }}</p>
+          <button type="button" @click="loadProbeExample" aria-describedby="live-launcher-hint">{{ t('loadProbeExample') }}</button>
+          <p id="live-launcher-hint" class="launcher-note">{{ t('liveLauncherHint') }}</p>
+        </div>
       </aside>
 
       <aside ref="resultPanel" class="result-panel panel-card" tabindex="-1" :aria-label="appMode === 'ranking' ? t('recommendedServer') : t('ipComparison')">
