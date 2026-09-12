@@ -6,7 +6,7 @@
 
 | เอกสาร | ใช้สำหรับ |
 |---|---|
-| [USER-GUIDE.th.md](USER-GUIDE.th.md) | คู่มือใช้งานทีละขั้นตอนพร้อมภาพหน้าจอ |
+| [USER-GUIDE.th.md](USER-GUIDE.th.md) | คู่มือใช้งานละเอียด คำอธิบาย UI และรายการภาพที่ควรถ่าย 14 ภาพ |
 | [ALGORITHM.md](ALGORITHM.md) | สูตรคะแนน หลักฐานจากการวัด HTTP ข้อจำกัดการ Import และข้อจำกัดของระบบ |
 | [SUBMISSION.md](SUBMISSION.md) | ชื่อโครงการ คำอธิบายสั้น Remarks และข้อความสำหรับแบบฟอร์มประกวด |
 | [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) | รายการตรวจสอบก่อนเปิดใช้งานหรือส่งประกวด |

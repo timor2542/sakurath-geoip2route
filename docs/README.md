@@ -6,7 +6,7 @@ This folder contains the technical and contest documents for SakuraTH GeoIP2Rout
 
 | Document | Use it for |
 |---|---|
-| [USER-GUIDE.md](USER-GUIDE.md) | Step-by-step app usage with screenshots |
+| [USER-GUIDE.md](USER-GUIDE.md) | Detailed workflow, UI explanations, and a 14-shot screenshot script |
 | [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP measurement evidence, import limits, and known limitations |
 | [SUBMISSION.md](SUBMISSION.md) | Contest title, short description, remarks, and final-form wording |
 | [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) | The checks to complete before publishing or submitting |

@@ -171,7 +171,7 @@ HTTP, DNS, and upstream API tests use mocks. Before submission, manually verify 
 
 Contest documentation:
 
-- [User guide with screenshots](docs/USER-GUIDE.md)
+- [Detailed user guide and screenshot script](docs/USER-GUIDE.md)
 - [Documentation index](docs/README.md)
 - [Submission copy](docs/SUBMISSION.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)

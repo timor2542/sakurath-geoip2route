@@ -175,7 +175,7 @@ Automated Tests ใช้ Mock สำหรับ HTTP, DNS และ Upstream A
 
 เอกสารสำหรับการประกวด:
 
-- [คู่มือใช้งานพร้อมภาพหน้าจอ](docs/USER-GUIDE.th.md)
+- [คู่มือใช้งานละเอียดและแนวทางแคปภาพ](docs/USER-GUIDE.th.md)
 - [Documentation index](docs/README.th.md)
 - [Submission copy](docs/SUBMISSION.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)
