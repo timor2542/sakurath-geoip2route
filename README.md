@@ -145,36 +145,6 @@ flowchart TB
 | `scripts/` | Automated checks and local launch helpers |
 | `docs/` | Algorithm, validation, and release documentation |
 
-## Deploy to Netlify
-
-The repository includes a ready-to-use `netlify.toml`. Connect the repository, add `IP2LOCATION_API_KEY` as a server-side environment variable, and deploy with these settings:
-
-| Setting | Value |
-|---|---|
-| Build command | `npm run build` |
-| Publish directory | `dist` |
-| Functions directory | `netlify/functions` |
-
-Do not commit `.env`, `.env.local`, `node_modules`, API keys, or other secrets. Production checks for rate limits, caching, and quota monitoring are listed in the [release checklist](docs/RELEASE-CHECKLIST.md).
-
-Static-only hosting such as GitHub Pages cannot run the included lookup functions.
-
-## Verify before contest submission
-
-```bash
-npm run check
-npm run build
-```
-
-Run both commands before submitting. The automated suite currently contains 45 tests; HTTP, DNS, and upstream API checks use mocks, so the live deployment still requires manual review.
-
-Supporting documents:
-
-- [Detailed user guide and screenshot script](docs/USER-GUIDE.md)
-- [Release checklist](docs/RELEASE-CHECKLIST.md)
-- [Validation record](docs/VALIDATION.md)
-- [Documentation index](docs/README.md)
-
 ## Privacy and limitations
 
 - IP geolocation is approximate, not GPS; Anycast addresses may resolve to different network locations.
