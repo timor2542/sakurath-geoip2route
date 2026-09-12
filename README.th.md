@@ -94,7 +94,7 @@ Singapore,Singapore,165.21.83.88
 - หากนำเข้า Probe URL ให้รายการเดิม ระบบจะอัปเดต Probe และล้างผลวัดเก่า
 - คอลัมน์ประเทศและตำแหน่งใน CSV เป็นข้อมูลอ้างอิง ตำแหน่งจริงจะตรวจใหม่ด้วย IP2Location ตอน Import
 
-ไฟล์ทดลอง: [ip-list.csv](sample-data/ip-list.csv) และ [endpoints.csv](sample-data/endpoints.csv)
+ไฟล์ทดลอง: [ip-list.csv](sample-data/ip-list.csv), [endpoints.csv](sample-data/endpoints.csv) และไฟล์แยกตามภูมิภาคใน [sample-data/README.md](sample-data/README.md): เอเชียแปซิฟิก ยุโรป อเมริกา และแอฟริกา/ตะวันออกกลาง
 
 ปุ่ม **Add current IP** จะตรวจ Public IP ของการเชื่อมต่อเมื่อผู้ใช้กดเท่านั้น บน Localhost ระบบใช้ Public Egress IP ของเครื่องที่รัน Development Server ส่วนบน Netlify ใช้ Connection IP ที่ Platform ส่งให้ VPN, Proxy และ NAT อาจทำให้ IP หรือตำแหน่งที่แสดงเปลี่ยนไป
 

@@ -1,0 +1,9 @@
+country_code,country_name,region_name,city_name,ip
+DE,Germany,Hesse,Frankfurt,194.25.0.60
+GB,United Kingdom,England,London,212.23.3.100
+FR,France,Ile-de-France,Paris,80.12.0.1
+NL,Netherlands,North Holland,Amsterdam,145.14.0.1
+CH,Switzerland,Zurich,Zurich,84.227.0.1
+SE,Sweden,Stockholm,Stockholm,46.59.0.1
+IT,Italy,Lombardy,Milan,151.0.0.1
+ES,Spain,Madrid,Madrid,80.58.0.1

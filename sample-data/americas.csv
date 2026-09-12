@@ -1,0 +1,9 @@
+country_code,country_name,region_name,city_name,ip
+US,United States,California,Mountain View,8.8.8.8
+CA,Canada,Ontario,Toronto,24.36.0.1
+BR,Brazil,Sao Paulo,Sao Paulo,200.160.0.8
+MX,Mexico,Mexico City,Mexico City,189.203.0.1
+CL,Chile,Santiago,Santiago,190.3.0.1
+AR,Argentina,Buenos Aires,Buenos Aires,200.45.0.1
+CO,Colombia,Bogota,Bogota,190.0.0.1
+PE,Peru,Lima,Lima,190.12.0.1

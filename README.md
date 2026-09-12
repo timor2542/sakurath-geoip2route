@@ -90,7 +90,7 @@ The review screen shows each detected column role, the first three rows, valid a
 - Importing a Probe URL for an existing address updates its configuration and clears its old measurement
 - Location columns are reference-only; live geography is verified with IP2Location during import
 
-Try [ip-list.csv](sample-data/ip-list.csv) or [endpoints.csv](sample-data/endpoints.csv).
+Try [ip-list.csv](sample-data/ip-list.csv), [endpoints.csv](sample-data/endpoints.csv), or the regional examples in [sample-data/README.md](sample-data/README.md): Asia-Pacific, Europe, the Americas, and Africa/Middle East.
 
 **Add current IP** runs only when the user presses it. On localhost, the server detects the development computer's public egress IP. On Netlify, it uses the platform-provided connection IP. VPNs, proxies, and NAT can change the detected address or location.
 
