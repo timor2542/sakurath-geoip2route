@@ -8,7 +8,6 @@ This folder contains the technical and contest documents for SakuraTH GeoIP2Rout
 |---|---|
 | [USER-GUIDE.md](USER-GUIDE.md) | Detailed workflow, UI explanations, and a 14-shot screenshot script |
 | [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP measurement evidence, import limits, and known limitations |
-| [SUBMISSION.md](SUBMISSION.md) | Contest title, short description, remarks, and final-form wording |
 | [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) | The checks to complete before publishing or submitting |
 | [VALIDATION.md](VALIDATION.md) | What has been verified and what still needs a live check |
 | [../CHANGELOG.md](../CHANGELOG.md) | Version history |
@@ -18,8 +17,7 @@ This folder contains the technical and contest documents for SakuraTH GeoIP2Rout
 1. Read the root [README](../README.md) to understand the product and run it.
 2. Read [ALGORITHM.md](ALGORITHM.md) before describing a score as a result.
 3. Follow [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) before a public deployment.
-4. Copy the verified wording from [SUBMISSION.md](SUBMISSION.md) into the contest form.
-5. Use [VALIDATION.md](VALIDATION.md) to distinguish automated evidence from checks that require the live deployment.
+4. Use [VALIDATION.md](VALIDATION.md) to distinguish automated evidence from checks that require the live deployment.
 
 ## Product boundaries
 

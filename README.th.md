@@ -177,7 +177,6 @@ npm run build
 
 - [คู่มือการใช้งานฉบับละเอียดและแนวทางบันทึกภาพหน้าจอ](docs/USER-GUIDE.th.md)
 - [Documentation index](docs/README.th.md)
-- [Submission copy](docs/SUBMISSION.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)
 - [Validation record](docs/VALIDATION.md)
 - [Changelog](CHANGELOG.md)

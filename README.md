@@ -173,7 +173,6 @@ Contest documentation:
 
 - [Detailed user guide and screenshot script](docs/USER-GUIDE.md)
 - [Documentation index](docs/README.md)
-- [Submission copy](docs/SUBMISSION.md)
 - [Release checklist](docs/RELEASE-CHECKLIST.md)
 - [Validation record](docs/VALIDATION.md)
 - [Changelog](CHANGELOG.md)
