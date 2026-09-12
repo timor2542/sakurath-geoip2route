@@ -289,20 +289,7 @@ The session console can show `[INFO]`, `[WAIT]`, `[OK]`, `[ERROR]`, and `[DEMO]`
 
 Capture at least one mobile viewport and verify English/Thai plus Light/Dark before producing final artwork.
 
-## 15. Photoshop production checklist
-
-1. Capture every desktop image at one resolution, such as `1920×1080`.
-2. Keep browser zoom at 100% and use Fit all points before map captures.
-3. Reuse one sample dataset so A/B, `SRC`, ranks, and distances remain continuous.
-4. Keep each image in one language unless the comparison is intentional.
-5. Preserve section headings before adding arrows or numbered callouts.
-6. Match UI colors: pink for A/winner, yellow for B, green for `SRC`.
-7. Keep Leaflet/OpenStreetMap attribution visible.
-8. Redact API keys, tokens, private URLs, and personal data.
-9. Do not edit displayed scores or measurements into values the app did not produce.
-10. Check spelling, release version, date format, and links before export.
-
-## 16. Short callout copy
+## 15. Short callout copy
 
 - **Overview:** Compare IP locations and rank server candidates in one workspace.
 - **Add IP:** Add a public IP, IPv6 address, or hostname and let IP2Location supply location evidence.
@@ -315,7 +302,7 @@ Capture at least one mobile viewport and verify English/Thai plus Light/Dark bef
 - **Delete:** Clearing selection is different from deleting IPs; deletion always asks for confirmation.
 - **Accuracy:** IP geolocation is approximate, and map lines are not traceroute paths.
 
-## 17. Limitations to state clearly
+## 16. Limitations to state clearly
 
 - IP geolocation is approximate and is not GPS.
 - Anycast/CDN targets may resolve differently.
