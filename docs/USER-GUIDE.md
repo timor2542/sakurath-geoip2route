@@ -273,65 +273,7 @@ The session console can show `[INFO]`, `[WAIT]`, `[OK]`, `[ERROR]`, and `[DEMO]`
 
 Capture at least one mobile viewport and verify English/Thai plus Light/Dark before producing final artwork.
 
-## 15. Photoshop color palette
-
-Use the document and exported images in the **sRGB** color space. Enter these HEX values directly instead of sampling colors from a compressed screenshot.
-
-### Map markers and callouts
-
-| Use | HEX | RGB |
-|---|---:|---:|
-| Point A, winner, and primary accent | `#F06F98` | `240, 111, 152` |
-| Point B and secondary highlight | `#FFC857` | `255, 200, 87` |
-| Point B marker fill | `#D89C20` | `216, 156, 32` |
-| `SRC` and success | `#16AE8B` | `22, 174, 139` |
-| Other map marker | `#6E7F87` | `110, 127, 135` |
-| Other route line | `#8DA4AC` | `141, 164, 172` |
-| Error or offline state | `#D84B55` | `216, 75, 85` |
-| Marker text and border | `#FFFFFF` | `255, 255, 255` |
-| Dark callout background | `#241019` | `36, 16, 25` |
-
-Use white text inside map pins. The application intentionally uses the darker `#D89C20` for the B pin while `#FFC857` is used for the B route and supporting highlights.
-
-### Light theme
-
-| Token | HEX | Typical use |
-|---|---:|---|
-| Page | `#F8F1F5` | Outer page background |
-| Surface | `#FFFAFD` | Panels and cards |
-| Strong surface | `#FFF6FA` | Raised or emphasized cards |
-| Soft surface | `#FDE8F0` | Selected and tinted areas |
-| Primary text | `#2D1822` | Headings and body text |
-| Muted text | `#816C76` | Hints and secondary labels |
-| Border | `#ECD4DF` | Dividers and control outlines |
-| Accent | `#F06F98` | Primary action and Point A |
-| Strong accent | `#C74270` | Emphasis and active text |
-| Success | `#16AE8B` | Valid and completed states |
-| Warning | `#D99B1C` | Warnings |
-| Danger | `#D84B55` | Delete, invalid, and failed states |
-| Navy | `#241019` | Console and dark callouts |
-
-### Dark theme
-
-| Token | HEX | Typical use |
-|---|---:|---|
-| Page | `#170D13` | Outer page background |
-| Surface | `#24151D` | Panels and cards |
-| Strong surface | `#2B1922` | Raised or emphasized cards |
-| Soft surface | `#3B202C` | Selected and tinted areas |
-| Primary text | `#FFF3F7` | Headings and body text |
-| Muted text | `#C3A8B3` | Hints and secondary labels |
-| Border | `#553040` | Dividers and control outlines |
-| Accent | `#FF8FB1` | Primary action and emphasis |
-| Strong accent | `#FFB0C7` | Strong emphasis |
-| Success | `#45D8B8` | Valid and completed states |
-| Warning | `#FFC857` | Warnings and Point B support |
-| Danger | `#D84B55` | Delete, invalid, and failed states |
-| Navy | `#10070B` | Console background |
-
-For annotations, use a dark callout with white text, or one of the three semantic colors for A, B, and `SRC`. Do not sample the map-tile colors because they can change with map content and rendering. Suggested shadow colors are `rgba(91, 31, 55, 0.14)` in Light theme and `rgba(0, 0, 0, 0.38)` in Dark theme.
-
-## 16. Photoshop production checklist
+## 15. Photoshop production checklist
 
 1. Capture every desktop image at one resolution, such as `1920×1080`.
 2. Keep browser zoom at 100% and use Fit all points before map captures.
@@ -344,7 +286,7 @@ For annotations, use a dark callout with white text, or one of the three semanti
 9. Do not edit displayed scores or measurements into values the app did not produce.
 10. Check spelling, release version, date format, and links before export.
 
-## 17. Short callout copy
+## 16. Short callout copy
 
 - **Overview:** Compare IP locations and rank server candidates in one workspace.
 - **Add IP:** Add a public IP, IPv6 address, or hostname and let IP2Location supply location evidence.
@@ -357,7 +299,7 @@ For annotations, use a dark callout with white text, or one of the three semanti
 - **Delete:** Clearing selection is different from deleting IPs; deletion always asks for confirmation.
 - **Accuracy:** IP geolocation is approximate, and map lines are not traceroute paths.
 
-## 18. Limitations to state clearly
+## 17. Limitations to state clearly
 
 - IP geolocation is approximate and is not GPS.
 - Anycast/CDN targets may resolve differently.
