@@ -19,13 +19,14 @@ The app is not a traceroute tool, ICMP ping tool, load balancer, or automatic ro
 
 ## 2. Screen layout and symbols
 
-The desktop workspace has five main areas:
+The desktop workspace has four main areas:
 
 1. The header contains the reference date and time, Refresh, Help, language, and theme controls.
-2. The upper-left panel selects a mode and adds or imports IPs.
-3. The lower-left **MAP POINTS** panel selects A/B or the reference IP. Its list scrolls without moving the main page.
-4. The center area contains the map, with the **Activity Console** below it.
-5. The right panel shows the comparison or ranking result.
+2. The left panel selects a mode, adds/imports IPs, and selects A/B or the reference IP.
+3. The center map shows markers, a grid, a distance scale that changes with zoom, and map controls.
+4. The right panel shows the comparison or ranking result.
+
+The **Activity Console** below the map records actions from the current browser session.
 
 Marker and data labels:
 
@@ -38,7 +39,7 @@ Marker and data labels:
 - `SAMPLE`: bundled example location
 - `SIMULATED`: test data that is clearly marked
 
-> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, upper-left controls, lower-left MAP POINTS panel, map, result panel, and Activity Console.
+> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, control panel, map, result panel, and Activity Console.
 
 ![Mobile workspace overview showing the map, markers, scale, language and theme controls](guide-start.jpg)
 
