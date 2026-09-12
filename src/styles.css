@@ -83,3 +83,5 @@ button:disabled{cursor:not-allowed;opacity:.55}
   .language-slider button{height:42px;font-size:13px}
   .result-panel{scroll-margin-top:70px}
 }
+
+.point-count{color:#fff}
