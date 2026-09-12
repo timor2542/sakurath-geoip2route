@@ -1,15 +1,15 @@
 # Release and contest checklist — v1.8.0
 
-Use this checklist against the actual release build and the intended public deployment. Automated checks are evidence of the code; they do not replace live verification.
+Use this checklist with the final build and public website. Automated tests check the code, but they do not replace tests on the live website.
 
 ## Automated checks already included
 
 - [x] Structural smoke check.
-- [x] 45 focused tests for ranking, CSV import, IPv6 identity, current-IP validation, progress reporting, accessibility wiring, export safety, caching, and rate-limit declarations.
+- [x] 45 tests for ranking, CSV import, IPv6 matching, current-IP checks, progress messages, accessibility, safe exports, caching, and rate limits.
 - [x] Production Vite build.
-- [x] Netlify function limits declared for both quota-consuming endpoints.
-- [x] GitHub Actions workflow for checks and build on pushes and pull requests.
-- [x] ZIP content and secret-pattern scan for the release candidate.
+- [x] Netlify limits set for both API endpoints that use the quota.
+- [x] GitHub Actions checks and builds each push and pull request.
+- [x] ZIP file and secret scan for the release version.
 
 Run locally with:
 
@@ -20,17 +20,17 @@ npm run build
 
 ## Required before public release
 
-- [ ] Exercise a real lookup on the intended host and confirm the fields returned by the current IP2Location plan.
-- [ ] Confirm the two Netlify rate-limit rules in the first deployment log and verify the expected `429` response when a limit is exceeded.
-- [ ] Test authorized HTTPS probes from at least two networks. Inspect successful and failed samples instead of treating every failure as “offline”.
-- [ ] Check desktop and mobile layouts in both languages and both themes, including enlarged text and keyboard navigation.
-- [ ] Import a valid and invalid CSV; verify detected column roles, row errors, duplicate merging, Probe URL matching, and exports.
-- [ ] Select A/B points, clear the selection, remove one point, use Delete all, and confirm that destructive actions ask before deleting.
-- [ ] Confirm the Activity Console opens, collapses, follows the selected language, wraps long IPv6 values, and redacts secret-like values.
-- [ ] Publish the intended repository with the MIT license and predecessor attribution. Exclude local settings, dependencies, and secrets.
-- [ ] Verify the public application from a signed-out browser and capture current screenshots only after the deployed UI is confirmed.
-- [ ] Review the official contest terms, deadline, and required submission fields.
+- [ ] Run a real lookup on the public website. Check that your IP2Location plan returns the fields used by the app.
+- [ ] Check both Netlify rate limits in the first deployment log. Confirm that the platform returns `429` after a user reaches a limit.
+- [ ] Test approved HTTPS endpoints from at least two networks. Review both passed and failed tests. A failed test does not always mean that a server is offline.
+- [ ] Check desktop and mobile layouts in both languages and themes. Also test larger text and keyboard controls.
+- [ ] Import one valid and one invalid CSV file. Check column roles, row errors, duplicate merging, Probe URL matching, and exports.
+- [ ] Select A and B, clear the selection, delete one point, and use Delete all. Make sure every delete action asks for confirmation.
+- [ ] Open, close, and clear the Activity Console. Check its language, long IPv6 wrapping, and removal of secret-like text.
+- [ ] Publish the correct repository with the MIT license and credit for the earlier project. Do not include local settings, installed packages, or secrets.
+- [ ] Open the public app in a signed-out browser. Confirm the deployed design before you take the final screenshots.
+- [ ] Read the official contest rules. Check the deadline and all required form fields.
 
-## Submission quality bar
+## Writing about the project
 
-Describe the project as an explainable comparison aid. Show the separate geographic and browser-measured evidence, state the known limitations, and make only claims that the current release demonstrates. Do not describe the score as a percentage, traceroute result, uptime guarantee, or remote-origin latency measurement.
+Describe the project as a tool that helps users compare servers and explains its results. Keep geographic data separate from HTTP tests made by the browser. State the known limits and make only claims that this version can show. Do not call the score a percentage, traceroute result, uptime promise, or test from another country.

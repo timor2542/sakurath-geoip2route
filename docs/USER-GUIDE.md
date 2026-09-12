@@ -1,6 +1,6 @@
 # SakuraTH GeoIP2Route user guide
 
-This document is the detailed copy deck for the user guide. Capture the final screenshots from the same application release, then add callouts and crop them in Photoshop so labels, values, and controls remain consistent with the text.
+This guide explains how to use the app and plan its screenshots. Take all final screenshots from the same app version. You can then crop them and add labels in Photoshop. Make sure the names, values, and controls match this guide.
 
 - Live application: <https://sakurath-geoip2route.netlify.app/>
 - Source repository: <https://github.com/timor2542/sakurath-geoip2route>
@@ -8,25 +8,25 @@ This document is the detailed copy deck for the user guide. Capture the final sc
 
 ## 1. What the application does
 
-SakuraTH GeoIP2Route uses IP2Location data for two related workflows:
+SakuraTH GeoIP2Route uses IP2Location data for two main tasks:
 
-1. **IP Compare** selects two locations, A and B, then compares their great-circle distance, country, city, ISP, ASN, network type, and timezone.
-2. **Server Ranking** selects one geographic reference IP and ranks every other point as a candidate server with inspectable scoring evidence.
+1. **IP Compare** lets you select two locations, A and B. It compares their direct map distance, country, city, ISP, ASN, network type, and time zone.
+2. **Server Ranking** lets you select one IP as a location reference. It ranks every other point as a possible server and shows how it calculated each score.
 
-The application is not a traceroute, ICMP ping tool, load balancer, or automatic traffic-routing system. Lines on the map show geographic relationships, not packet paths.
+The app is not a traceroute tool, ICMP ping tool, load balancer, or automatic routing system. Lines on the map show geographic links, not network packet paths.
 
-> **Opening-image copy:** Compare IP locations and rank server candidates with transparent scoring evidence.
+> **Opening image text:** Compare IP locations and rank servers with clear scoring details.
 
 ## 2. Screen layout and symbols
 
 The desktop workspace has four main areas:
 
-1. The header contains the reference date/time, Refresh, Help, language, and theme controls.
+1. The header contains the reference date and time, Refresh, Help, language, and theme controls.
 2. The left panel selects a mode, adds/imports IPs, and selects A/B or the reference IP.
-3. The center map shows markers, a graticule, a dynamic distance scale, and zoom controls.
+3. The center map shows markers, a grid, a distance scale that changes with zoom, and map controls.
 4. The right panel shows the comparison or ranking result.
 
-The **Activity Console** below the map records actions performed in the current browser session.
+The **Activity Console** below the map records actions from the current browser session.
 
 Marker and data labels:
 
@@ -37,39 +37,39 @@ Marker and data labels:
 - Gray marker: another unselected point
 - `LIVE`: returned by an IP2Location lookup
 - `SAMPLE`: bundled example location
-- `SIMULATED`: clearly labelled demonstration evidence
+- `SIMULATED`: test data that is clearly marked
 
-> **Screenshot 1 — Workspace overview:** Use a desktop landscape viewport and label the header, control panel, map, result panel, and Activity Console.
+> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, control panel, map, result panel, and Activity Console.
 
 ![Mobile workspace overview showing the map, markers, scale, language and theme controls](guide-start.jpg)
 
-*Reference image — On a narrow screen, the map appears first and the working panels continue below it.*
+*Reference image — On a narrow screen, the map appears first. The other panels continue below it.*
 
 ## 3. Reference time, language, and theme
 
-The header clock follows the active geographic reference:
+The header clock follows the selected location reference:
 
 - IP Compare uses point A.
 - Server Ranking uses `SRC`.
-- Before a selection exists, the first point is used; the device clock is the final fallback.
+- If there is no selection, the app uses the first point. If there are no points, it uses the device clock.
 
-Thai uses a 24-hour clock and Buddhist Era year with `พ.ศ.` before the year. English uses a 12-hour clock with AM/PM and an `AD` label.
+Thai uses a 24-hour clock and a Buddhist Era year with `พ.ศ.` before the year. English uses a 12-hour clock with AM/PM and an `AD` label.
 
-The sun, moon, and half-filled-circle buttons select Light, Dark, and Automatic themes. The browser remembers language, theme, and Activity Console visibility.
+The sun, moon, and half-filled circle select the Light, Dark, and Automatic themes. The browser remembers the language, theme, and whether the Activity Console is open.
 
-> **Screenshot 2 — Header:** Crop the clock, country/timezone code, EN/TH selector, and theme control. Add a callout explaining that A or `SRC` supplies the reference timezone.
+> **Screenshot 2 — Header:** Show the clock, country and time-zone code, EN/TH selector, and theme control. Add a label to explain that A or `SRC` sets the time zone.
 
 ## 4. Quick exploration
 
-The initial list contains eight sample locations, so markers, selection, comparison, and geographic ranking can be explored immediately.
+The first list contains eight sample locations. You can use them to try markers, selection, comparison, and geographic ranking at once.
 
-**Try Demo — Simulated Data** adds a separate demonstration set and opens Server Ranking. It illustrates why nearest and fastest can produce different winners. Simulated evidence is labelled and is never mixed into measured browser scoring.
+**Try Demo — Simulated Data** adds a separate test set and opens Server Ranking. It shows why the nearest and fastest servers may be different. The app marks test data as simulated and does not mix it with real browser results.
 
-**Load Live Test Example** prepares a `target,probe_url` example in the import dialog. The user still starts the lookup and HTTP measurement explicitly.
+**Load Live Test Example** puts a `target,probe_url` example in the import window. The user must still start the lookup and HTTP test.
 
 ![Quick Guide dialog explaining how to add IPs, compare points, and rank servers](guide-help.jpg)
 
-*Reference image — The built-in Help dialog summarizes the three main stages without requiring an API lookup.*
+*Reference image — The Help window explains the three main steps without using the API.*
 
 ## 5. Add one IP or hostname
 
@@ -79,20 +79,20 @@ The initial list contains eight sample locations, so markers, selection, compari
 2. Enter a public IPv4 address, IPv6 address, or hostname, such as `8.8.8.8`, `2606:4700:4700::1111`, or `example.com`.
 3. Press `+` or Enter.
 4. Wait for the lookup status.
-5. The resolved point appears in the list and on the map.
+5. The new point appears in the list and on the map.
 
-If a hostname resolves to an IP already present, the existing point is updated instead of creating a duplicate marker. Local, private, or reserved literal addresses are rejected, as are targets containing credentials or custom ports.
+If a hostname points to an IP already in the list, the app updates the existing point. It does not create a second marker. The app rejects local, private, and reserved IP addresses. It also rejects targets with login details or custom ports.
 
 ### Add the current public IP
 
 1. Press **Add current IP**.
-2. The application detects the public connection IP and requests its IP2Location data.
+2. The app finds the public connection IP and asks IP2Location for its data.
 3. The point is added or updated.
 4. It becomes A in IP Compare and `SRC` in Server Ranking.
 
-A failed live lookup displays an error and never invents location data.
+If a live lookup fails, the app shows an error. It never creates false location data.
 
-> **Screenshot 3 — Add a target:** Crop the left panel from Add current IP through the target field. Number the field, `+` button, and progress/status areas.
+> **Screenshot 3 — Add a target:** Show the left panel from Add current IP to the target field. Add numbers to the field, `+` button, progress area, and status area.
 
 ## 6. Paste multiple targets
 
@@ -102,7 +102,7 @@ A failed live lookup displays an error and never invents location data.
 4. Select Append or Replace.
 5. Start the lookup.
 
-Lines beginning with `#` are comments. Duplicate targets are removed before lookup. One import can contain at most 200 unique targets.
+Lines that start with `#` are comments. The app removes duplicate targets before lookup. One import can contain up to 200 unique targets.
 
 ```text
 8.8.8.8
@@ -117,7 +117,7 @@ example.com
 
 ![Left control panel showing the target field, Paste list, Import CSV, Clear selection, and Delete all controls](guide-import-csv.jpg)
 
-*Reference image — Import CSV is beside Paste list in the left panel. Clear selection keeps the IPs; Delete all removes them after confirmation.*
+*Reference image — Import CSV is next to Paste list in the left panel. Clear selection keeps the IPs. Delete all asks for confirmation and then removes them.*
 
 ### Minimal file
 
@@ -127,7 +127,7 @@ ip
 1.1.1.1
 ```
 
-Target header aliases are `target`, `ip`, `ip_address`, `address`, `hostname`, and `host`. Column order is flexible.
+The Target column can use these names: `target`, `ip`, `ip_address`, `address`, `hostname`, or `host`. The columns can be in any order.
 
 ### File with an optional probe
 
@@ -136,30 +136,30 @@ target,probe_url
 dns.google,https://dns.google/resolve?name=example.com&type=A
 ```
 
-Probe header aliases are `probe_url`, `probe`, and `health_url`. A probe must use HTTPS and its hostname/IP must match the target in the same row.
+The Probe column can use these names: `probe_url`, `probe`, or `health_url`. A Probe URL must use HTTPS. Its hostname or IP must match the Target in the same row.
 
-Country, country code, region, city, latitude, longitude, ISP, ASN, usage type, and timezone columns are recognized as **Reference only**. Live lookup data supplies the operational map location. Unknown columns are marked **Ignored**.
+The app can recognize country, country code, region, city, latitude, longitude, ISP, ASN, usage type, and time zone. It marks these columns as **Reference only**. The live lookup provides the location used on the map. The app marks unknown columns as **Ignored**.
 
 ### Review before lookup
 
 1. Press **Import CSV** and choose a `.csv` or `.txt` file.
-2. The browser reads the file locally before any lookup starts.
+2. The browser reads the file on your device before any lookup starts.
 3. Confirm that the structure status is valid.
 4. Check Column mapping for the required Target and optional Probe roles.
 5. Review Rows checked, Valid rows, and Invalid rows.
 6. Inspect the first three rows in Preview.
 7. Correct any reported row numbers before importing.
 
-Detected errors include a missing or duplicate Target header, duplicate Probe header, invalid Target/Probe value, a probe hostname mismatch, extra cells, and an unclosed CSV quote.
+The app can find several errors. These include a missing or repeated Target header, a repeated Probe header, an invalid Target or Probe value, and a Probe URL that does not match its Target. It can also find extra cells and quotation marks that are not closed.
 
 The file limit is 1 MiB and the record limit is 200 unique targets.
 
 ### Append or replace
 
-- **Append to current list — Recommended** keeps existing points, adds new targets, and merges resolved-IP duplicates.
+- **Append to current list — Recommended** keeps existing points, adds new targets, and merges targets that point to the same IP.
 - **Replace current list** uses successful results from the new import as the new list.
 
-If every replacement lookup fails, replacement is aborted and the existing list is preserved. Lookup progress displays both a count and progress bar, with at most three lookups running concurrently.
+If all new lookups fail, the app cancels the replacement and keeps the old list. During import, it shows a count and a progress bar. It runs no more than three lookups at the same time.
 
 > **Screenshot 5 — Valid CSV:** Use `country_name,city_name,ip` and show Column mapping, metrics, and the first three preview rows.
 >
@@ -175,28 +175,28 @@ If every replacement lookup fails, replacement is aborted and the existing list 
 4. Selecting a third point replaces B while A remains selected.
 5. Read the A–B line and comparison panel.
 
-The panel contains great-circle distance, country, region/city, ISP, ASN, IP usage type, timezone, and same/different summaries for country, ASN, and network type.
+The panel shows direct map distance, country, region and city, ISP, ASN, IP usage type, and time zone. It also shows whether the country, ASN, and network type are the same or different.
 
-IP geolocation is approximate. Anycast targets may resolve to different network locations.
+IP locations are estimates. Anycast targets may point to different network locations.
 
 > **Screenshot 8 — Comparison result:** Use Bangkok as A and Singapore as B. Include the markers, line, A/B cards, distance, comparison table, and difference chips.
 >
-> **Image copy:** Select any two points to compare geographic and network evidence side by side.
+> **Image text:** Select any two points to compare location and network data side by side.
 
 ## 9. Rank server candidates
 
 ![Server Ranking panel showing the geographic reference IP and ranking method controls](guide-server-ranking.jpg)
 
-*Reference image — Select the reference IP and ranking method before reviewing the candidate results.*
+*Reference image — Select the reference IP and ranking method before you review the server results.*
 
 ### Select the reference
 
 1. Select **Server Ranking**.
 2. Choose a **Geographic reference IP**.
-3. The reference becomes `SRC` and is excluded from the candidate ranking.
-4. Every other point becomes a candidate server.
+3. The reference becomes `SRC`. The app does not include it in the ranking.
+4. Every other point becomes a possible server.
 
-Changing `SRC` changes geographic distance. It does not change the origin of browser HTTP requests, which always originate from the browser running the application.
+Changing `SRC` changes the map distance. It does not change where HTTP tests start. These tests always start from the browser that runs the app.
 
 ### Geographic fit
 
@@ -205,7 +205,7 @@ distance_score = clamp(100 - distance_km / 200.37, 0, 100)
 Geographic fit = 80% distance_score + 20% network_preference
 ```
 
-Network preference is DCH/CDN 100, ISP 82, MOB 70, and other/unknown 76. A 0–100 score is a comparison heuristic, not a percentage, SLA, or performance guarantee.
+The network values are DCH/CDN 100, ISP 82, MOB 70, and other or unknown 76. A score from 0 to 100 helps compare servers. It is not a percentage, service promise, or performance guarantee.
 
 ### Browser HTTP
 
@@ -217,35 +217,35 @@ Browser HTTP fit = 80% http_score + 20% network_preference
 To measure a candidate:
 
 1. Select it from the ranking table.
-2. Enter a small CORS-enabled HTTPS endpoint in **Candidate HTTPS probe URL**.
-3. The hostname/IP must match the candidate; custom ports, URL credentials, and fragments are rejected.
+2. Enter a small HTTPS URL that allows CORS in **Candidate HTTPS probe URL**.
+3. The hostname or IP must match the server. The app rejects custom ports, login details, and URL fragments.
 4. Press **Save & measure** or **Measure now**.
 5. Repeat for other candidates, or use **Measure configured URLs**.
 
-Each candidate receives three sequential credential-free GET requests with a 4.5-second timeout per request. The median of successful response-header timings is used. The body is cancelled because this is not a throughput test. At most two candidates are measured concurrently.
+The app sends three GET requests to each server, one after another. The requests do not include browser login data. Each request stops after 4.5 seconds. The app uses the median successful response time. It cancels the response body because this is not a download speed test. It tests no more than two servers at the same time.
 
-A failed probe remains unmeasured; it is not labelled offline because CORS, TLS, redirects, or browser connectivity may be responsible.
+If all tests fail, the server stays unmeasured. The app does not call it offline because CORS, TLS, redirects, or the browser connection may cause the failure.
 
 ### Read the result
 
-The **RECOMMENDED SERVER** card shows the winner, overall score, rating, timing status, distance, network type, evidence type, weighted component contributions, and the lead over the next candidate.
+The **RECOMMENDED SERVER** card shows the winner, total score, rating, test status, distance, network type, type of evidence, score parts, and lead over the next server.
 
-The **SERVER RANKING** table lists every candidate. Selecting a row reveals IP, ISP, ASN, timing, distance, score, measurement count/time, and probe controls.
+The **SERVER RANKING** table lists every server. Select a row to see its IP, ISP, ASN, HTTP time, distance, score, number and time of tests, and Probe URL controls.
 
 > **Screenshot 9 — Ranking setup:** Show `SRC`, Rank using, candidate markers, and the ranking list.
 >
-> **Screenshot 10 — Recommendation:** Crop the winner card, score breakdown, and “Why this candidate ranks first.”
+> **Screenshot 10 — Recommendation:** Show the winner card, score parts, and “Why this candidate ranks first.”
 >
 > **Screenshot 11 — HTTP evidence:** Show a successful `3/3` result and median timing. Caption it “Measured from this browser; not ICMP ping.”
 
-## 10. Export evidence
+## 10. Export results
 
 Server Ranking provides:
 
-- **Export JSON** for structured formula, component, and measurement data
+- **Export JSON** for formulas, score parts, and test data in a clear structure
 - **Export CSV** for spreadsheet analysis
 
-Exports include rank, target/IP, country, scoring basis, score, geographic reference, distance, measurement type/origin, HTTP median, successful attempts, UTC measurement time, probe URL, network type, and component contributions. Formula-leading CSV values are neutralized before export.
+Exports include the rank, target or IP, country, scoring method, score, location reference, and distance. They also include the test type and origin, HTTP median, successful tests, UTC test time, Probe URL, network type, and score parts. The app makes CSV text safe if it starts like a spreadsheet formula.
 
 > **Screenshot 12 — Export:** Crop the JSON/CSV buttons and place examples of both output files beside them.
 
@@ -254,11 +254,11 @@ Exports include rank, target/IP, country, scoring basis, score, geographic refer
 - `+`: zoom in
 - `−`: zoom out
 - Corners icon: center and fit every point
-- Graticule: helps read geographic scale
-- Lower-right scale: shows the approximate distance represented by one grid cell and updates with zoom
+- Grid: helps users understand the map scale
+- Lower-right scale: shows the estimated distance across one grid cell and changes with zoom
 - Marker click: shows city, IP, and network details
 
-Compare and ranking lines are geographic only; they do not show hops or packet routes.
+Comparison and ranking lines only show locations. They do not show network hops or packet routes.
 
 ## 12. Clear and delete actions
 
@@ -267,46 +267,46 @@ Compare and ranking lines are geographic only; they do not show hops or packet r
 - A row trash button opens confirmation for one point.
 - **Delete all** opens confirmation for every point.
 
-Confirming Delete all also resets A/B, `SRC`, the selected candidate, and current probe workspace state.
+Confirming Delete all also clears A/B, `SRC`, the selected server, and the current Probe URL work.
 
-> **Screenshot 13 — Deletion confirmation:** Show the affected count, Cancel, and the destructive confirmation button. Cancel after capturing so the sample workspace remains intact.
+> **Screenshot 13 — Delete confirmation:** Show the number of affected points, Cancel, and the delete button. Select Cancel after taking the screenshot so the sample list stays unchanged.
 
 ## 13. Activity Console
 
-The session console can show `[INFO]`, `[WAIT]`, `[OK]`, `[ERROR]`, and `[DEMO]` events. It explains browser activity only and is not a durable server log. It can be collapsed, expanded, or cleared independently from map data.
+The Activity Console can show `[INFO]`, `[WAIT]`, `[OK]`, `[ERROR]`, and `[DEMO]` events. It only explains activity in the current browser session. It is not a permanent server log. You can open, close, or clear it without changing map data.
 
-> **Screenshot 14 — Activity Console:** Show representative WAIT, OK, and ERROR lines, with any private/internal values redacted.
+> **Screenshot 14 — Activity Console:** Show useful WAIT, OK, and ERROR lines. Hide any private or internal values.
 
-## 14. Mobile and accessibility behavior
+## 14. Mobile screens and accessibility
 
 - Narrow screens place the map first and stack the panels below it.
-- Interactive controls expose screen-reader labels and tooltips.
+- Buttons and other controls have screen-reader labels and tooltips.
 - Tab moves keyboard focus through controls.
 - Enter submits the add-IP form.
 - Escape closes an idle dialog.
-- Modal focus remains inside the dialog until it closes.
-- Reduced-motion preferences are respected.
+- Keyboard focus stays inside an open window until it closes.
+- The app follows the device setting for reduced motion.
 
-Capture at least one mobile viewport and verify English/Thai plus Light/Dark before producing final artwork.
+Take at least one screenshot on a mobile screen. Check English and Thai, and both Light and Dark themes, before you make the final guide.
 
-## 15. Short callout copy
+## 15. Short text for screenshots
 
 - **Overview:** Compare IP locations and rank server candidates in one workspace.
-- **Add IP:** Add a public IP, IPv6 address, or hostname and let IP2Location supply location evidence.
+- **Add IP:** Add a public IP, IPv6 address, or hostname. IP2Location provides the location data.
 - **CSV:** Review headers, column roles, and exact invalid rows before lookup.
-- **Import mode:** Append safely or replace the current list with successful results.
-- **Compare:** Select A and B for a side-by-side geographic and network comparison.
-- **Ranking:** Choose `SRC`, then inspect every candidate's score and evidence.
+- **Import mode:** Add results to the current list, or safely replace the list with successful results.
+- **Compare:** Select A and B to compare their location and network data side by side.
+- **Ranking:** Choose `SRC`, then check each server's score and details.
 - **HTTP:** Measure an HTTPS endpoint three times and use the successful median.
-- **Map:** The graticule and dynamic scale update with zoom.
-- **Delete:** Clearing selection is different from deleting IPs; deletion always asks for confirmation.
+- **Map:** The grid and distance scale change with zoom.
+- **Delete:** Clearing a selection does not delete IPs. The app asks before it deletes data.
 - **Accuracy:** IP geolocation is approximate, and map lines are not traceroute paths.
 
-## 16. Limitations to state clearly
+## 16. Limits to explain clearly
 
 - IP geolocation is approximate and is not GPS.
 - Anycast/CDN targets may resolve differently.
-- Great-circle distance is not network-path distance.
+- Direct map distance is not the length of the network path.
 - Browser timing can include DNS, connection, TLS, server work, and browser scheduling.
-- Scores are comparison heuristics, not SLAs or automatic routing decisions.
+- Scores help users compare servers. They are not service promises or automatic routing decisions.
 - The working list and measurements reset when the page reloads.

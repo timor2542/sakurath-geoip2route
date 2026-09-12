@@ -1,12 +1,12 @@
-# Ranking evidence and algorithm — v1.8.0
+# Ranking method and evidence — v1.8.0
 
 ## Geographic distance
 
-IP Compare and ranking use Haversine distance with Earth radius 6,371 km. The intermediate value is clamped to [0,1] to avoid floating-point errors near antipodal coordinates. Invalid or missing upstream coordinates are rejected instead of silently mapped to (0,0).
+IP Compare and Server Ranking use the Haversine formula with an Earth radius of 6,371 km. The code keeps the temporary value between 0 and 1. This prevents rounding errors for points on opposite sides of Earth. The app rejects missing or invalid coordinates instead of placing them at (0,0).
 
-This is a great-circle estimate between IP geolocation coordinates, not the network path.
+This is an estimated direct distance between two IP locations. It is not the length of the network path.
 
-## Separate ranking bases
+## Two ranking methods
 
 Implementation: `src/utils/ranking.js`.
 
@@ -24,41 +24,41 @@ Geographic fit = 0.8 × distance_score + 0.2 × network_preference
 Browser HTTP  = 0.8 × http_score     + 0.2 × network_preference
 ```
 
-Network preference and normalization constants are explicit product choices, not empirically validated predictions. Unknown network data receives a neutral-ish default, not a claimed classification. A different network preference can outweigh a small distance or timing difference. The winning candidate has the highest combined score, not necessarily the shortest raw distance or lowest raw timing.
+The network values and score limits are product settings. They are not predictions proven by research. An unknown network type gets a middle value, but the app does not guess its real type. Network type can have more effect than a small distance or time difference. The winner has the highest total score. It may not have the shortest distance or lowest HTTP time.
 
-Scores range from 0 to 100 and are not percentages. Each component's weighted contribution and the gap to the next ranked candidate are shown. Ties are ordered by stable ID. Unmeasured candidates remain visible with null score and null rank.
+Scores go from 0 to 100, but they are not percentages. The app shows the weighted parts of each score and the gap to the next server. If scores are equal, the app uses a stable internal ID to keep the order steady. Servers without a measurement stay visible, but they have no score or rank.
 
-The geographic reference is excluded from the candidate list. It supplies distance only; **Browser HTTP never treats the selected IP as the origin of the HTTP request**. Changing the reference does not change another candidate's HTTP score.
+The app does not include the geographic reference in the server list. It uses this reference only to calculate distance. **The Browser HTTP test does not start from the selected reference IP.** It starts from the user's browser. Changing the reference does not change a server's HTTP score.
 
-## Browser measurement
+## Browser HTTP test
 
 Implementation: `src/services/probe.js`.
 
-- Three sequential GET requests, timed from fetch start until response headers.
-- Median of successful samples; an even count uses the midpoint of the two central samples.
-- At most two candidate URLs measured concurrently.
-- Each request has a 4.5-second abort timeout.
-- HTTPS only, matching candidate hostname/IP, no custom ports, no URL credentials/fragments.
-- CORS mode, no browser credentials, no referrer, no redirects, no-store cache request, cache-busting query value.
-- Only readable 2xx responses count as successful; opaque/status-zero responses do not.
-- Response body is cancelled because transfer throughput is not measured.
-- No successful samples: null median and unranked, not offline.
-- Partial success: median uses successful requests and the exact success/attempt count is displayed.
+- The app sends three GET requests, one after another. It measures from the start of `fetch` until it receives the response headers.
+- It uses the median of successful tests. For an even number, it uses the middle point between the two central values.
+- It tests no more than two server URLs at the same time.
+- Each request stops after 4.5 seconds.
+- The URL must use HTTPS and match the server hostname or IP. Custom ports, login details, and URL fragments are not allowed.
+- Requests use CORS. They send no browser login data or referrer, follow no redirects, and do not use stored cache results.
+- Only readable 2xx responses are successful. Responses hidden by the browser, also called opaque responses, do not count. Status zero does not count either.
+- The app cancels the response body because it does not test download speed.
+- If all tests fail, the server has no median or rank. The app does not call it offline.
+- If some tests pass, the median uses only successful results. The app shows the exact number of successful tests.
 
-This is not ICMP ping, pure wire latency, TLS-only timing, throughput, or a measurement from a remote selected country. It can include connection setup, server work, browser scheduling, service-worker effects, network variation and warm connections. Compare equivalent small endpoints and repeat measurements.
+This test is not ICMP ping, download speed, or a test from another country. The result can include connection setup, server work, browser tasks, service workers, network changes, and reused connections. For a fair comparison, use similar small endpoints and repeat the tests.
 
-A hostname can resolve differently on the app server and browser, especially with CDN/anycast. Host matching reduces accidental misattribution but cannot prove direct-to-IP measurement. Literal local/reserved targets are blocked; DNS rebinding and arbitrary hostname resolution are not audited by this client-side check.
+A hostname may point to different IPs on the app server and in the browser. This is common with CDN and Anycast services. Host matching helps prevent tests of the wrong server, but it cannot prove a direct test to one IP. The app blocks local and reserved IP addresses entered as targets. This browser check does not fully test for DNS rebinding or every possible hostname change.
 
-## Lookup, import and exports
+## Lookups, imports, and exports
 
-- Public IPs/hostnames are resolved using a server-side IP2Location key.
-- Up to three lookup workers, 200 unique targets per import and 1 MiB file limit.
-- Same resolved IP is deduplicated. Refresh merges into the current list, so deleting a point during refresh does not resurrect it.
-- GeoJSON/route discovery is not performed; JSON and CSV contain ranked candidate evidence.
-- Exports record the scoring basis, formula, geographic reference/source, measurement origin, successful samples and time.
-- Spreadsheet formula-leading strings are neutralized in CSV export.
-- Measurements and the working list reset on reload; no durable dataset is claimed.
+- The server uses the IP2Location key to look up public IPs and hostnames.
+- The app runs up to three lookups at the same time. Each import can contain 200 unique targets and can be up to 1 MiB.
+- The app merges items that resolve to the same IP. Refresh also merges results into the current list. It does not bring back a point that the user deleted during refresh.
+- The app does not find packet routes or create GeoJSON. JSON and CSV exports contain ranking evidence.
+- Exports include the scoring method, formula, geographic reference, test origin, successful results, and test time.
+- CSV export makes text that starts like a spreadsheet formula safe.
+- Measurements and the working list reset when the page reloads. The app does not claim to store a permanent dataset.
 
 ## Known limits
 
-The score is a comparison aid, not an automated production routing decision. It does not establish uptime, application correctness, peering quality, geographic residency, or compliance. A production selector needs repeated measurements, health checks, operational constraints and endpoint authorization.
+The score helps users compare servers. It must not make production routing decisions by itself. It does not prove uptime, correct application behavior, connection quality, data location, or legal compliance. A production system also needs repeated tests, health checks, operating rules, and permission to test each endpoint.

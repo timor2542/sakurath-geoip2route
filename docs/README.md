@@ -1,35 +1,35 @@
-# Project documentation
+# Project documents
 
 [Back to the English README](../README.md) | [อ่านภาษาไทย](README.th.md)
 
-This folder contains the technical and contest documents for SakuraTH GeoIP2Route. Start with the document that matches your task:
+This folder contains the technical and contest documents for SakuraTH GeoIP2Route. Choose the document that fits your task:
 
 | Document | Use it for |
 |---|---|
-| [USER-GUIDE.md](USER-GUIDE.md) | Detailed workflow, UI explanations, and a 14-shot screenshot script |
-| [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP measurement evidence, import limits, and known limitations |
-| [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) | The checks to complete before publishing or submitting |
-| [VALIDATION.md](VALIDATION.md) | What has been verified and what still needs a live check |
+| [USER-GUIDE.md](USER-GUIDE.md) | How to use the app and plan 14 screenshots |
+| [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP tests, import limits, and known limits |
+| [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) | Checks to complete before release or submission |
+| [VALIDATION.md](VALIDATION.md) | Completed checks and checks that need the live app |
 | [../CHANGELOG.md](../CHANGELOG.md) | Version history |
 
-## The shortest useful reading order
+## Suggested reading order
 
-1. Read the root [README](../README.md) to understand the product and run it.
-2. Read [ALGORITHM.md](ALGORITHM.md) before describing a score as a result.
-3. Follow [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) before a public deployment.
-4. Use [VALIDATION.md](VALIDATION.md) to distinguish automated evidence from checks that require the live deployment.
+1. Read the main [README](../README.md) to learn about the product and run it.
+2. Read [ALGORITHM.md](ALGORITHM.md) before you explain a score.
+3. Follow [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) before you publish the app.
+4. Use [VALIDATION.md](VALIDATION.md) to see which checks are automatic and which need the live app.
 
-## Product boundaries
+## What the product does not do
 
-GeoIP2Route compares IP geolocation and ranks candidate servers. It does not perform traceroute, ICMP ping, packet-route discovery, failover, load balancing, or remote-agent testing. Geographic distance is an estimate; browser HTTP timing is a separate signal measured from the browser that runs the application.
+GeoIP2Route compares IP locations and ranks possible servers. It does not run traceroute or ICMP ping. It also does not find packet routes, manage failover or load balancing, or test from remote agents. Map distance is an estimate. HTTP time is a separate result measured by the user's browser.
 
-## Release facts
+## Release details
 
 - Release candidate: `v1.8.0`
 - Node.js: `20.19+` or `22.12+`
 - Import limit: 200 unique targets and 1 MiB per file
-- Browser probe: three GET requests, median successful response-header timing, 4.5-second timeout per request
+- Browser test: three GET requests, the median successful response time, and a 4.5-second timeout for each request
 - Automated suite: 45 tests plus the structural smoke check
 - Netlify function limits: 60 lookups/minute and 20 current-IP requests/minute per IP/domain
 
-Keep these numbers consistent with the implementation and update this index when a release changes them.
+Keep these numbers in line with the code. Update this page when they change.

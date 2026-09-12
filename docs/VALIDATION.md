@@ -1,6 +1,6 @@
-# Validation record — v1.8.0
+# Test record — v1.8.0
 
-Validation snapshot: 2026-09-11
+Check date: 2026-09-11
 
 ## Verified in the repository
 
@@ -9,25 +9,25 @@ Validation snapshot: 2026-09-11
 | Structural smoke check | Passed |
 | Automated logic, CSS, and markup checks | 45 passed, 0 failed |
 | Production Vite build | Passed |
-| Ranking and evidence separation | Passed with mocked responses |
-| CSV preflight | Valid/invalid states, flexible header order, detected roles, preview rows, and exact row errors passed |
-| IPv4/IPv6 identity and duplicate merging | Passed, including refreshed DNS convergence and selection remapping |
-| Current-IP validation and error handling | Passed with mocked discovery and geolocation |
-| Browser HTTP measurement rules | Passed with mocked CORS, timeout, partial-success, and unavailable cases |
-| Address wrapping and input behavior | Passed for full IPv4/IPv6 values, Enter submission, and IME composition |
-| Activity Console | Passed for action wiring, secret filtering, 200-entry cap, responsive markup, and collapse behavior |
-| Terminal progress | Passed for real stages, failures, concurrency, and non-TTY output |
-| Netlify rate-limit declarations | Passed in source: lookup 60/minute and current IP 20/minute per IP/domain |
-| Warm-instance GeoIP cache | Passed with mocked repeated requests and caller-mutation checks |
+| Separate ranking evidence | Passed with test responses |
+| CSV review | Passed for valid and invalid files, any header order, column roles, preview rows, and exact row errors |
+| IPv4/IPv6 matching and duplicate merging | Passed, including DNS results that later point to the same IP and updates to the selection |
+| Current-IP checks and errors | Passed with test responses for IP discovery and location |
+| Browser HTTP test rules | Passed for CORS, timeout, partial success, and unavailable results |
+| Address display and input | Passed for full IPv4/IPv6 values, Enter, and IME text entry |
+| Activity Console | Passed for app actions, secret removal, the 200-entry limit, small screens, and open/close behavior |
+| Terminal progress | Passed for real stages, errors, tests at the same time, and output without an interactive terminal |
+| Netlify rate limits | Passed in the code: 60 lookups and 20 current-IP requests per minute for each IP/domain |
+| Short-term GeoIP cache | Passed with repeated test requests and checks that callers cannot change stored data |
 
 ## Still required on the intended deployment
 
-- [ ] Verify the live IP2Location response, plan-dependent fields, quota behavior, and current-IP detection.
-- [ ] Verify both Netlify rate-limit rules in the deployment log and observe the platform response when exceeded.
-- [ ] Test the public application in a signed-out browser on desktop and mobile, in English and Thai, with both themes.
-- [ ] Test authorized HTTPS probes from more than one network and inspect the honest unavailable state.
-- [ ] Confirm the published repository, release version, screenshots, application URL, and contest eligibility.
+- [ ] Check the live IP2Location response, fields included in the plan, quota use, and current-IP detection.
+- [ ] Check both Netlify rate limits in the deployment log. Review the platform response after a user reaches a limit.
+- [ ] Test the public app while signed out. Use desktop and mobile, English and Thai, and both themes.
+- [ ] Test approved HTTPS endpoints from more than one network. Check that unavailable results are clear and honest.
+- [ ] Confirm the public repository, version, screenshots, app URL, and that the project follows the contest rules.
 
-## Interpretation
+## What the results mean
 
-The automated suite validates deterministic logic, safety rules, markup wiring, and compilation. It does not establish real network latency, upstream availability, visual pixel layout, deployed configuration, or contest eligibility. Use [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) to close the remaining live checks.
+The automated tests check stable logic, safety rules, page controls, and the production build. They do not prove real network speed, API availability, exact visual layout, live settings, or that the project follows every contest rule. Use [RELEASE-CHECKLIST.md](RELEASE-CHECKLIST.md) to complete the live checks.
