@@ -20,6 +20,77 @@
 }
 .demo-launcher .launcher-note:last-child { margin-bottom: 0; }
 
+/* Keep section shortcuts available while the desktop left panel scrolls. */
+.sidebar-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  background: color-mix(in srgb,var(--surface) 96%,transparent);
+  backdrop-filter: blur(14px);
+}
+.sidebar-sticky-header .mode-switch {
+  position: relative;
+  top: auto;
+  z-index: auto;
+  border-bottom: 0;
+  background: transparent;
+  backdrop-filter: none;
+}
+.sidebar-jump-nav {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 5px 10px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-jump-nav > span {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.sidebar-jump-buttons {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(5,44px);
+  gap: 5px;
+}
+.sidebar-jump-buttons button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+}
+.sidebar-jump-buttons button:hover {
+  border-color: var(--accent);
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+}
+.sidebar-jump-buttons svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.sidebar-jump-buttons .refresh-arrowhead,
+.sidebar-jump-buttons .jump-demo-icon path { fill: currentColor; stroke: currentColor; }
+.control-panel [tabindex="-1"]:focus { outline: none; }
+.control-panel > .panel-section,
+.control-panel > .demo-launcher { scroll-margin-top: 178px; }
+
 /* White labels and icons on solid Sakura-pink controls in both themes.
    Outlined buttons and pale surfaces retain their existing text colors. */
 .lookup-form button,
@@ -149,6 +220,9 @@
   .server-row { grid-template-columns: 29px minmax(0,1fr) 76px 34px; }
 }
 @media (max-width: 900px) {
+  .sidebar-sticky-header { position: relative; top: auto; }
+  .control-panel > .panel-section,
+  .control-panel > .demo-launcher { scroll-margin-top: 76px; }
   .compare-slot-grid { grid-template-columns: 1fr; }
   .distance-highlight { grid-template-columns: 1fr; }
   .distance-highlight strong { grid-column: 1; grid-row: 3; margin-top: 6px; }

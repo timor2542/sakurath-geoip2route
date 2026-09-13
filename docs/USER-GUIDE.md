@@ -28,6 +28,8 @@ The desktop workspace has four main areas:
 
 The **Activity Console** below the map records actions from the current browser session.
 
+The sticky **Go to** row in the left panel has five shortcuts, from left to right: Current IP, Update, Add IP, Points, and Demo. Select an icon to move directly to that section. Hover over a button to see its full name; screen readers use the same localized name.
+
 Marker and data labels:
 
 - Pink `A`: first comparison point
@@ -39,7 +41,7 @@ Marker and data labels:
 - `SAMPLE`: bundled example location
 - `SIMULATED`: test data that is clearly marked
 
-> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, control panel, map, result panel, and Activity Console. In the left panel, show the order from Add current IP to Map Points.
+> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, Go to shortcuts, control panel, map, result panel, and Activity Console. In the left panel, show the order from Add current IP to Map Points.
 
 ![Mobile workspace overview showing the map, markers, scale, language and theme controls](guide-start.jpg)
 
