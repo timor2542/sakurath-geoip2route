@@ -300,7 +300,7 @@
 .analyze-button,
 .primary-modal-button,
 .compare-add-form button,
-.demo-launcher button:first-child,
+.demo-launcher button:first-of-type,
 .probe-form button[type="submit"],
 .language-slider button.active,
 .mode-switch > button.active .mode-icon {
