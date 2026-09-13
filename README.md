@@ -8,6 +8,15 @@ A bilingual web application for comparing IP locations and ranking server candid
 
 Built for the **IP2Location Programming Contest 2026** · Version **1.8.0**
 
+## Documentation
+
+| Read this | When to use it |
+|---|---|
+| [User Guide](docs/USER-GUIDE.md) | Follow the application step by step with screenshots |
+| [Algorithm](docs/ALGORITHM.md) | Understand how distance, HTTP evidence, and ranking scores are calculated |
+
+Thai versions: [คู่มือการใช้งาน](docs/USER-GUIDE.th.md) · [หลักการและอัลกอริทึม](docs/ALGORITHM.th.md)
+
 GeoIP2Route continues [SakuraTH GeoIP2Map](https://github.com/timor2542/sakurath-geoip2map). The original project maps one IP; GeoIP2Route adds pairwise A/B comparison and multi-server ranking. “Route” means selecting a suitable server candidate—it does not discover router hops or change network routing.
 
 ## Highlights
@@ -36,6 +45,8 @@ npm run dev
 4. Open the local URL printed by Vite, usually `http://localhost:5173/`. Vite automatically chooses another port when that port is busy.
 
 ## How to use it
+
+For complete instructions and application screenshots, open the [User Guide](docs/USER-GUIDE.md).
 
 The left panel puts the main actions first in this order: **Add current IP**, **Update list from IP2Location**, **ADD IPs TO THE LIST**, and **MAP POINTS** (or **ALL IP POINTS** in Server Ranking). The two optional demo controls are below the working sections.
 
@@ -120,7 +131,7 @@ The reported time can include DNS, TCP/TLS, and server processing. It is not ICM
 
 Scores from 0–100 are project heuristics, not speed percentages, probabilities, or validated performance predictions. Without a successful HTTP request, the app does not create an HTTP rank.
 
-See [ALGORITHM.md](docs/ALGORITHM.md) for the complete equations, assumptions, and limitations.
+Read [Algorithm: scoring and evidence](docs/ALGORITHM.md) for the complete equations, calculation steps, assumptions, and limitations.
 
 ## How the system works
 
