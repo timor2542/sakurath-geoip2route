@@ -77,6 +77,21 @@
     </header>
 
     <main class="workspace" :class="{ 'console-open': consoleOpen }">
+      <aside class="section-rail" :aria-label="t('quickNavigation')" @focusout="closeHeaderJumpOnFocusOut" @keydown.esc.stop.prevent="headerJumpOpen = false">
+        <button class="section-rail-trigger" type="button" aria-controls="section-rail-panel" :aria-expanded="headerJumpOpen" :title="t('quickNavigation')" @click="headerJumpOpen = !headerJumpOpen">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h14"/><circle cx="8" cy="6" r="1"/><circle cx="8" cy="12" r="1"/><circle cx="8" cy="18" r="1"/></svg><span>{{ t('sections') }}</span>
+        </button>
+        <nav v-if="headerJumpOpen" id="section-rail-panel" class="section-rail-panel sidebar-jump-nav" :aria-label="t('quickNavigation')">
+          <p>{{ t('jumpTo') }}</p>
+          <div class="sidebar-jump-list">
+            <button type="button" :class="{ active: sidebarJumpTarget === 'current' }" :aria-current="sidebarJumpTarget === 'current' ? 'location' : undefined" @click="jumpToSidebar('current')"><i aria-hidden="true"></i><span>{{ t('addCurrentIp') }}</span></button>
+            <button type="button" :class="{ active: sidebarJumpTarget === 'update' }" :aria-current="sidebarJumpTarget === 'update' ? 'location' : undefined" @click="jumpToSidebar('update')"><i aria-hidden="true"></i><span>{{ t('updateFromIp2Location') }}</span></button>
+            <button type="button" :class="{ active: sidebarJumpTarget === 'add' }" :aria-current="sidebarJumpTarget === 'add' ? 'location' : undefined" @click="jumpToSidebar('add')"><i aria-hidden="true"></i><span>{{ t('addIpToList') }}</span></button>
+            <button type="button" :class="{ active: sidebarJumpTarget === 'points' }" :aria-current="sidebarJumpTarget === 'points' ? 'location' : undefined" @click="jumpToSidebar('points')"><i aria-hidden="true"></i><span>{{ appMode === 'ranking' ? t('allIpPoints') : t('mapPoints') }}</span></button>
+            <button type="button" :class="{ active: sidebarJumpTarget === 'demo' }" :aria-current="sidebarJumpTarget === 'demo' ? 'location' : undefined" @click="jumpToSidebar('demo')"><i aria-hidden="true"></i><span>{{ t('demoTools') }}</span></button>
+          </div>
+        </nav>
+      </aside>
       <MapCanvas
         :client="client"
         :mode="appMode"
