@@ -39,7 +39,7 @@ npm run dev
 
 The left panel puts the main actions first in this order: **Add current IP**, **Update list from IP2Location**, **ADD IPs TO THE LIST**, and **MAP POINTS** (or **ALL IP POINTS** in Server Ranking). The two optional demo controls are below the working sections.
 
-Use the sticky, vertical **Quick navigation** menu to jump directly to Current IP, Update, Add IP, Points, or Demo. It uses clear text labels and marks the current section with one small diamond.
+On desktop, Compare/Ranking and **Quick navigation** are in the top bar so the left panel starts with the working controls. Open Quick navigation to jump to Current IP, Update, Add IP, Points, or Demo. On stacked mobile screens, the same vertical menu stays inside the left panel. One small diamond marks the current section.
 
 ### Compare two IPs
 

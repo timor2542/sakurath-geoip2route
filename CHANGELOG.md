@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added a sticky, vertical, bilingual left-panel navigation menu for Current IP, Update, Add IP, Points, and Demo, with clear labels, a single active-section marker, scroll tracking, keyboard access, and visible section headings.
+- Moved the desktop Compare/Ranking switch and bilingual Quick navigation menu into the top bar so the left panel begins with working controls; retained the vertical menu in stacked mobile layouts, with active-section tracking and keyboard access.
 - Reordered the single left panel so current-IP detection, live refresh, IP addition/import, and point selection appear before the optional demo controls; updated the English and Thai documentation to match.
 - Fixed the 360–390 px header overflow with compact mobile branding, 44 px controls and a single theme-cycle button.
 - Mobile demo runs now reveal and focus the recommended-server result instead of leaving it several screens below the IP list.

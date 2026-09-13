@@ -20,13 +20,97 @@
 }
 .demo-launcher .launcher-note:last-child { margin-bottom: 0; }
 
-/* Keep section shortcuts available while the desktop left panel scrolls. */
+/* Desktop workspace navigation lives in the otherwise empty top-bar space. */
+.topbar {
+  grid-template-columns: minmax(310px,1fr) auto auto minmax(290px,1fr);
+  column-gap: 14px;
+}
+.header-workspace-tools {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.header-mode-switch {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--surface-soft);
+}
+.header-mode-switch button {
+  min-width: 0;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.header-mode-switch button.active {
+  background: var(--surface);
+  color: var(--accent-strong);
+  box-shadow: 0 2px 7px color-mix(in srgb,var(--text) 11%,transparent);
+}
+.header-mode-switch svg {
+  width: 21px;
+  height: 21px;
+  flex: 0 0 21px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.header-jump-menu { position: relative; }
+.header-jump-trigger {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.header-jump-trigger:hover,
+.header-jump-trigger[aria-expanded="true"] { border-color: var(--accent); color: var(--accent-strong); }
+.header-jump-trigger svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; transition: transform .16s ease; }
+.header-jump-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.header-jump-panel {
+  position: absolute;
+  z-index: 1400;
+  top: calc(100% + 8px);
+  right: 0;
+  width: min(280px,calc(100vw - 24px));
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: color-mix(in srgb,var(--surface) 98%,transparent);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+.header-jump-panel.sidebar-jump-nav > p { margin-left: 8px; }
+
+/* The full vertical navigator remains available inside the stacked mobile panel. */
 .sidebar-sticky-header {
-  position: sticky;
-  top: 0;
-  z-index: 8;
-  background: color-mix(in srgb,var(--surface) 96%,transparent);
-  backdrop-filter: blur(14px);
+  display: none;
 }
 .sidebar-sticky-header .mode-switch {
   position: relative;
@@ -95,7 +179,7 @@
 }
 .control-panel [tabindex="-1"]:focus { outline: none; }
 .control-panel > .panel-section,
-.control-panel > .demo-launcher { scroll-margin-top: 292px; }
+.control-panel > .demo-launcher { scroll-margin-top: 16px; }
 
 /* White labels and icons on solid Sakura-pink controls in both themes.
    Outlined buttons and pale surfaces retain their existing text colors. */
@@ -226,12 +310,19 @@
   .server-row { grid-template-columns: 29px minmax(0,1fr) 76px 34px; }
 }
 @media (max-width: 900px) {
-  .sidebar-sticky-header { position: relative; top: auto; }
+  .header-workspace-tools { display: none; }
+  .sidebar-sticky-header { display: block; position: relative; top: auto; }
   .control-panel > .panel-section,
   .control-panel > .demo-launcher { scroll-margin-top: 76px; }
   .compare-slot-grid { grid-template-columns: 1fr; }
   .distance-highlight { grid-template-columns: 1fr; }
   .distance-highlight strong { grid-column: 1; grid-row: 3; margin-top: 6px; }
+}
+
+@media (max-width: 1180px) and (min-width: 901px) {
+  .topbar { grid-template-columns: minmax(230px,1fr) auto auto; column-gap: 8px; }
+  .header-mode-switch button { padding-inline: 7px; }
+  .header-jump-trigger { padding-inline: 8px; }
 }
 
 /* Full address display: wrapping is visual only, never inserted into IP data. */
@@ -628,6 +719,18 @@
 
 @media (max-width: 1180px) {
   .app-shell .contest-header-status { display: none; }
+}
+
+@media (max-width: 1450px) and (min-width: 1181px) {
+  .topbar { grid-template-columns: minmax(230px,1fr) auto auto minmax(245px,1fr); column-gap: 8px; }
+  .brand-copy strong { white-space: nowrap; }
+  .brand-copy small,
+  .version,
+  .top-actions .optional-label,
+  .contest-header-label,
+  .header-mode-switch svg { display: none; }
+  .header-mode-switch button { padding-inline: 9px; }
+  .header-jump-trigger { padding-inline: 9px; }
 }
 
 /* Three-pane desktop workspace: controls | map + console | results. */
