@@ -106,6 +106,7 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   assert.match(app, /ref="helpTrigger"[^>]*:aria-label="t\('help'\)"[^>]*:title="t\('help'\)"/)
   assert.ok(app.indexOf('current-ip-section') < app.indexOf('class="sync-button"'))
   assert.ok(app.indexOf('class="demo-launcher"') > app.lastIndexOf('class="panel-section compare-list-section"'))
+  assert.match(app, /class="kicker demo-launcher-title">\{\{ t\('demoTools'\) \}\}<\/p>/)
   assert.equal((app.match(/:aria-label="t\('addIpToList'\)" :title="t\('addIpToList'\)"/g) || []).length, 3)
   assert.match(app, /class="header-workspace-tools"/)
   assert.match(app, /class="section-rail"[^>]*:aria-label="t\('quickNavigation'\)"/)

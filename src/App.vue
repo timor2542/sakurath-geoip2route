@@ -269,6 +269,7 @@
         </template>
 
         <div ref="demoSection" class="demo-launcher" tabindex="-1">
+          <p class="kicker demo-launcher-title">{{ t('demoTools') }}</p>
           <button type="button" @click="loadRankingDemo" :disabled="measurementBusy || syncingCompare || addingCurrentIp" aria-describedby="demo-launcher-hint">{{ t('tryRankingDemo') }}</button>
           <p id="demo-launcher-hint" class="launcher-note">{{ t('demoLauncherHint') }}</p>
           <button type="button" @click="loadProbeExample" aria-describedby="live-launcher-hint">{{ t('loadProbeExample') }}</button>
