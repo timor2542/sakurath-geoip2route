@@ -113,6 +113,8 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   assert.match(app, /class="section-rail" :class="\{ expanded: sectionRailExpanded \}"/)
   assert.match(app, /id="section-rail-panel" class="section-rail-nav"/)
   assert.equal((app.match(/class="section-rail-icon"/g) || []).length, 5)
+  assert.match(app, /class="section-rail-update-arrow" d="M17 8v10m-4-4 4 4 4-4"/)
+  assert.match(readability, /\.section-rail-icon \.section-rail-update-arrow \{[^}]*stroke: currentColor;/)
   assert.match(app, /id="header-jump-panel" class="header-jump-panel sidebar-jump-nav"/)
   assert.equal((app.match(/@click="jumpToSidebar\('(?:current|update|add|points|demo)'\)"/g) || []).length, 15)
   assert.equal((app.match(/sidebarJumpTarget === '(?:current|update|add|points|demo)' \? 'location'/g) || []).length, 15)

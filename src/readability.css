@@ -218,7 +218,7 @@
   box-shadow: 0 5px 12px color-mix(in srgb,var(--accent) 28%,transparent);
 }
 .section-rail-icon svg { width: 22px; height: 22px; }
-.section-rail-icon .section-rail-refresh-arrow { fill: currentColor; stroke: none; }
+.section-rail-icon .section-rail-update-arrow { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .section-rail-icon svg path[d="m10 9 5 3-5 3Z"] { fill: currentColor; }
 
 /* The full vertical navigator remains available inside the stacked mobile panel. */

@@ -88,7 +88,7 @@
             <span class="section-rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.7"/><path d="M12 2v4m0 12v4M2 12h4m12 0h4"/></svg></span><span class="section-rail-label">{{ t('addCurrentIp') }}</span>
           </button>
           <button type="button" :class="{ active: sidebarJumpTarget === 'update' }" :aria-current="sidebarJumpTarget === 'update' ? 'location' : undefined" :aria-label="t('updateFromIp2Location')" :title="t('updateFromIp2Location')" @click="jumpToSidebar('update')">
-            <span class="section-rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.25 12a8.25 8.25 0 1 1-2.42-5.83"/><path class="section-rail-refresh-arrow" d="m21.3 9.1-7-.95 4.15-5.7Z"/></svg></span><span class="section-rail-label">{{ t('updateFromIp2Location') }}</span>
+            <span class="section-rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h10M4 10h10M4 15h6"/><path class="section-rail-update-arrow" d="M17 8v10m-4-4 4 4 4-4"/></svg></span><span class="section-rail-label">{{ t('updateFromIp2Location') }}</span>
           </button>
           <button type="button" :class="{ active: sidebarJumpTarget === 'add' }" :aria-current="sidebarJumpTarget === 'add' ? 'location' : undefined" :aria-label="t('addIpToList')" :title="t('addIpToList')" @click="jumpToSidebar('add')">
             <span class="section-rail-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="13" height="16" rx="2"/><path d="M7 8h5M7 12h4M19 10v8m-4-4h8"/></svg></span><span class="section-rail-label">{{ t('addIpToList') }}</span>
