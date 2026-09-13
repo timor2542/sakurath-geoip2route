@@ -6,14 +6,14 @@ This folder contains the technical and contest documents for SakuraTH GeoIP2Rout
 
 | Document | Use it for |
 |---|---|
-| [USER-GUIDE.md](USER-GUIDE.md) | How to use the app, follow the current left-panel order, and plan 14 screenshots |
+| [USER-GUIDE.md](USER-GUIDE.md) | Illustrated steps for adding data, importing CSV, comparing IPs, ranking servers, and exporting results |
 | [ALGORITHM.md](ALGORITHM.md) | Scoring formulas, HTTP tests, import limits, and known limits |
 | [../CHANGELOG.md](../CHANGELOG.md) | Version history |
 
 ## Suggested reading order
 
 1. Read the main [README](../README.md) to learn about the product and run it.
-2. Read [USER-GUIDE.md](USER-GUIDE.md) for detailed steps and screenshot notes.
+2. Read [USER-GUIDE.md](USER-GUIDE.md) for detailed steps with application screenshots.
 3. Read [ALGORITHM.md](ALGORITHM.md) before you explain a score.
 
 ## What the product does not do
