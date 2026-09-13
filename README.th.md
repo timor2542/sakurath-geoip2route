@@ -1,4 +1,5 @@
 # SakuraTH GeoIP2Route
+![Complete desktop workspace with the left control panel, world map, Activity Console, and comparison panel](docs/img/01.png)
 
 [English](README.md) | **ภาษาไทย**
 
