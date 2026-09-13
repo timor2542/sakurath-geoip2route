@@ -116,51 +116,108 @@
   left: 8px;
   width: 58px;
   display: flex;
-  justify-content: center;
-  padding: 8px 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 7px;
+  padding: 7px;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: color-mix(in srgb,var(--surface) 96%,transparent);
   box-shadow: var(--shadow-sm);
   backdrop-filter: blur(14px);
+  transition: width .2s ease, box-shadow .2s ease;
 }
-.section-rail-trigger {
-  width: 44px;
-  min-height: 62px;
-  align-self: flex-start;
-  display: flex;
-  flex-direction: column;
+.section-rail.expanded {
+  width: min(270px,calc(100vw - 94px));
+  box-shadow: var(--shadow);
+}
+.section-rail-toggle,
+.section-rail-nav button {
+  min-width: 42px;
+  min-height: 44px;
+  display: grid;
+  grid-template-columns: 28px minmax(0,1fr) 18px;
   align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 7px 3px;
+  gap: 8px;
+  padding: 6px 7px;
   border: 0;
   border-radius: 10px;
   background: transparent;
   color: var(--muted);
   font-family: inherit;
-  font-size: 10px;
-  font-weight: 700;
-  line-height: 1.2;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  white-space: nowrap;
   cursor: pointer;
+  transition: color .16s ease, background-color .16s ease;
 }
-.section-rail-trigger:hover,
-.section-rail-trigger[aria-expanded="true"] { background: var(--surface-soft); color: var(--accent-strong); }
-.section-rail-trigger svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
-.section-rail-trigger circle { fill: var(--surface); stroke-width: 1.6; }
-.section-rail-panel {
-  position: absolute;
-  top: 0;
-  left: calc(100% + 8px);
-  width: min(280px,calc(100vw - 90px));
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  background: color-mix(in srgb,var(--surface) 98%,transparent);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(16px);
+.section-rail-toggle:hover,
+.section-rail-nav button:hover { background: var(--surface-soft); color: var(--text); }
+.section-rail-toggle {
+  flex: 0 0 auto;
+  color: var(--accent-strong);
+  font-weight: 700;
 }
-.section-rail-panel.sidebar-jump-nav > p { margin-left: 8px; }
+.section-rail:not(.expanded) .section-rail-toggle,
+.section-rail:not(.expanded) .section-rail-nav button {
+  grid-template-columns: 28px;
+  justify-content: center;
+}
+.section-rail-menu-icon,
+.section-rail-chevron,
+.section-rail-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.section-rail-menu-icon { justify-self: center; }
+.section-rail-menu-icon circle { fill: currentColor; stroke: none; }
+.section-rail-chevron {
+  width: 18px;
+  height: 18px;
+  justify-self: end;
+}
+.section-rail-toggle-label,
+.section-rail-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.section-rail:not(.expanded) .section-rail-toggle-label,
+.section-rail:not(.expanded) .section-rail-label,
+.section-rail:not(.expanded) .section-rail-chevron { display: none; }
+.section-rail-nav {
+  display: grid;
+  gap: 4px;
+}
+.section-rail-nav button.active {
+  background: var(--surface-soft);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+.section-rail-icon {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  border-radius: 8px;
+}
+.section-rail-nav button.active .section-rail-icon {
+  color: var(--on-accent);
+  background: var(--accent);
+  box-shadow: 0 5px 12px color-mix(in srgb,var(--accent) 28%,transparent);
+}
+.section-rail-icon svg { width: 22px; height: 22px; }
+.section-rail-icon .section-rail-refresh-arrow { fill: currentColor; stroke: none; }
+.section-rail-icon svg path[d="m10 9 5 3-5 3Z"] { fill: currentColor; }
 
 /* The full vertical navigator remains available inside the stacked mobile panel. */
 .sidebar-sticky-header {

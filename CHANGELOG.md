@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Kept Compare/Ranking in the desktop top bar and moved Quick navigation into a narrow far-left rail with a labeled Sections trigger and text flyout; retained suitable top-bar and vertical-panel variants for medium and mobile layouts.
+- Kept Compare/Ranking in the desktop top bar and reworked Quick navigation as a collapsible far-left icon rail: compact mode shows five distinct section icons, while expanded mode reveals their text labels. Medium and mobile layouts retain suitable top-bar and vertical-panel variants.
 - Reordered the single left panel so current-IP detection, live refresh, IP addition/import, and point selection appear before the optional demo controls; updated the English and Thai documentation to match.
 - Fixed the 360–390 px header overflow with compact mobile branding, 44 px controls and a single theme-cycle button.
 - Mobile demo runs now reveal and focus the recommended-server result instead of leaving it several screens below the IP list.

@@ -28,7 +28,7 @@ The desktop workspace has four main areas:
 
 The **Activity Console** below the map records actions from the current browser session.
 
-On desktop, Compare/Ranking stays in the top bar and **Quick navigation** is in the narrow rail at the far left. Open **Sections** and choose Current IP, Update, Add IP, Points, or Demo. This leaves the main left panel free to start with the working controls. Medium stacked screens place Sections in the top bar; mobile shows the options as a vertical menu inside the left panel. One small diamond marks the current section.
+On desktop, Compare/Ranking stays in the top bar and **Quick navigation** is an icon rail at the far left. Its five distinct icons open Current IP, Update, Add IP, Points, or Demo. The rail starts in its compact icon-only state; press the menu icon to expand it and read the labels. This leaves the main left panel free to start with the working controls. Medium stacked screens place Sections in the top bar; mobile shows the options as a vertical menu inside the left panel.
 
 Marker and data labels:
 
@@ -41,7 +41,7 @@ Marker and data labels:
 - `SAMPLE`: bundled example location
 - `SIMULATED`: test data that is clearly marked
 
-> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Label the header, Quick navigation menu, control panel, map, result panel, and Activity Console. In the left panel, show the order from Add current IP to Map Points.
+> **Screenshot 1 — Workspace overview:** Use a wide desktop screen. Capture the compact icon rail and its expanded text state, then label the header, control panel, map, result panel, and Activity Console. In the left panel, show the order from Add current IP to Map Points.
 
 ![Mobile workspace overview showing the map, markers, scale, language and theme controls](guide-start.jpg)
 
