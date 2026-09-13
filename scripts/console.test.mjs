@@ -115,7 +115,7 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   assert.match(app, /id="header-jump-panel" class="header-jump-panel sidebar-jump-nav"/)
   assert.equal((app.match(/@click="jumpToSidebar\('(?:current|update|add|points|demo)'\)"/g) || []).length, 15)
   assert.equal((app.match(/sidebarJumpTarget === '(?:current|update|add|points|demo)' \? 'location'/g) || []).length, 15)
-  assert.match(app, /target\.scrollIntoView\(\{ behavior: reducedMotion \? 'auto' : 'smooth', block: 'start' \}\)/)
+  assert.match(app, /target\.scrollIntoView\(\{ behavior: 'auto', block: 'start' \}\)/)
   assert.match(app, /function updateSidebarJumpTarget\(\)/)
   assert.match(readability, /\.header-jump-panel \{[^}]*position: absolute;[^}]*z-index: 1400;/)
   assert.match(readability, /\.section-rail \{[^}]*position: absolute;[^}]*z-index: 910;/)

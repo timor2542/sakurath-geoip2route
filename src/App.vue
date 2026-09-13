@@ -869,8 +869,9 @@ async function jumpToSidebar(section) {
   }
   const target = targets[section]?.value
   if (!target) return
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' })
+  // Navigation is a deliberate jump: land on the selected section immediately
+  // so the active rail item and the visible content never disagree mid-scroll.
+  target.scrollIntoView({ behavior: 'auto', block: 'start' })
   target.focus({ preventScroll: true })
 }
 
