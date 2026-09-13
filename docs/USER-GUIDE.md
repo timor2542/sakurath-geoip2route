@@ -7,8 +7,6 @@ This guide explains the main tasks in SakuraTH GeoIP2Route. The screenshots show
 - Live application: <https://sakurath-geoip2route.netlify.app/>
 - Source repository: <https://github.com/timor2542/sakurath-geoip2route>
 
-> Privacy note: check screenshots before sharing them. A current-IP lookup can show your public IP address and network provider.
-
 ## 1. What the application does
 
 SakuraTH GeoIP2Route has two main modes:
