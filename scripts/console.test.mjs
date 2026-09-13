@@ -119,6 +119,7 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   assert.match(app, /function updateSidebarJumpTarget\(\)/)
   assert.match(readability, /\.header-jump-panel \{[^}]*position: absolute;[^}]*z-index: 1400;/)
   assert.match(readability, /\.section-rail \{[^}]*position: absolute;[^}]*z-index: 910;/)
+  assert.match(readability, /\.section-rail \{[^}]*bottom: auto;[^}]*height: max-content;/)
   assert.match(readability, /\.section-rail\.expanded \{[^}]*width: min\(270px,calc\(100vw - 94px\)\);/)
   assert.match(readability, /\.section-rail:not\(\.expanded\) \.section-rail-label,[\s\S]*display: none;/)
   assert.match(readability, /@media \(max-width: 900px\) \{[^}]*\.header-workspace-tools \{ display: none; \}/)
