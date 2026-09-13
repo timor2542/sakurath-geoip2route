@@ -4,8 +4,8 @@
 
 คู่มือนี้อธิบายขั้นตอนหลักของ SakuraTH GeoIP2Route ภาพประกอบบันทึกจากรุ่น `v1.8.0` ข้อมูล IP เวลา และคะแนนจากการใช้งานจริงอาจแตกต่างจากภาพ
 
-- เว็บแอปพลิเคชัน: <https://sakurath-geoip2route.netlify.app/>
-- ที่เก็บซอร์สโค้ด: <https://github.com/timor2542/sakurath-geoip2route>
+- เว็บแอปพลิเคชัน: <https://sakurath-geoip2route.netlify.app/>.
+- ที่เก็บซอร์สโค้ด: <https://github.com/timor2542/sakurath-geoip2route>.
 
 ## 1. วัตถุประสงค์ของแอปพลิเคชัน
 

@@ -4,8 +4,8 @@
 
 This guide explains the main tasks in SakuraTH GeoIP2Route. The screenshots show version `v1.8.0`. Live IP data, times, and scores may be different when you use the application.
 
-- Live application: <https://sakurath-geoip2route.netlify.app/>
-- Source repository: <https://github.com/timor2542/sakurath-geoip2route>
+- Live application: <https://sakurath-geoip2route.netlify.app/>.
+- Source repository: <https://github.com/timor2542/sakurath-geoip2route>.
 
 ## 1. What the application does
 
