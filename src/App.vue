@@ -66,8 +66,8 @@
         @select-server="selectedServerId = $event"
       />
 
-      <aside class="control-panel panel-card">
-        <div class="sidebar-sticky-header">
+      <aside ref="controlPanel" class="control-panel panel-card" @scroll.passive="updateSidebarJumpTarget">
+        <div ref="sidebarStickyHeader" class="sidebar-sticky-header">
           <div class="mode-switch" role="tablist" :aria-label="t('workspaceMode')">
             <button type="button" role="tab" :aria-selected="appMode === 'compare'" :class="{ active: appMode === 'compare' }" @click="appMode = 'compare'">
               <span class="mode-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="8" cy="9" r="4"/><circle cx="24" cy="23" r="4"/><path d="M12 9h10l-3-3m3 3-3 3M20 23H10l3-3m-3 3 3 3"/></svg></span>
@@ -79,15 +79,14 @@
             </button>
           </div>
           <nav class="sidebar-jump-nav" :aria-label="t('quickNavigation')">
-            <label for="sidebar-jump-select">{{ t('quickNavigation') }}</label>
-            <select id="sidebar-jump-select" v-model="sidebarJumpTarget" @change="jumpToSidebar(sidebarJumpTarget)">
-              <option disabled value="">{{ t('jumpTo') }}</option>
-              <option value="current">{{ t('addCurrentIp') }}</option>
-              <option value="update">{{ t('updateFromIp2Location') }}</option>
-              <option value="add">{{ t('addIpToList') }}</option>
-              <option value="points">{{ appMode === 'ranking' ? t('allIpPoints') : t('mapPoints') }}</option>
-              <option value="demo">{{ t('demoTools') }}</option>
-            </select>
+            <p>{{ t('quickNavigation') }}</p>
+            <div class="sidebar-jump-list">
+              <button type="button" :class="{ active: sidebarJumpTarget === 'current' }" :aria-current="sidebarJumpTarget === 'current' ? 'location' : undefined" @click="jumpToSidebar('current')"><i aria-hidden="true"></i><span>{{ t('addCurrentIp') }}</span></button>
+              <button type="button" :class="{ active: sidebarJumpTarget === 'update' }" :aria-current="sidebarJumpTarget === 'update' ? 'location' : undefined" @click="jumpToSidebar('update')"><i aria-hidden="true"></i><span>{{ t('updateFromIp2Location') }}</span></button>
+              <button type="button" :class="{ active: sidebarJumpTarget === 'add' }" :aria-current="sidebarJumpTarget === 'add' ? 'location' : undefined" @click="jumpToSidebar('add')"><i aria-hidden="true"></i><span>{{ t('addIpToList') }}</span></button>
+              <button type="button" :class="{ active: sidebarJumpTarget === 'points' }" :aria-current="sidebarJumpTarget === 'points' ? 'location' : undefined" @click="jumpToSidebar('points')"><i aria-hidden="true"></i><span>{{ appMode === 'ranking' ? t('allIpPoints') : t('mapPoints') }}</span></button>
+              <button type="button" :class="{ active: sidebarJumpTarget === 'demo' }" :aria-current="sidebarJumpTarget === 'demo' ? 'location' : undefined" @click="jumpToSidebar('demo')"><i aria-hidden="true"></i><span>{{ t('demoTools') }}</span></button>
+            </div>
           </nav>
         </div>
 
@@ -561,7 +560,9 @@ const deleteAllDialog = ref(null)
 const deleteAllCancelButton = ref(null)
 const pendingDeletePointId = ref('')
 const resultPanel = ref(null)
-const sidebarJumpTarget = ref('')
+const controlPanel = ref(null)
+const sidebarStickyHeader = ref(null)
+const sidebarJumpTarget = ref('current')
 const currentIpSection = ref(null)
 const updateSection = ref(null)
 const addIpSection = ref(null)
@@ -803,6 +804,7 @@ async function revealMobileResults() {
 }
 
 async function jumpToSidebar(section) {
+  sidebarJumpTarget.value = section
   await nextTick()
   const targets = {
     current: currentIpSection,
@@ -813,10 +815,28 @@ async function jumpToSidebar(section) {
   }
   const target = targets[section]?.value
   if (!target) return
-  sidebarJumpTarget.value = ''
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
   target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' })
   target.focus({ preventScroll: true })
+}
+
+function updateSidebarJumpTarget() {
+  const panel = controlPanel.value
+  const stickyHeader = sidebarStickyHeader.value
+  if (!panel || !stickyHeader || window.matchMedia('(max-width: 900px)').matches) return
+  const threshold = stickyHeader.getBoundingClientRect().bottom + 24
+  const targets = [
+    ['current', currentIpSection.value],
+    ['update', updateSection.value],
+    ['add', addIpSection.value],
+    ['points', mapPointsSection.value],
+    ['demo', demoSection.value]
+  ]
+  let active = targets.find(([, element]) => element)?.[0] || 'current'
+  for (const [section, element] of targets) {
+    if (element && element.getBoundingClientRect().top <= threshold) active = section
+  }
+  sidebarJumpTarget.value = active
 }
 
 async function loadRankingDemo() {

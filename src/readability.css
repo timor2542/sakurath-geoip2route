@@ -38,43 +38,64 @@
 }
 .sidebar-jump-nav {
   min-width: 0;
-  display: grid;
-  grid-template-columns: minmax(94px,auto) minmax(0,1fr);
-  align-items: center;
-  gap: 10px;
-  padding: 6px 12px 11px;
+  padding: 8px 16px 12px;
   border-bottom: 1px solid var(--border);
 }
-.sidebar-jump-nav label {
+.sidebar-jump-nav > p {
+  margin: 0 0 3px 16px;
   color: var(--muted);
   font-size: 12px;
   font-weight: 700;
   line-height: 1.4;
 }
-.sidebar-jump-nav select {
+.sidebar-jump-list {
+  display: grid;
+  gap: 1px;
+}
+.sidebar-jump-list button {
   min-width: 0;
   width: 100%;
-  min-height: 44px;
-  padding: 7px 34px 7px 10px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--text);
+  min-height: 33px;
+  display: grid;
+  grid-template-columns: 9px minmax(0,1fr);
+  align-items: center;
+  gap: 7px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--muted);
   font-family: inherit;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.45;
+  text-align: left;
   cursor: pointer;
+  transition: color .16s ease, background-color .16s ease;
 }
-.sidebar-jump-nav select:hover,
-.sidebar-jump-nav select:focus {
-  border-color: var(--accent);
-  outline: none;
-  box-shadow: 0 0 0 2px color-mix(in srgb,var(--accent) 14%,transparent);
+.sidebar-jump-list button:hover {
+  background: var(--surface-soft);
+  color: var(--text);
+}
+.sidebar-jump-list button.active {
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+.sidebar-jump-list button i {
+  width: 7px;
+  height: 7px;
+  justify-self: center;
+  transform: rotate(45deg) scale(0);
+  border-radius: 1px;
+  background: var(--accent);
+  transition: transform .16s ease;
+}
+.sidebar-jump-list button.active i {
+  transform: rotate(45deg) scale(1);
 }
 .control-panel [tabindex="-1"]:focus { outline: none; }
 .control-panel > .panel-section,
-.control-panel > .demo-launcher { scroll-margin-top: 178px; }
+.control-panel > .demo-launcher { scroll-margin-top: 292px; }
 
 /* White labels and icons on solid Sakura-pink controls in both themes.
    Outlined buttons and pale surfaces retain their existing text colors. */

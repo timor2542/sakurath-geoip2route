@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- Added a sticky, bilingual, keyboard-accessible left-panel text menu for Current IP, Update, Add IP, Points, and Demo, with full labels and scroll offsets that keep section headings visible.
+- Added a sticky, vertical, bilingual left-panel navigation menu for Current IP, Update, Add IP, Points, and Demo, with clear labels, a single active-section marker, scroll tracking, keyboard access, and visible section headings.
 - Reordered the single left panel so current-IP detection, live refresh, IP addition/import, and point selection appear before the optional demo controls; updated the English and Thai documentation to match.
 - Fixed the 360–390 px header overflow with compact mobile branding, 44 px controls and a single theme-cycle button.
 - Mobile demo runs now reveal and focus the recommended-server result instead of leaving it several screens below the IP list.

@@ -28,7 +28,7 @@ The desktop workspace has four main areas:
 
 The **Activity Console** below the map records actions from the current browser session.
 
-The sticky **Quick navigation** menu in the left panel has five text options: Current IP, Update, Add IP, Points, and Demo. Choose an option to move directly to that section. The menu resets after each jump, so the same section can be selected again.
+The sticky, vertical **Quick navigation** menu in the left panel has five text options: Current IP, Update, Add IP, Points, and Demo. Choose an item to move directly to that section. One small diamond marks the current section and follows the panel while you scroll.
 
 Marker and data labels:
 
