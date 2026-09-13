@@ -184,6 +184,8 @@ test('contest demo and modal controls remain usable on small screens and keyboar
   }
   assert.match(readability, /\.app-shell \.button-icon \{[^}]*width: 22px;[^}]*height: 22px;/s)
   assert.match(readability, /\.app-shell \.icon-only-button \{[^}]*min-width: 44px;[^}]*min-height: 44px;/s)
+  assert.match(readability, /\.app-shell button:not\(:disabled\) \{[^}]*cursor: pointer;[^}]*transition: filter/s)
+  assert.match(readability, /\.app-shell button:not\(:disabled\):hover \{[^}]*filter: brightness\(.96\) saturate\(1\.25\);[^}]*transform: translateY\(-1px\);/s)
   assert.match(readability, /\.modal-close-button \.button-icon \{[^}]*width: 24px;[^}]*height: 24px;/s)
   for (const icon of ['light', 'dark', 'auto']) assert.equal((app.match(new RegExp(`theme-icon-${icon}`, 'g')) || []).length, 2)
   assert.match(readability, /\.theme-icon-auto \.theme-icon-fill \{[^}]*fill: currentColor;/s)
